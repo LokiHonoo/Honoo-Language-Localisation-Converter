@@ -10,7 +10,7 @@ namespace HonooLanguageLocalisationConverter
     /// </summary>
     public partial class App : Application
     {
-        private string _configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
+        private readonly string _configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
 
         protected override void OnExit(ExitEventArgs e)
         {
@@ -48,7 +48,7 @@ namespace HonooLanguageLocalisationConverter
                 ViewModels.Localization.Instance.ResetDefault();
             }
             Size area = SystemParameters.WorkArea.Size;
-            var mainWindow = new MainWindow();
+            var mainWindow = new MainWindow() { Width = width, Height = height };
             Locator.MainWindowViewModel!.WindowWidth = width;
             Locator.MainWindowViewModel!.WindowHeight = height;
             Locator.MainWindowViewModel!.WindowLeft = (area.Width - width) / 2;

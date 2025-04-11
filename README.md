@@ -9,15 +9,13 @@
 
 ## INTRODUCTION
 
-Language file creator. Create xml file from template.
-
-And create C# code file for load Language file. Need https://github.com/LokiHonoo/Honoo.Configuration.ConfigurationManager .
+Language file creator. Create xml file from template. And create C# code file to load Language file.
 
 ## SCREENSHOTS
 
 ![screenshots1](screenshots/screenshots1.png)
 
-![screenshots1](screenshots/screenshots2.png)
+![screenshots2](screenshots/screenshots2.png)
 
 ## CHANGELOG
 

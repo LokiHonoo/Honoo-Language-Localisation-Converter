@@ -4,8 +4,7 @@ using Honoo.Configuration;
 namespace HonooLanguageLocalisationConverter.ViewModels
 {
     /// <summary>
-    /// Language localisation class.
-    /// <br />Install nuget package:
+    /// Language localisation class. Install nuget package:
     /// <br /><see href="https://www.nuget.org/packages/CommunityToolkit.Mvvm"/>.
     /// <br /><see href="https://www.nuget.org/packages/Honoo.Configuration.ConfigurationManager"/>.
     /// </summary>
@@ -47,7 +46,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         /// <summary>
         /// initialize new instance of Localization class.
         /// </summary>
-        public Localization()
+        internal Localization()
         {
         }
 
@@ -55,6 +54,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         /// Load language file.
         /// </summary>
         /// <param name="fileName">Language file name.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>")]
         public void Load(string fileName)
         {
             using (var manager = new XConfigManager(fileName, true))
@@ -76,10 +76,27 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         }
 
         /// <summary>
-        /// Save language file.
+        /// Save to language file.
         /// </summary>
         /// <param name="fileName">Language file name.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>")]
         public void Save(string fileName)
+        {
+            using (var manager = new XConfigManager())
+            {
+                this.Menu.Save(manager);
+                this.Main.Save(manager);
+                this.Messages.Save(manager);
+                manager.Save(fileName);
+            }
+        }
+
+        /// <summary>
+        /// Save to language file using default field.
+        /// </summary>
+        /// <param name="fileName">Language file name.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>")]
+        public void SaveDefault(string fileName)
         {
             using (var manager = new XConfigManager())
             {
@@ -101,7 +118,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _appName_d = "Application name";
             private const string _appVer_d = "1.0.0";
             private const string _author_d = "HLLC";
-            private const string _langName_d = "en-us";
+            private const string _langName_d = "en-US";
             private const string _langVer_d = "1.0.0";
             private const string _remarks_d = "";
             private const string _url_d = "https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter";
@@ -190,6 +207,18 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 manager.Default.Properties.AddString("Url", this.Url);
                 manager.Default.Properties.AddString("Remarks", this.Remarks);
             }
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+            internal void SaveDefault(XConfigManager manager)
+            {
+                manager.Default.Properties.AddString("AppName", _appName_d);
+                manager.Default.Properties.AddString("AppVer", _appVer_d);
+                manager.Default.Properties.AddString("LangName", _langName_d);
+                manager.Default.Properties.AddString("LangVer", _langVer_d);
+                manager.Default.Properties.AddString("Author", _author_d);
+                manager.Default.Properties.AddString("Url", _url_d);
+                manager.Default.Properties.AddString("Remarks", _remarks_d);
+            }
         }
 
         /// <summary>
@@ -245,7 +274,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _saveCsharpCodeAs = _saveCsharpCodeAs_d;
 
             /// <summary>
-            ///
+            /// Exit app.
             /// </summary>
             [ObservableProperty]
             private string _exit = _exit_d;
@@ -263,7 +292,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _help = _help_d;
 
             /// <summary>
-            /// Menu button, Show dialog for information.
+            /// Menu button, Show dialog for app information.
             /// </summary>
             [ObservableProperty]
             private string _about = _about_d;
@@ -316,6 +345,21 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 section.Properties.AddString("Help", this.Help);
                 section.Properties.AddString("About", this.About);
             }
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+            internal void SaveDefault(XConfigManager manager)
+            {
+                XSection section = manager.Sections.AddOrUpdate("Menu");
+                section.Properties.AddString("File", _file_d);
+                section.Properties.AddString("CreateTemplate", _createTemplate_d);
+                section.Properties.AddString("OpenTemplate", _openTemplate_d);
+                section.Properties.AddString("SaveAs", _saveAs_d);
+                section.Properties.AddString("SaveCsharpCodeAs", _saveCsharpCodeAs_d);
+                section.Properties.AddString("Exit", _exit_d);
+                section.Properties.AddString("Options", _options_d);
+                section.Properties.AddString("Help", _help_d);
+                section.Properties.AddString("About", _about_d);
+            }
         }
 
         /// <summary>
@@ -326,7 +370,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             #region Default
 
-            private const string _description_d = "Description";
+            private const string _informartion_d = "Informartion";
             private const string _sections_d = "Sections";
             private const string _sort_d = "Sort";
             private const string _sectionEntries_d = "Section entries";
@@ -340,7 +384,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             /// Tab name.
             /// </summary>
             [ObservableProperty]
-            private string _description = _description_d;
+            private string _informartion = _informartion_d;
 
             /// <summary>
             /// Tab name.
@@ -349,19 +393,19 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _sections = _sections_d;
 
             /// <summary>
-            ///
+            /// Button text.
             /// </summary>
             [ObservableProperty]
             private string _sort = _sort_d;
 
             /// <summary>
-            ///
+            /// Title text.
             /// </summary>
             [ObservableProperty]
             private string _sectionEntries = _sectionEntries_d;
 
             /// <summary>
-            ///
+            /// Title text.
             /// </summary>
             [ObservableProperty]
             private string _languageEntries = _languageEntries_d;
@@ -376,7 +420,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             {
                 if (manager.Sections.TryGetValue("Main", out XSection section))
                 {
-                    this.Description = section.Properties.GetStringValue("Description", _description_d);
+                    this.Informartion = section.Properties.GetStringValue("Informartion", _informartion_d);
                     this.Sections = section.Properties.GetStringValue("Sections", _sections_d);
                     this.Sort = section.Properties.GetStringValue("Sort", _sort_d);
                     this.SectionEntries = section.Properties.GetStringValue("SectionEntries", _sectionEntries_d);
@@ -386,7 +430,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             internal void ResetDefault()
             {
-                this.Description = _description_d;
+                this.Informartion = _informartion_d;
                 this.Sections = _sections_d;
                 this.Sort = _sort_d;
                 this.SectionEntries = _sectionEntries_d;
@@ -396,11 +440,22 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             internal void Save(XConfigManager manager)
             {
                 XSection section = manager.Sections.Add("Main");
-                section.Properties.AddString("Description", this.Description);
+                section.Properties.AddString("Informartion", this.Informartion);
                 section.Properties.AddString("Sections", this.Sections);
                 section.Properties.AddString("Sort", this.Sort);
                 section.Properties.AddString("SectionEntries", this.SectionEntries);
                 section.Properties.AddString("LanguageEntries", this.LanguageEntries);
+            }
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+            internal void SaveDefault(XConfigManager manager)
+            {
+                XSection section = manager.Sections.AddOrUpdate("Main");
+                section.Properties.AddString("Informartion", _informartion_d);
+                section.Properties.AddString("Sections", _sections_d);
+                section.Properties.AddString("Sort", _sort_d);
+                section.Properties.AddString("SectionEntries", _sectionEntries_d);
+                section.Properties.AddString("LanguageEntries", _languageEntries_d);
             }
         }
 
@@ -419,6 +474,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _nameExists_d = "Name \"{0}\" exists.";
             private const string _keyExists_d = "Key \"{0}\" exists.";
             private const string _removeItem_d = "Remove \"{0}\" ?";
+            private const string _saveCodeStandard_d = "Standard class model for all app type";
+            private const string _saveCodeWpf_d = "Using in WPF basic class";
+            private const string _saveCodeMvvm_d = "MVVM structure for lib - CommunityToolkit.Mvvm";
 
             #endregion Default
 
@@ -437,13 +495,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _documentExistsLoadNew = _documentExistsLoadNew_d;
 
             /// <summary>
-            ///
+            /// Dialog content.
             /// </summary>
             [ObservableProperty]
             private string _createSctionTip = _createSctionTip_d;
 
             /// <summary>
-            ///
+            /// Dialog content.
             /// </summary>
             [ObservableProperty]
             private string _createLanguageEntryTip = _createLanguageEntryTip_d;
@@ -466,6 +524,24 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             [ObservableProperty]
             private string _removeItem = _removeItem_d;
 
+            /// <summary>
+            /// Dialog content.
+            /// </summary>
+            [ObservableProperty]
+            private string _saveCodeStandard = _saveCodeStandard_d;
+
+            /// <summary>
+            /// Dialog content.
+            /// </summary>
+            [ObservableProperty]
+            private string _saveCodeWpf = _saveCodeWpf_d;
+
+            /// <summary>
+            /// Dialog content.
+            /// </summary>
+            [ObservableProperty]
+            private string _saveCodeMvvm = _saveCodeMvvm_d;
+
             #endregion Members
 
             internal __Messages()
@@ -483,6 +559,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     this.NameExists = section.Properties.GetStringValue("NameExists", _nameExists_d);
                     this.KeyExists = section.Properties.GetStringValue("KeyExists", _keyExists_d);
                     this.RemoveItem = section.Properties.GetStringValue("RemoveItem", _removeItem_d);
+                    this.SaveCodeStandard = section.Properties.GetStringValue("SaveCodeStandard", _saveCodeStandard_d);
+                    this.SaveCodeWpf = section.Properties.GetStringValue("SaveCodeWpf", _saveCodeWpf_d);
+                    this.SaveCodeMvvm = section.Properties.GetStringValue("SaveCodeMvvm", _saveCodeMvvm_d);
                 }
             }
 
@@ -495,6 +574,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.NameExists = _nameExists_d;
                 this.KeyExists = _keyExists_d;
                 this.RemoveItem = _removeItem_d;
+                this.SaveCodeStandard = _saveCodeStandard_d;
+                this.SaveCodeWpf = _saveCodeWpf_d;
+                this.SaveCodeMvvm = _saveCodeMvvm_d;
             }
 
             internal void Save(XConfigManager manager)
@@ -507,6 +589,25 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 section.Properties.AddString("NameExists", this.NameExists);
                 section.Properties.AddString("KeyExists", this.KeyExists);
                 section.Properties.AddString("RemoveItem", this.RemoveItem);
+                section.Properties.AddString("SaveCodeStandard", this.SaveCodeStandard);
+                section.Properties.AddString("SaveCodeWpf", this.SaveCodeWpf);
+                section.Properties.AddString("SaveCodeMvvm", this.SaveCodeMvvm);
+            }
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+            internal void SaveDefault(XConfigManager manager)
+            {
+                XSection section = manager.Sections.AddOrUpdate("Messages");
+                section.Properties.AddString("DocumentExistsCreateNew", _documentExistsCreateNew_d);
+                section.Properties.AddString("DocumentExistsLoadNew", _documentExistsLoadNew_d);
+                section.Properties.AddString("CreateSctionTip", _createSctionTip_d);
+                section.Properties.AddString("CreateLanguageEntryTip", _createLanguageEntryTip_d);
+                section.Properties.AddString("NameExists", _nameExists_d);
+                section.Properties.AddString("KeyExists", _keyExists_d);
+                section.Properties.AddString("RemoveItem", _removeItem_d);
+                section.Properties.AddString("SaveCodeStandard", _saveCodeStandard_d);
+                section.Properties.AddString("SaveCodeWpf", _saveCodeWpf_d);
+                section.Properties.AddString("SaveCodeMvvm", _saveCodeMvvm_d);
             }
         }
     }

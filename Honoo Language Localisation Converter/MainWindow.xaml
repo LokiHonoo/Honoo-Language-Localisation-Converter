@@ -15,7 +15,8 @@
     FontSize="{DynamicResource PrimaryFontSize}"
     Foreground="{DynamicResource PrimaryForegroundBrush}"
     Left="{Binding WindowLeft, Mode=OneWay}"
-    Top="{Binding WindowTop, Mode=OneWay}" WindowStartupLocation="Manual"
+    Top="{Binding WindowTop, Mode=OneWay}"
+    WindowStartupLocation="Manual"
     mc:Ignorable="d">
     <hui:Window.DataContext>
         <vm:MainWindowViewModel x:Name="VM" />
@@ -80,7 +81,7 @@
                         <Setter Property="Background" Value="{DynamicResource AccentLight100Brush}" />
                     </Style>
                 </hui:TabControl.Resources>
-                <hui:TabItem Header="{Binding Localization.Main.Description}">
+                <hui:TabItem Header="{Binding Localization.Main.Informartion}">
                     <StackPanel Margin="10">
                         <hui:TextBox Text="{Binding AppName, Mode=TwoWay}">
                             <hui:TextBox.Header>
@@ -274,6 +275,5 @@
             </StatusBar>-->
         </Grid>
         <hui:DialogHost x:Name="MainDialogHost" />
-        <hui:DialogHost x:Name="SubDialogHost" />
     </Grid>
 </hui:Window>
