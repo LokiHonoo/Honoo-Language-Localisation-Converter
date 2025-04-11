@@ -1,4 +1,6 @@
 ﻿using Honoo.Configuration;
+using System;
+using System.IO;
 using System.Windows;
 
 namespace HonooLanguageLocalisationConverter
@@ -8,7 +10,7 @@ namespace HonooLanguageLocalisationConverter
     /// </summary>
     public partial class App : Application
     {
-        private const string _configFile = "config.xml";
+        private string _configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.xml");
 
         protected override void OnExit(ExitEventArgs e)
         {

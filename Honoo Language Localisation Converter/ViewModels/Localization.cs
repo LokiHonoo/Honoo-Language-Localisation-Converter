@@ -245,7 +245,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _saveCsharpCodeAs = _saveCsharpCodeAs_d;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             [ObservableProperty]
             private string _exit = _exit_d;
@@ -349,19 +349,19 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _sections = _sections_d;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             [ObservableProperty]
             private string _sort = _sort_d;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             [ObservableProperty]
             private string _sectionEntries = _sectionEntries_d;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             [ObservableProperty]
             private string _languageEntries = _languageEntries_d;
@@ -437,13 +437,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _documentExistsLoadNew = _documentExistsLoadNew_d;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             [ObservableProperty]
             private string _createSctionTip = _createSctionTip_d;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             [ObservableProperty]
             private string _createLanguageEntryTip = _createLanguageEntryTip_d;
