@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<RootNamespace>HonooLanguageLocalisationConverter</RootNamespace>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<PackageId>HonooLanguageLocalisationConverter</PackageId>
+		<Product>Honoo Language Localisation Converter</Product>
+		<Version>1.0.1</Version>
+		<Authors>Loki Honoo</Authors>
+		<Company>Loki Honoo</Company>
+		<Copyright>Copyright (C) Loki Honoo 2025. All rights reserved.</Copyright>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<PackageProjectUrl>https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter</RepositoryUrl>
+		<AnalysisLevel>latest</AnalysisLevel>
+		<EnableNETAnalyzers>True</EnableNETAnalyzers>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<BaseOutputPath>..\bin\</BaseOutputPath>
+		<AssemblyName>hllc</AssemblyName>
+		<ApplicationIcon>くるみ.ico</ApplicationIcon>
+		<Description>Language file creator. Create xml file from template. And create C# code file for load Language file. Need https://github.com/LokiHonoo/Honoo.Configuration.ConfigurationManager .</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Resource Include="くるみ.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Honoo.Configuration.ConfigurationManager" Version="1.5.13" />
+	  <PackageReference Include="HonooUI.WPF" Version="1.0.0-alpha.76" />
+	</ItemGroup>
+
+</Project>

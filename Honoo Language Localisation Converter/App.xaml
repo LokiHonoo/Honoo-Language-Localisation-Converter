@@ -1,0 +1,21 @@
+﻿<Application
+    x:Class="HonooLanguageLocalisationConverter.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hui="https://github.com/lokihonoo/honooui.wpf"
+  >
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--  Includes this for Visual Studio Intellisense.  -->
+                <ResourceDictionary Source="pack://application:,,,/HonooUI.WPF;component/Themes/DarkDesign.xaml" />
+
+                <!--  Theme Settings.  -->
+                <hui:Theme
+                    AccentColor="RoyalBlue"
+                    StressColor="Gold"
+                    ThemeStyle="Dark" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
