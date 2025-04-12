@@ -31,17 +31,22 @@
                 DockPanel.Dock="Left"
                 Source="/くるみ.ico"
                 WindowChrome.IsHitTestVisibleInChrome="False" />
-            <Grid
+            <TextBlock
                 Margin="14,0,0,0"
                 VerticalAlignment="Center"
                 DockPanel.Dock="Left"
-                WindowChrome.IsHitTestVisibleInChrome="False">
-                <TextBlock
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="{DynamicResource AccentBrush}"
-                    Text="Honoo Language Localisation Converter" />
-            </Grid>
+                FontSize="16"
+                FontWeight="Bold"
+                Foreground="{DynamicResource AccentBrush}"
+                Text="Language Localisation Converter"
+                WindowChrome.IsHitTestVisibleInChrome="False" />
+            <TextBlock
+                Margin="14,0,0,0"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Left"
+                Foreground="{DynamicResource ThirdlyForegroundBrush}"
+                Text="{Binding Version}"
+                WindowChrome.IsHitTestVisibleInChrome="False" />
             <Menu
                 Margin="14,0,0,0"
                 VerticalAlignment="Center"

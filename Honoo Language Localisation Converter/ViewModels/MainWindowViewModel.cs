@@ -23,6 +23,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         #region Members
 
         [ObservableProperty]
+        private string _version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(3);
+
+        [ObservableProperty]
         private string? _appName;
 
         [ObservableProperty]
@@ -67,15 +70,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         [ObservableProperty]
         private double _windowWidth;
 
-        public ICommand AboutCommand { get; } = new RelayCommand(() =>
-                {
-                    string version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(3);
-                    DialogManager.Default.Show($"Honoo Language Localisation Converter\r\n\r\nVersion {version}\r\n\r\nCopyright (C) Loki Honoo 2025. All rights reserved.",
-                        string.Empty,
-                        DialogButtons.OK,
-                        DialogCloseButton.Ordinary,
-                        DialogImage.Information);
-                });
+        public ICommand AboutCommand { get; }
 
         public ICommand AddLanguageEntryCommand { get; }
         public ICommand AddSectionEntryCommand { get; }
@@ -102,6 +97,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             this.SaveCSharpCodeAsCommand = new RelayCommand(SaveCSharpCodeAs, () => { return this.DocumentLoaded; });
             this.LoadLanguageFileCommand = new RelayCommand(LoadLanguageFile);
             this.TestExportCommand = new RelayCommand(TestExport);
+            this.AboutCommand = new RelayCommand(About);
             this.AddSectionEntryCommand = new RelayCommand(AddSectionEntry);
             this.SectionMoveCommand = new RelayCommand<DragEventArgs>(SectionMove);
             this.AddLanguageEntryCommand = new RelayCommand(AddLanguageEntry);
@@ -110,6 +106,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             this.RemoveLanguageEntryCommand = new RelayCommand<object>(RemoveLanguageEntry);
             this.PropertyChanged += OnPropertyChanged;
             Locator.MainWindowViewModel = this;
+        }
+
+        private void About()
+        {
+            DialogManager.Default.Show($"Honoo Language Localisation Converter\r\n\r\nVersion {this.Version}\r\n\r\nCopyright (C) Loki Honoo 2025. All rights reserved.",
+                string.Empty,
+                DialogButtons.OK,
+                DialogCloseButton.Ordinary,
+                DialogImage.Information);
         }
 
         private void AddLanguageEntry()
