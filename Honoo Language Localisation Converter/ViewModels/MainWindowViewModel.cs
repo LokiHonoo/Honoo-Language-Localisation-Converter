@@ -85,12 +85,12 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         public ICommand LoadLanguageFileCommand { get; }
         public ICommand OpenCommand { get; }
         public ICommand RemoveLanguageEntryCommand { get; }
-
         public ICommand RemoveSectionEntryCommand { get; }
         public ICommand SaveAsCommand { get; }
-        public ICommand SaveCsharpCodeAsCommand { get; }
+        public ICommand SaveCSharpCodeAsCommand { get; }
         public ICommand SectionMoveCommand { get; }
         public ICommand SortLanguageEntriesCommand { get; }
+        public ICommand TestExportCommand { get; }
 
         #endregion Members
 
@@ -99,8 +99,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             this.CreateCommand = new RelayCommand(Create);
             this.OpenCommand = new RelayCommand(Open);
             this.SaveAsCommand = new RelayCommand(SaveAs, () => { return this.DocumentLoaded; });
-            this.SaveCsharpCodeAsCommand = new RelayCommand(SaveCsharpCodeAs, () => { return this.DocumentLoaded; });
+            this.SaveCSharpCodeAsCommand = new RelayCommand(SaveCSharpCodeAs, () => { return this.DocumentLoaded; });
             this.LoadLanguageFileCommand = new RelayCommand(LoadLanguageFile);
+            this.TestExportCommand = new RelayCommand(TestExport);
             this.AddSectionEntryCommand = new RelayCommand(AddSectionEntry);
             this.SectionMoveCommand = new RelayCommand<DragEventArgs>(SectionMove);
             this.AddLanguageEntryCommand = new RelayCommand(AddLanguageEntry);
@@ -259,7 +260,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             section1.LanguageEntries.Add(new LanguageEntry("CreateTemplate", "_Create template...", "Menu button, create new template."));
             section1.LanguageEntries.Add(new LanguageEntry("OpenTemplate", "_Open template...", "Menu button, Show dialog for select open file."));
             section1.LanguageEntries.Add(new LanguageEntry("SaveAs", "Save _As...", "Menu button, Show dialog for select save file."));
-            section1.LanguageEntries.Add(new LanguageEntry("SaveCsharpCodeAs", "Save C# code As...", "Menu button, Show dialog for select save file."));
+            section1.LanguageEntries.Add(new LanguageEntry("SaveCSharpCodeAs", "Save C# code As...", "Menu button, Show dialog for select save file."));
             section1.LanguageEntries.Add(new LanguageEntry("Exit", "E_xit", "Exit app."));
             section1.LanguageEntries.Add(new LanguageEntry("Options", "_Options", "Menu button, Top item."));
             section1.LanguageEntries.Add(new LanguageEntry("Help", "_Help", "Menu button, Top item."));
@@ -348,7 +349,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             if (e.PropertyName == nameof(this.DocumentLoaded))
             {
                 ((IRelayCommand)this.SaveAsCommand).NotifyCanExecuteChanged();
-                ((IRelayCommand)this.SaveCsharpCodeAsCommand).NotifyCanExecuteChanged();
+                ((IRelayCommand)this.SaveCSharpCodeAsCommand).NotifyCanExecuteChanged();
             }
         }
 
@@ -511,14 +512,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             }
         }
 
-        private void SaveCsharpCodeAs()
+        private void SaveCSharpCodeAs()
         {
             if (this.Sections != null)
             {
                 var stackPanel = new StackPanel();
                 var radioButtonTray = new RadioButtonTray();
                 radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = this.Localization.Messages.SaveCodeStandard, IsChecked = true });
-                radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = this.Localization.Messages.SaveCodeWpf, Margin = new Thickness(0, 10, 0, 0) });
+                radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = this.Localization.Messages.SaveCodeWpf + " [.NET Framework 4.0+]", Margin = new Thickness(0, 10, 0, 0) });
+                radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = this.Localization.Messages.SaveCodeWpf + " [.NET 6.0+]", Margin = new Thickness(0, 10, 0, 0) });
                 radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = this.Localization.Messages.SaveCodeMvvm, Margin = new Thickness(0, 10, 0, 0) });
                 DialogManager.Default.Show(radioButtonTray,
                     string.Empty,
@@ -535,7 +537,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         {
                             var dig = new SaveFileDialog()
                             {
-                                Filter = "C# code files (*.cs)|*.cs|All files (*.*)|*.*",
+                                Filter = "C# code files (*.cs)|*.cs",
                                 FileName = $"{this.AppName}_{this.AppVer}_{this.LangName}.cs",
                                 DefaultExt = ".cs",
                                 AddExtension = true
@@ -546,8 +548,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                                 {
                                     string code = radioButtonTray.SelectIndex switch
                                     {
-                                        2 => Code.CreateMVVM(this.AppName, this.AppVer, this.LangName, this.LangVer, this.Author, this.Url, this.Remarks, this.Sections),
-                                        1 => Code.CreateWPF(this.AppName, this.AppVer, this.LangName, this.LangVer, this.Author, this.Url, this.Remarks, this.Sections),
+                                        3 => Code.CreateMVVM(this.AppName, this.AppVer, this.LangName, this.LangVer, this.Author, this.Url, this.Remarks, this.Sections),
+                                        2 => Code.CreateWPF(this.AppName, this.AppVer, this.LangName, this.LangVer, this.Author, this.Url, this.Remarks, this.Sections, true),
+                                        1 => Code.CreateWPF(this.AppName, this.AppVer, this.LangName, this.LangVer, this.Author, this.Url, this.Remarks, this.Sections, false),
                                         _ => Code.CreateStandard(this.AppName, this.AppVer, this.LangName, this.LangVer, this.Author, this.Url, this.Remarks, this.Sections),
                                     };
                                     File.WriteAllText(dig.FileName, code, new UTF8Encoding(false));
@@ -621,6 +624,42 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 for (int i = 0; i < list.Count; i++)
                 {
                     this.CurrentSection.LanguageEntries.Move(this.CurrentSection.LanguageEntries.IndexOf(list[i]), i);
+                }
+            }
+        }
+
+        private void TestExport()
+        {
+            var dig = new OpenFolderDialog()
+            {
+                Multiselect = false,
+            };
+            if (dig.ShowDialog() == true)
+            {
+                string fileName1 = Path.Combine(dig.FolderName, "lang_test_save_filename.xml");
+                string fileName2 = Path.Combine(dig.FolderName, "lang_test_save_stream.xml");
+                string fileName3 = Path.Combine(dig.FolderName, "lang_test_savedefault_filename.xml");
+                string fileName4 = Path.Combine(dig.FolderName, "lang_test_savedefault_stream.xml");
+                try
+                {
+                    this.Localization.Save(false, fileName1);
+                    this.Localization.Save(false, fileName2);
+                    using (var stream = new FileStream(fileName3, FileMode.Create, FileAccess.Write))
+                    {
+                        this.Localization.Save(true, stream);
+                    }
+                    using (var stream = new FileStream(fileName4, FileMode.Create, FileAccess.Write))
+                    {
+                        this.Localization.Save(true, stream);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DialogManager.Default.Show(ex.Message,
+                        string.Empty,
+                        DialogButtons.OK,
+                        DialogCloseButton.Ordinary,
+                        DialogImage.Error);
                 }
             }
         }

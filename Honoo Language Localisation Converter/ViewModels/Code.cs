@@ -10,11 +10,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             var builder = new StringBuilder();
             builder.AppendLine("using CommunityToolkit.Mvvm.ComponentModel;");
             builder.AppendLine("using Honoo.Configuration;");
+            builder.AppendLine("using System.IO;");
             builder.AppendLine();
             builder.AppendLine("namespace HonooLanguageLocalisationConverter");
             builder.AppendLine("{");
             builder.AppendLine("    /// <summary>");
-            builder.AppendLine("    /// Language localisation class. Install nuget package:");
+            builder.AppendLine($"    /// Language localisation class. MVVM structure for lib - CommunityToolkit.Mvvm.");
+            builder.AppendLine("    /// Install nuget package:");
             builder.AppendLine("    /// <br /><see href=\"https://www.nuget.org/packages/CommunityToolkit.Mvvm\"/>.");
             builder.AppendLine("    /// <br /><see href=\"https://www.nuget.org/packages/Honoo.Configuration.ConfigurationManager\"/>.");
             builder.AppendLine("    /// </summary>");
@@ -63,6 +65,25 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(fileName, true))");
             builder.AppendLine("            {");
+            builder.AppendLine("                this.Informartion.Load(manager);");
+            foreach (var section in sections)
+            {
+                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+            }
+            builder.AppendLine("            }");
+            builder.AppendLine("        }");
+            builder.AppendLine();
+            builder.AppendLine("        /// <summary>");
+            builder.AppendLine("        /// Load language stream.");
+            builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        /// <param name=\"stream\">Language stream.</param>");
+            builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
+            builder.AppendLine("        public void Load(Stream stream)");
+            builder.AppendLine("        {");
+            builder.AppendLine("            using (var manager = new XConfigManager(stream))");
+            builder.AppendLine("            {");
+            builder.AppendLine("                this.Informartion.Load(manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
@@ -76,6 +97,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        public void ResetDefault()");
             builder.AppendLine("        {");
+            builder.AppendLine("            this.Informartion.ResetDefault();");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
@@ -86,36 +108,40 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// <summary>");
             builder.AppendLine("        /// Save to language file.");
             builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        /// <param name=\"defaultField\">Select current field or default field.</param>");
             builder.AppendLine("        /// <param name=\"fileName\">Language file name.</param>");
             builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
-            builder.AppendLine("        public void Save(string fileName)");
+            builder.AppendLine("        public void Save(bool defaultField, string fileName)");
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
+            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(manager);");
+                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(fileName);");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             builder.AppendLine();
             builder.AppendLine("        /// <summary>");
-            builder.AppendLine("        /// Save to language file using default field.");
+            builder.AppendLine("        /// Save to language stream.");
             builder.AppendLine("        /// </summary>");
-            builder.AppendLine("        /// <param name=\"fileName\">Language file name.</param>");
+            builder.AppendLine("        /// <param name=\"defaultField\">Select current field or default field.</param>");
+            builder.AppendLine("        /// <param name=\"stream\">Language stream.</param>");
             builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
-            builder.AppendLine("        public void SaveDefault(string fileName)");
+            builder.AppendLine("        public void Save(bool defaultField, Stream stream)");
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
+            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(manager);");
+                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
             }
-            builder.AppendLine("                manager.Save(fileName);");
+            builder.AppendLine("                manager.Save(stream);");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             builder.AppendLine();
@@ -209,27 +235,28 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                this.Remarks = _remarks_d;");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Save(XConfigManager manager)");
+            builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
             builder.AppendLine("            {");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppName\", this.AppName);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppVer\", this.AppVer);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangName\", this.LangName);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangVer\", this.LangVer);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Author\", this.Author);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Url\", this.Url);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Remarks\", this.Remarks);");
-            builder.AppendLine("            }");
-            builder.AppendLine();
-            builder.AppendLine("            [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Performance\", \"CA1822:Mark members as static\", Justification = \"<Pending>\")]");
-            builder.AppendLine("            internal void SaveDefault(XConfigManager manager)");
-            builder.AppendLine("            {");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppName\", _appName_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppVer\", _appVer_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangName\", _langName_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangVer\", _langVer_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Author\", _author_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Url\", _url_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Remarks\", _remarks_d);");
+            builder.AppendLine("                if (defaultField)");
+            builder.AppendLine("                {");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppName\", _appName_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppVer\", _appVer_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangName\", _langName_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangVer\", _langVer_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Author\", _author_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Url\", _url_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Remarks\", _remarks_d);");
+            builder.AppendLine("                }");
+            builder.AppendLine("                else");
+            builder.AppendLine("                {");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppName\", this.AppName);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppVer\", this.AppVer);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangName\", this.LangName);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangVer\", this.LangVer);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Author\", this.Author);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Url\", this.Url);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Remarks\", this.Remarks);");
+            builder.AppendLine("                }");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             foreach (var section in sections)
@@ -242,6 +269,16 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE1006:Naming Styles\", Justification = \"<Pending>\")]");
                 builder.AppendLine($"        public sealed partial class __{sNameU} : ObservableObject");
                 builder.AppendLine("        {");
+                builder.AppendLine("            #region Comments");
+                builder.AppendLine();
+                foreach (var entry in section.LanguageEntries)
+                {
+                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    builder.AppendLine($"            private const string _{eKeyL}_c = \"{FixString(entry.Comment)}\";");
+                }
+                builder.AppendLine();
+                builder.AppendLine("            #endregion Comments");
+                builder.AppendLine();
                 builder.AppendLine("            #region Default");
                 builder.AppendLine();
                 foreach (var entry in section.LanguageEntries)
@@ -287,31 +324,32 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 builder.AppendLine("            {");
                 foreach (var entry in section.LanguageEntries)
                 {
-                    string sKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
+                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
                     string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                this.{sKeyU} = _{eKeyL}_d;");
+                    builder.AppendLine($"                this.{eKeyU} = _{eKeyL}_d;");
                 }
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Save(XConfigManager manager)");
+                builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                XSection section = manager.Sections.Add(\"{section.Name}\");");
+                builder.AppendLine("                if (defaultField)");
+                builder.AppendLine("                {");
+                foreach (var entry in section.LanguageEntries)
+                {
+                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d).Comment.SetValue(_{eKeyL}_c);");
+                }
+                builder.AppendLine("                }");
+                builder.AppendLine("                else");
+                builder.AppendLine("                {");
                 foreach (var entry in section.LanguageEntries)
                 {
                     string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                section.Properties.AddString(\"{entry.Key!}\", this.{eKeyU});");
-                }
-                builder.AppendLine("            }");
-                builder.AppendLine();
-                builder.AppendLine("            [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Performance\", \"CA1822:Mark members as static\", Justification = \"<Pending>\")]");
-                builder.AppendLine("            internal void SaveDefault(XConfigManager manager)");
-                builder.AppendLine("            {");
-                builder.AppendLine($"                XSection section = manager.Sections.AddOrUpdate(\"{section.Name}\");");
-                foreach (var entry in section.LanguageEntries)
-                {
                     string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", this.{eKeyU}).Comment.SetValue(_{eKeyL}_c);");
                 }
+                builder.AppendLine("                }");
                 builder.AppendLine("            }");
                 builder.AppendLine("        }");
             }
@@ -324,11 +362,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             var builder = new StringBuilder();
             builder.AppendLine("using Honoo.Configuration;");
+            builder.AppendLine("using System.IO;");
             builder.AppendLine();
             builder.AppendLine("namespace HonooLanguageLocalisationConverter");
             builder.AppendLine("{");
             builder.AppendLine("    /// <summary>");
-            builder.AppendLine("    /// Language localisation class. Install nuget package: <see href=\"https://www.nuget.org/packages/Honoo.Configuration.ConfigurationManager\"/>.");
+            builder.AppendLine($"    /// Language localisation class. Standard class model for all app type.");
+            builder.AppendLine("    /// Install nuget package: <see href=\"https://www.nuget.org/packages/Honoo.Configuration.ConfigurationManager\"/>.");
             builder.AppendLine("    /// </summary>");
             builder.AppendLine("    public sealed class Localization");
             builder.AppendLine("    {");
@@ -376,6 +416,25 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(fileName, true))");
             builder.AppendLine("            {");
+            builder.AppendLine("                this.Informartion.Load(manager);");
+            foreach (var section in sections)
+            {
+                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+            }
+            builder.AppendLine("            }");
+            builder.AppendLine("        }");
+            builder.AppendLine();
+            builder.AppendLine("        /// <summary>");
+            builder.AppendLine("        /// Load language stream.");
+            builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        /// <param name=\"stream\">Language stream.</param>");
+            builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
+            builder.AppendLine("        public void Load(Stream stream)");
+            builder.AppendLine("        {");
+            builder.AppendLine("            using (var manager = new XConfigManager(stream))");
+            builder.AppendLine("            {");
+            builder.AppendLine("                this.Informartion.Load(manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
@@ -389,6 +448,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        public void ResetDefault()");
             builder.AppendLine("        {");
+            builder.AppendLine("            this.Informartion.ResetDefault();");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
@@ -399,36 +459,40 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// <summary>");
             builder.AppendLine("        /// Save to language file.");
             builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        /// <param name=\"defaultField\">Select current field or default field.</param>");
             builder.AppendLine("        /// <param name=\"fileName\">Language file name.</param>");
             builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
-            builder.AppendLine("        public void Save(string fileName)");
+            builder.AppendLine("        public void Save(bool defaultField, string fileName)");
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
+            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(manager);");
+                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(fileName);");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             builder.AppendLine();
             builder.AppendLine("        /// <summary>");
-            builder.AppendLine("        /// Save to language file using default field.");
+            builder.AppendLine("        /// Save to language stream.");
             builder.AppendLine("        /// </summary>");
-            builder.AppendLine("        /// <param name=\"fileName\">Language file name.</param>");
+            builder.AppendLine("        /// <param name=\"defaultField\">Select current field or default field.</param>");
+            builder.AppendLine("        /// <param name=\"stream\">Language stream.</param>");
             builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
-            builder.AppendLine("        public void SaveDefault(string fileName)");
+            builder.AppendLine("        public void Save(bool defaultField, Stream stream)");
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
+            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(manager);");
+                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
             }
-            builder.AppendLine("                manager.Save(fileName);");
+            builder.AppendLine("                manager.Save(stream);");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             builder.AppendLine();
@@ -523,27 +587,28 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                _remarks = _remarks_d;");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Save(XConfigManager manager)");
+            builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
             builder.AppendLine("            {");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppName\", _appName);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppVer\", _appVer);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangName\", _langName);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangVer\", _langVer);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Author\", _author);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Url\", _url);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Remarks\", _remarks);");
-            builder.AppendLine("            }");
-            builder.AppendLine();
-            builder.AppendLine("            [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Performance\", \"CA1822:Mark members as static\", Justification = \"<Pending>\")]");
-            builder.AppendLine("            internal void SaveDefault(XConfigManager manager)");
-            builder.AppendLine("            {");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppName\", _appName_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppVer\", _appVer_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangName\", _langName_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangVer\", _langVer_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Author\", _author_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Url\", _url_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Remarks\", _remarks_d);");
+            builder.AppendLine("                if (defaultField)");
+            builder.AppendLine("                {");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppName\", _appName_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppVer\", _appVer_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangName\", _langName_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangVer\", _langVer_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Author\", _author_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Url\", _url_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Remarks\", _remarks_d);");
+            builder.AppendLine("                }");
+            builder.AppendLine("                else");
+            builder.AppendLine("                {");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppName\", _appName);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppVer\", _appVer);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangName\", _langName);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangVer\", _langVer);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Author\", _author);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Url\", _url);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Remarks\", _remarks);");
+            builder.AppendLine("                }");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             foreach (var section in sections)
@@ -556,6 +621,16 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE1006:Naming Styles\", Justification = \"<Pending>\")]");
                 builder.AppendLine($"        public sealed class __{sNameU}");
                 builder.AppendLine("        {");
+                builder.AppendLine("            #region Comments");
+                builder.AppendLine();
+                foreach (var entry in section.LanguageEntries)
+                {
+                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    builder.AppendLine($"            private const string _{eKeyL}_c = \"{FixString(entry.Comment)}\";");
+                }
+                builder.AppendLine();
+                builder.AppendLine("            #endregion Comments");
+                builder.AppendLine();
                 builder.AppendLine("            #region Default");
                 builder.AppendLine();
                 foreach (var entry in section.LanguageEntries)
@@ -611,25 +686,25 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 }
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Save(XConfigManager manager)");
+                builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                XSection section = manager.Sections.Add(\"{section.Name}\");");
+                builder.AppendLine("                if (defaultField)");
+                builder.AppendLine("                {");
                 foreach (var entry in section.LanguageEntries)
                 {
                     string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                section.Properties.AddString(\"{entry.Key!}\", _{eKeyL});");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d).Comment.SetValue(_{eKeyL}_c);");
                 }
-                builder.AppendLine("            }");
-                builder.AppendLine();
-                builder.AppendLine("            [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Performance\", \"CA1822:Mark members as static\", Justification = \"<Pending>\")]");
-                builder.AppendLine("            internal void SaveDefault(XConfigManager manager)");
-                builder.AppendLine("            {");
-                builder.AppendLine($"                XSection section = manager.Sections.AddOrUpdate(\"{section.Name}\");");
+                builder.AppendLine("                }");
+                builder.AppendLine("                else");
+                builder.AppendLine("                {");
                 foreach (var entry in section.LanguageEntries)
                 {
                     string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}).Comment.SetValue(_{eKeyL}_c);");
                 }
+                builder.AppendLine("                }");
                 builder.AppendLine("            }");
                 builder.AppendLine("        }");
             }
@@ -638,17 +713,18 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             return builder.ToString();
         }
 
-        internal static string CreateWPF(string? appName, string? appVer, string? langName, string? langVer, string? author, string? url, string? remarks, IList<SectionEntry> sections)
+        internal static string CreateWPF(string? appName, string? appVer, string? langName, string? langVer, string? author, string? url, string? remarks, IList<SectionEntry> sections, bool nullSign)
         {
             var builder = new StringBuilder();
             builder.AppendLine("using Honoo.Configuration;");
             builder.AppendLine("using System.ComponentModel;");
-            builder.AppendLine("using System.Runtime.CompilerServices;");
+            builder.AppendLine("using System.IO;");
             builder.AppendLine();
             builder.AppendLine("namespace HonooLanguageLocalisationConverter");
             builder.AppendLine("{");
             builder.AppendLine("    /// <summary>");
-            builder.AppendLine("    /// Language localisation class. Install nuget package: <see href=\"https://www.nuget.org/packages/Honoo.Configuration.ConfigurationManager\"/>.");
+            builder.AppendLine($"    /// Language localisation class. Using in WPF basic class {(nullSign ? "[.NET 6.0+][With Project field <Nullable>enable</Nullable>]" : "[.NET Framework 4.0+]")}.");
+            builder.AppendLine("    /// Install nuget package: <see href=\"https://www.nuget.org/packages/Honoo.Configuration.ConfigurationManager\"/>.");
             builder.AppendLine("    /// </summary>");
             builder.AppendLine("    public sealed class Localization");
             builder.AppendLine("    {");
@@ -695,6 +771,25 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(fileName, true))");
             builder.AppendLine("            {");
+            builder.AppendLine("                this.Informartion.Load(manager);");
+            foreach (var section in sections)
+            {
+                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+            }
+            builder.AppendLine("            }");
+            builder.AppendLine("        }");
+            builder.AppendLine();
+            builder.AppendLine("        /// <summary>");
+            builder.AppendLine("        /// Load language stream.");
+            builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        /// <param name=\"stream\">Language stream.</param>");
+            builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
+            builder.AppendLine("        public void Load(Stream stream)");
+            builder.AppendLine("        {");
+            builder.AppendLine("            using (var manager = new XConfigManager(stream))");
+            builder.AppendLine("            {");
+            builder.AppendLine("                this.Informartion.Load(manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
@@ -708,6 +803,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        public void ResetDefault()");
             builder.AppendLine("        {");
+            builder.AppendLine("            this.Informartion.ResetDefault();");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
@@ -718,36 +814,40 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// <summary>");
             builder.AppendLine("        /// Save to language file.");
             builder.AppendLine("        /// </summary>");
+            builder.AppendLine("        /// <param name=\"defaultField\">Select current field or default field.</param>");
             builder.AppendLine("        /// <param name=\"fileName\">Language file name.</param>");
             builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
-            builder.AppendLine("        public void Save(string fileName)");
+            builder.AppendLine("        public void Save(bool defaultField, string fileName)");
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
+            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(manager);");
+                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(fileName);");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             builder.AppendLine();
             builder.AppendLine("        /// <summary>");
-            builder.AppendLine("        /// Save to language file using default field.");
+            builder.AppendLine("        /// Save to language stream.");
             builder.AppendLine("        /// </summary>");
-            builder.AppendLine("        /// <param name=\"fileName\">Language file name.</param>");
+            builder.AppendLine("        /// <param name=\"defaultField\">Select current field or default field.</param>");
+            builder.AppendLine("        /// <param name=\"stream\">Language stream.</param>");
             builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0063:Use simple 'using' statement\", Justification = \"<Pending>\")]");
-            builder.AppendLine("        public void SaveDefault(string fileName)");
+            builder.AppendLine("        public void Save(bool defaultField, Stream stream)");
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
+            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
             foreach (var section in sections)
             {
                 string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(manager);");
+                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
             }
-            builder.AppendLine("                manager.Save(fileName);");
+            builder.AppendLine("                manager.Save(stream);");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             builder.AppendLine();
@@ -762,19 +862,19 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Property changed event handler.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public event PropertyChangedEventHandler? PropertyChanged;");
+            builder.AppendLine($"            public event PropertyChangedEventHandler{(nullSign ? "?" : string.Empty)} PropertyChanged;");
             builder.AppendLine();
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Property changing event handler.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public event PropertyChangingEventHandler? PropertyChanging;");
+            builder.AppendLine($"            public event PropertyChangingEventHandler{(nullSign ? "?" : string.Empty)} PropertyChanging;");
             builder.AppendLine();
-            builder.AppendLine("            private void OnPropertyChanged([CallerMemberName] string name = \"\")");
+            builder.AppendLine("            private void OnPropertyChanged(string name)");
             builder.AppendLine("            {");
             builder.AppendLine("                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            private void OnPropertyChanging([CallerMemberName] string name = \"\")");
+            builder.AppendLine("            private void OnPropertyChanging(string name)");
             builder.AppendLine("            {");
             builder.AppendLine("                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));");
             builder.AppendLine("            }");
@@ -866,27 +966,28 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                this.Remarks = _remarks_d;");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Save(XConfigManager manager)");
+            builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
             builder.AppendLine("            {");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppName\", this.AppName);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppVer\", this.AppVer);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangName\", this.LangName);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangVer\", this.LangVer);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Author\", this.Author);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Url\", this.Url);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Remarks\", this.Remarks);");
-            builder.AppendLine("            }");
-            builder.AppendLine();
-            builder.AppendLine("            [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Performance\", \"CA1822:Mark members as static\", Justification = \"<Pending>\")]");
-            builder.AppendLine("            internal void SaveDefault(XConfigManager manager)");
-            builder.AppendLine("            {");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppName\", _appName_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"AppVer\", _appVer_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangName\", _langName_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"LangVer\", _langVer_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Author\", _author_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Url\", _url_d);");
-            builder.AppendLine("                manager.Default.Properties.AddString(\"Remarks\", _remarks_d);");
+            builder.AppendLine("                if (defaultField)");
+            builder.AppendLine("                {");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppName\", _appName_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppVer\", _appVer_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangName\", _langName_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangVer\", _langVer_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Author\", _author_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Url\", _url_d);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Remarks\", _remarks_d);");
+            builder.AppendLine("                }");
+            builder.AppendLine("                else");
+            builder.AppendLine("                {");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppName\", this.AppName);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"AppVer\", this.AppVer);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangName\", this.LangName);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"LangVer\", this.LangVer);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Author\", this.Author);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Url\", this.Url);");
+            builder.AppendLine("                    manager.Default.Properties.AddString(\"Remarks\", this.Remarks);");
+            builder.AppendLine("                }");
             builder.AppendLine("            }");
             builder.AppendLine("        }");
             foreach (var section in sections)
@@ -904,25 +1005,35 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 builder.AppendLine("            /// <summary>");
                 builder.AppendLine("            /// Property changed event handler.");
                 builder.AppendLine("            /// </summary>");
-                builder.AppendLine("            public event PropertyChangedEventHandler? PropertyChanged;");
+                builder.AppendLine($"            public event PropertyChangedEventHandler{(nullSign ? "?" : string.Empty)} PropertyChanged;");
                 builder.AppendLine();
                 builder.AppendLine("            /// <summary>");
                 builder.AppendLine("            /// Property changing event handler.");
                 builder.AppendLine("            /// </summary>");
-                builder.AppendLine("            public event PropertyChangingEventHandler? PropertyChanging;");
+                builder.AppendLine($"            public event PropertyChangingEventHandler{(nullSign ? "?" : string.Empty)} PropertyChanging;");
                 builder.AppendLine();
-                builder.AppendLine("            private void OnPropertyChanged([CallerMemberName] string name = \"\")");
+                builder.AppendLine("            private void OnPropertyChanged(string name)");
                 builder.AppendLine("            {");
                 builder.AppendLine("                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));");
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            private void OnPropertyChanging([CallerMemberName] string name = \"\")");
+                builder.AppendLine("            private void OnPropertyChanging(string name)");
                 builder.AppendLine("            {");
                 builder.AppendLine("                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));");
                 builder.AppendLine("            }");
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Events");
-
+                builder.AppendLine();
+                builder.AppendLine("            #region Comments");
+                builder.AppendLine();
+                foreach (var entry in section.LanguageEntries)
+                {
+                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    builder.AppendLine($"            private const string _{eKeyL}_c = \"{FixString(entry.Comment)}\";");
+                }
+                builder.AppendLine();
+                builder.AppendLine("            #endregion Comments");
+                builder.AppendLine();
                 builder.AppendLine("            #region Default");
                 builder.AppendLine();
                 foreach (var entry in section.LanguageEntries)
@@ -974,31 +1085,32 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 builder.AppendLine("            {");
                 foreach (var entry in section.LanguageEntries)
                 {
-                    string sKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
+                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
                     string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                this.{sKeyU} = _{eKeyL}_d;");
+                    builder.AppendLine($"                this.{eKeyU} = _{eKeyL}_d;");
                 }
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Save(XConfigManager manager)");
+                builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                XSection section = manager.Sections.Add(\"{section.Name}\");");
+                builder.AppendLine("                if (defaultField)");
+                builder.AppendLine("                {");
+                foreach (var entry in section.LanguageEntries)
+                {
+                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d).Comment.SetValue(_{eKeyL}_c);");
+                }
+                builder.AppendLine("                }");
+                builder.AppendLine("                else");
+                builder.AppendLine("                {");
                 foreach (var entry in section.LanguageEntries)
                 {
                     string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                section.Properties.AddString(\"{entry.Key!}\", this.{eKeyU});");
-                }
-                builder.AppendLine("            }");
-                builder.AppendLine();
-                builder.AppendLine("            [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Performance\", \"CA1822:Mark members as static\", Justification = \"<Pending>\")]");
-                builder.AppendLine("            internal void SaveDefault(XConfigManager manager)");
-                builder.AppendLine("            {");
-                builder.AppendLine($"                XSection section = manager.Sections.AddOrUpdate(\"{section.Name}\");");
-                foreach (var entry in section.LanguageEntries)
-                {
                     string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", this.{eKeyU}).Comment.SetValue(_{eKeyL}_c);");
                 }
+                builder.AppendLine("                }");
                 builder.AppendLine("            }");
                 builder.AppendLine("        }");
             }

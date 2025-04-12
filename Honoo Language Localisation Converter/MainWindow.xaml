@@ -53,13 +53,14 @@
                     <MenuItem Command="{Binding OpenCommand}" Header="{Binding Localization.Menu.OpenTemplate}" />
                     <Separator />
                     <MenuItem Command="{Binding SaveAsCommand}" Header="{Binding Localization.Menu.SaveAs}" />
-                    <MenuItem Command="{Binding SaveCsharpCodeAsCommand}" Header="{Binding Localization.Menu.SaveCsharpCodeAs}" />
+                    <MenuItem Command="{Binding SaveCSharpCodeAsCommand}" Header="{Binding Localization.Menu.SaveCSharpCodeAs}" />
 
                     <Separator />
                     <MenuItem Command="{Binding ExitCommand}" Header="{Binding Localization.Menu.Exit}" />
                 </MenuItem>
                 <MenuItem Header="{Binding Localization.Menu.Options}">
                     <MenuItem Command="{Binding LoadLanguageFileCommand}" Header="Language..." />
+                    <MenuItem Command="{Binding TestExportCommand}" Header="Test Export..." />
                 </MenuItem>
                 <MenuItem Header="{Binding Localization.Menu.Help}">
                     <MenuItem Command="{Binding AboutCommand}" Header="{Binding Localization.Menu.About}" />
