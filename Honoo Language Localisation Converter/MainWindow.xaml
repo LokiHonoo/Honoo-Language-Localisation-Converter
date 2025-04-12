@@ -38,7 +38,7 @@
                 FontSize="16"
                 FontWeight="Bold"
                 Foreground="{DynamicResource AccentBrush}"
-                Text="Language Localisation Converter"
+                Text="Honoo Language Localisation Converter"
                 WindowChrome.IsHitTestVisibleInChrome="False" />
             <TextBlock
                 Margin="14,0,0,0"
