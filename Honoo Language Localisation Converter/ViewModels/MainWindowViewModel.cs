@@ -23,9 +23,6 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         #region Members
 
         [ObservableProperty]
-        private string _version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(3);
-
-        [ObservableProperty]
         private string? _appName;
 
         [ObservableProperty]
@@ -57,6 +54,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         [ObservableProperty]
         private string? _url;
+
+        [ObservableProperty]
+        private string _version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(3);
 
         [ObservableProperty]
         private double _windowHeight;
@@ -138,9 +138,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     DialogButtons.OKCancel,
                     DialogCloseButton.Ordinary,
                     DialogImage.None,
+                    DialogSize.Default,
                     false,
                     DialogLocalization.Default,
-                    DialogSize.Default,
                     (e) =>
                     {
                         foreach (var item in this.CurrentSection.LanguageEntries)
@@ -190,9 +190,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     DialogButtons.OKCancel,
                     DialogCloseButton.Ordinary,
                     DialogImage.None,
+                    DialogSize.Default,
                     false,
                     DialogLocalization.Default,
-                    DialogSize.Default,
                     (e) =>
                     {
                         foreach (var item in this.Sections)
@@ -231,9 +231,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     DialogButtons.OKCancel,
                     DialogCloseButton.Ordinary,
                     DialogImage.Information,
+                    DialogSize.Default,
                     false,
                     DialogLocalization.Default,
-                    DialogSize.Default,
                     null,
                     (e) =>
                     {
@@ -373,9 +373,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         DialogButtons.OKCancel,
                         DialogCloseButton.Ordinary,
                         DialogImage.Information,
+                        DialogSize.Default,
                         false,
                         DialogLocalization.Default,
-                        DialogSize.Default,
                         null,
                         (e) =>
                         {
@@ -426,9 +426,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     DialogButtons.OKCancel,
                     DialogCloseButton.Ordinary,
                     DialogImage.Information,
+                    DialogSize.Default,
                     false,
                     DialogLocalization.Default,
-                    DialogSize.Default,
                     null,
                     (e) =>
                     {
@@ -450,9 +450,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     DialogButtons.OKCancel,
                     DialogCloseButton.Ordinary,
                     DialogImage.Information,
+                    DialogSize.Default,
                     false,
                     DialogLocalization.Default,
-                    DialogSize.Default,
                     null,
                     (e) =>
                     {
@@ -532,9 +532,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     DialogButtons.OKCancel,
                     DialogCloseButton.Ordinary,
                     DialogImage.Information,
+                    DialogSize.Default,
                     false,
                     DialogLocalization.Default,
-                    DialogSize.Default,
                     null,
                     (e) =>
                     {
