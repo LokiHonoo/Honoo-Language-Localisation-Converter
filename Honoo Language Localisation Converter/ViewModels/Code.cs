@@ -51,7 +51,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        #endregion Members");
             builder.AppendLine();
             builder.AppendLine("        /// <summary>");
-            builder.AppendLine("        /// initialize new instance of LanguagePackage class.");
+            builder.AppendLine("        /// Initialize new instance of LanguagePackage class.");
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        internal LanguagePackage()");
             builder.AppendLine("        {");
@@ -377,7 +377,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        #region Instance");
             builder.AppendLine();
             builder.AppendLine("        /// <summary>");
-            builder.AppendLine("        /// Language LanguagePackage instance.");
+            builder.AppendLine("        /// Language package instance.");
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        public static LanguagePackage Instance { get; } = new LanguagePackage();");
             builder.AppendLine();
@@ -403,7 +403,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        #endregion Members");
             builder.AppendLine();
             builder.AppendLine("        /// <summary>");
-            builder.AppendLine("        /// initialize new instance of LanguagePackage class.");
+            builder.AppendLine("        /// Initialize new instance of LanguagePackage class.");
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        internal LanguagePackage()");
             builder.AppendLine("        {");
@@ -759,7 +759,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        #endregion Members");
             builder.AppendLine();
             builder.AppendLine("        /// <summary>");
-            builder.AppendLine("        /// initialize new instance of LanguagePackage class.");
+            builder.AppendLine("        /// Initialize new instance of LanguagePackage class.");
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        internal LanguagePackage()");
             builder.AppendLine("        {");

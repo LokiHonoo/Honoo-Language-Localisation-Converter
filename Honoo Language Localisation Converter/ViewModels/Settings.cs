@@ -13,6 +13,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         #region Members
 
         [ObservableProperty]
+        private string? _languageFile;
+
+        [ObservableProperty]
         private double _windowHeight;
 
         [ObservableProperty]
@@ -23,8 +26,6 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         [ObservableProperty]
         private double _windowWidth;
-
-        public string? LanguageFile { get; set; }
 
         #endregion Members
     }
