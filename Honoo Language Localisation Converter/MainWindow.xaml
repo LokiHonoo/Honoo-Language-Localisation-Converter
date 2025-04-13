@@ -40,6 +40,16 @@
                 Foreground="{DynamicResource AccentBrush}"
                 Text="Honoo Language Localisation Converter"
                 WindowChrome.IsHitTestVisibleInChrome="False" />
+            <Label
+                Margin="14,0,0,0"
+                Padding="7,3"
+                VerticalAlignment="Center"
+                hui:LabelAttaches.CornerRadius="5"
+                Background="#FF137588"
+                Content="{Binding Version}"
+                DockPanel.Dock="Left"
+                Foreground="{DynamicResource ThirdlyForegroundBrush}"
+                WindowChrome.IsHitTestVisibleInChrome="False" />
             <Menu
                 Margin="14,0,0,0"
                 VerticalAlignment="Center"
