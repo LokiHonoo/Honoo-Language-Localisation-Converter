@@ -1,4 +1,5 @@
 ﻿using Honoo.Configuration;
+using HonooLanguageLocalisationConverter.ViewModels;
 using System;
 using System.IO;
 using System.Windows;
@@ -16,9 +17,9 @@ namespace HonooLanguageLocalisationConverter
         {
             using (var manager = new XConfigManager())
             {
-                manager.Default.Properties.AddString("WindowWidth", Locator.MainWindowViewModel!.WindowWidth.ToString());
-                manager.Default.Properties.AddString("WindowHeight", Locator.MainWindowViewModel!.WindowHeight.ToString());
-                manager.Default.Properties.AddString("LanguageFile", Locator.MainWindowViewModel!.LanguageFile);
+                manager.Default.Properties.AddString("WindowWidth", Settings.Instance.WindowWidth.ToString());
+                manager.Default.Properties.AddString("WindowHeight", Settings.Instance.WindowHeight.ToString());
+                manager.Default.Properties.AddString("LanguageFile", Settings.Instance.LanguageFile);
                 manager.Save(_configFile);
             }
             base.OnExit(e);
@@ -40,20 +41,20 @@ namespace HonooLanguageLocalisationConverter
                 }
                 if (string.IsNullOrEmpty(languageFile))
                 {
-                    ViewModels.Localization.Instance.Load(languageFile);
+                    LanguagePackage.Instance.Load(languageFile);
                 }
             }
             catch
             {
-                ViewModels.Localization.Instance.ResetDefault();
+                LanguagePackage.Instance.ResetDefault();
             }
             Size area = SystemParameters.WorkArea.Size;
             var mainWindow = new MainWindow() { Width = width, Height = height };
-            Locator.MainWindowViewModel!.WindowWidth = width;
-            Locator.MainWindowViewModel!.WindowHeight = height;
-            Locator.MainWindowViewModel!.WindowLeft = (area.Width - width) / 2;
-            Locator.MainWindowViewModel!.WindowTop = (area.Height - height) / 2;
-            Locator.MainWindowViewModel!.LanguageFile = languageFile;
+            Settings.Instance.WindowWidth = width;
+            Settings.Instance.WindowHeight = height;
+            Settings.Instance.WindowLeft = (area.Width - width) / 2;
+            Settings.Instance.WindowTop = (area.Height - height) / 2;
+            Settings.Instance.LanguageFile = languageFile;
             mainWindow.Show();
         }
     }
