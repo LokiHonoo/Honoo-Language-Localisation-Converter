@@ -1,25 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace HonooLanguageLocalisationConverter.ViewModels
 {
-    public sealed partial class SectionEntry : ObservableObject
+    public sealed partial class TranslationEntry : ObservableObject
     {
         #region Members
 
-        [ObservableProperty]
-        public string _name;
-
         private readonly MainWindowViewModel _mainWindowViewModel;
-        public ObservableCollection<TranslationEntry> TranslationEntries { get; } = [];
+
+        [ObservableProperty]
+        private string _comment;
+        [ObservableProperty]
+        private string _name;
+
+        [ObservableProperty]
+        private string _value;
 
         #endregion Members
 
-        public SectionEntry(string name, MainWindowViewModel mainWindowViewModel)
+        public TranslationEntry(string key, string value, string comment, MainWindowViewModel mainWindowViewModel)
         {
-            this.Name = name;
+            this.Name = key;
+            this.Value = value;
+            this.Comment = comment;
             _mainWindowViewModel = mainWindowViewModel;
             this.PropertyChanged += OnPropertyChanged;
         }

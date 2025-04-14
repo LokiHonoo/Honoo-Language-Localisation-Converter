@@ -38,9 +38,14 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         public __Main Main { get; } = new __Main();
 
         /// <summary>
-        /// Messages section.
+        /// DialogMessages section.
         /// </summary>
-        public __Messages Messages { get; } = new __Messages();
+        public __DialogMessages DialogMessages { get; } = new __DialogMessages();
+
+        /// <summary>
+        /// ToastMessages section.
+        /// </summary>
+        public __ToastMessages ToastMessages { get; } = new __ToastMessages();
 
         #endregion Members
 
@@ -60,10 +65,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             using (var manager = new XConfigManager(fileName, true))
             {
-                this.Informartion.Load(manager);
-                this.Menu.Load(manager);
-                this.Main.Load(manager);
-                this.Messages.Load(manager);
+                this.Informartion.LoadInternal(manager);
+                this.Menu.LoadInternal(manager);
+                this.Main.LoadInternal(manager);
+                this.DialogMessages.LoadInternal(manager);
+                this.ToastMessages.LoadInternal(manager);
             }
         }
 
@@ -76,10 +82,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             using (var manager = new XConfigManager(stream))
             {
-                this.Informartion.Load(manager);
-                this.Menu.Load(manager);
-                this.Main.Load(manager);
-                this.Messages.Load(manager);
+                this.Informartion.LoadInternal(manager);
+                this.Menu.LoadInternal(manager);
+                this.Main.LoadInternal(manager);
+                this.DialogMessages.LoadInternal(manager);
+                this.ToastMessages.LoadInternal(manager);
             }
         }
 
@@ -88,10 +95,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         /// </summary>
         public void ResetDefault()
         {
-            this.Informartion.ResetDefault();
-            this.Menu.ResetDefault();
-            this.Main.ResetDefault();
-            this.Messages.ResetDefault();
+            this.Informartion.ResetDefaultInternal();
+            this.Menu.ResetDefaultInternal();
+            this.Main.ResetDefaultInternal();
+            this.DialogMessages.ResetDefaultInternal();
+            this.ToastMessages.ResetDefaultInternal();
         }
 
         /// <summary>
@@ -104,10 +112,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             using (var manager = new XConfigManager())
             {
-                this.Informartion.Save(defaultField, manager);
-                this.Menu.Save(defaultField, manager);
-                this.Main.Save(defaultField, manager);
-                this.Messages.Save(defaultField, manager);
+                this.Informartion.SaveInternal(defaultField, manager);
+                this.Menu.SaveInternal(defaultField, manager);
+                this.Main.SaveInternal(defaultField, manager);
+                this.DialogMessages.SaveInternal(defaultField, manager);
+                this.ToastMessages.SaveInternal(defaultField, manager);
                 manager.Save(fileName);
             }
         }
@@ -122,10 +131,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             using (var manager = new XConfigManager())
             {
-                this.Informartion.Save(defaultField, manager);
-                this.Menu.Save(defaultField, manager);
-                this.Main.Save(defaultField, manager);
-                this.Messages.Save(defaultField, manager);
+                this.Informartion.SaveInternal(defaultField, manager);
+                this.Menu.SaveInternal(defaultField, manager);
+                this.Main.SaveInternal(defaultField, manager);
+                this.DialogMessages.SaveInternal(defaultField, manager);
+                this.ToastMessages.SaveInternal(defaultField, manager);
                 manager.Save(stream);
             }
         }
@@ -223,7 +233,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             {
             }
 
-            internal void Load(XConfigManager manager)
+            internal void LoadInternal(XConfigManager manager)
             {
                 this.AppName = manager.Default.Properties.GetStringValue("AppName", _appName_d);
                 this.AppVer = manager.Default.Properties.GetStringValue("AppVer", _appVer_d);
@@ -234,7 +244,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.Remarks = manager.Default.Properties.GetStringValue("Remarks", _remarks_d);
             }
 
-            internal void ResetDefault()
+            internal void ResetDefaultInternal()
             {
                 this.AppName = _appName_d;
                 this.AppVer = _appVer_d;
@@ -245,7 +255,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.Remarks = _remarks_d;
             }
 
-            internal void Save(bool defaultField, XConfigManager manager)
+            internal void SaveInternal(bool defaultField, XConfigManager manager)
             {
                 if (defaultField)
                 {
@@ -303,13 +313,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             #region Comments
 
             private const string _file_c = "Menu button, Top item.";
-            private const string _createTemplate_c = "Menu button, create new template.";
-            private const string _openTemplate_c = "Menu button, Show dialog for select open file.";
+            private const string _createNew_c = "Menu button, create new document.";
+            private const string _open_c = "Menu button, Show dialog for select open file.";
+            private const string _save_c = "Menu button, Save to lang file.";
             private const string _saveAs_c = "Menu button, Show dialog for select save file.";
             private const string _saveCSharpCodeAs_c = "Menu button, Show dialog for select save file.";
             private const string _exit_c = "Exit app.";
             private const string _options_c = "Menu button, Top item.";
             private const string _help_c = "Menu button, Top item.";
+            private const string _homePage_c = "Menu button, Navigate to project url.";
             private const string _about_c = "Menu button, Show dialog for app information.";
 
             #endregion Comments
@@ -317,13 +329,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             #region Default
 
             private const string _file_d = "_File";
-            private const string _createTemplate_d = "_Create template...";
-            private const string _openTemplate_d = "_Open template...";
+            private const string _createNew_d = "_New...";
+            private const string _open_d = "_Open...";
+            private const string _save_d = "_Save";
             private const string _saveAs_d = "Save _As...";
             private const string _saveCSharpCodeAs_d = "Save C# code As...";
             private const string _exit_d = "E_xit";
             private const string _options_d = "_Options";
             private const string _help_d = "_Help";
+            private const string _homePage_d = "_HomePage";
             private const string _about_d = "_About";
 
             #endregion Default
@@ -331,13 +345,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             #region Members
 
             private string _file = _file_d;
-            private string _createTemplate = _createTemplate_d;
-            private string _openTemplate = _openTemplate_d;
+            private string _createNew = _createNew_d;
+            private string _open = _open_d;
+            private string _save = _save_d;
             private string _saveAs = _saveAs_d;
             private string _saveCSharpCodeAs = _saveCSharpCodeAs_d;
             private string _exit = _exit_d;
             private string _options = _options_d;
             private string _help = _help_d;
+            private string _homePage = _homePage_d;
             private string _about = _about_d;
 
             /// <summary>
@@ -346,14 +362,19 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             public string File { get { return _file; } set { OnPropertyChanging(nameof(this.File)); _file = value; OnPropertyChanged(nameof(this.File)); } }
 
             /// <summary>
-            /// Menu button, create new template.
+            /// Menu button, create new document.
             /// </summary>
-            public string CreateTemplate { get { return _createTemplate; } set { OnPropertyChanging(nameof(this.CreateTemplate)); _createTemplate = value; OnPropertyChanged(nameof(this.CreateTemplate)); } }
+            public string CreateNew { get { return _createNew; } set { OnPropertyChanging(nameof(this.CreateNew)); _createNew = value; OnPropertyChanged(nameof(this.CreateNew)); } }
 
             /// <summary>
             /// Menu button, Show dialog for select open file.
             /// </summary>
-            public string OpenTemplate { get { return _openTemplate; } set { OnPropertyChanging(nameof(this.OpenTemplate)); _openTemplate = value; OnPropertyChanged(nameof(this.OpenTemplate)); } }
+            public string Open { get { return _open; } set { OnPropertyChanging(nameof(this.Open)); _open = value; OnPropertyChanged(nameof(this.Open)); } }
+
+            /// <summary>
+            /// Menu button, Save to lang file.
+            /// </summary>
+            public string Save { get { return _save; } set { OnPropertyChanging(nameof(this.Save)); _save = value; OnPropertyChanged(nameof(this.Save)); } }
 
             /// <summary>
             /// Menu button, Show dialog for select save file.
@@ -381,6 +402,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             public string Help { get { return _help; } set { OnPropertyChanging(nameof(this.Help)); _help = value; OnPropertyChanged(nameof(this.Help)); } }
 
             /// <summary>
+            /// Menu button, Navigate to project url.
+            /// </summary>
+            public string HomePage { get { return _homePage; } set { OnPropertyChanging(nameof(this.HomePage)); _homePage = value; OnPropertyChanged(nameof(this.HomePage)); } }
+
+            /// <summary>
             /// Menu button, Show dialog for app information.
             /// </summary>
             public string About { get { return _about; } set { OnPropertyChanging(nameof(this.About)); _about = value; OnPropertyChanged(nameof(this.About)); } }
@@ -391,60 +417,68 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             {
             }
 
-            internal void Load(XConfigManager manager)
+            internal void LoadInternal(XConfigManager manager)
             {
                 if (manager.Sections.TryGetValue("Menu", out XSection section))
                 {
                     this.File = section.Properties.GetStringValue("File", _file_d);
-                    this.CreateTemplate = section.Properties.GetStringValue("CreateTemplate", _createTemplate_d);
-                    this.OpenTemplate = section.Properties.GetStringValue("OpenTemplate", _openTemplate_d);
+                    this.CreateNew = section.Properties.GetStringValue("CreateNew", _createNew_d);
+                    this.Open = section.Properties.GetStringValue("Open", _open_d);
+                    this.Save = section.Properties.GetStringValue("Save", _save_d);
                     this.SaveAs = section.Properties.GetStringValue("SaveAs", _saveAs_d);
                     this.SaveCSharpCodeAs = section.Properties.GetStringValue("SaveCSharpCodeAs", _saveCSharpCodeAs_d);
                     this.Exit = section.Properties.GetStringValue("Exit", _exit_d);
                     this.Options = section.Properties.GetStringValue("Options", _options_d);
                     this.Help = section.Properties.GetStringValue("Help", _help_d);
+                    this.HomePage = section.Properties.GetStringValue("HomePage", _homePage_d);
                     this.About = section.Properties.GetStringValue("About", _about_d);
                 }
             }
 
-            internal void ResetDefault()
+            internal void ResetDefaultInternal()
             {
                 this.File = _file_d;
-                this.CreateTemplate = _createTemplate_d;
-                this.OpenTemplate = _openTemplate_d;
+                this.CreateNew = _createNew_d;
+                this.Open = _open_d;
+                this.Save = _save_d;
                 this.SaveAs = _saveAs_d;
                 this.SaveCSharpCodeAs = _saveCSharpCodeAs_d;
                 this.Exit = _exit_d;
                 this.Options = _options_d;
                 this.Help = _help_d;
+                this.HomePage = _homePage_d;
                 this.About = _about_d;
             }
 
-            internal void Save(bool defaultField, XConfigManager manager)
+            internal void SaveInternal(bool defaultField, XConfigManager manager)
             {
                 XSection section = manager.Sections.Add("Menu");
                 if (defaultField)
                 {
                     section.Properties.AddString("File", _file_d).Comment.SetValue(_file_c);
-                    section.Properties.AddString("CreateTemplate", _createTemplate_d).Comment.SetValue(_createTemplate_c);
-                    section.Properties.AddString("OpenTemplate", _openTemplate_d).Comment.SetValue(_openTemplate_c);
+                    section.Properties.AddString("CreateNew", _createNew_d).Comment.SetValue(_createNew_c);
+                    section.Properties.AddString("Open", _open_d).Comment.SetValue(_open_c);
+                    section.Properties.AddString("Save", _save_d).Comment.SetValue(_save_c);
                     section.Properties.AddString("SaveAs", _saveAs_d).Comment.SetValue(_saveAs_c);
                     section.Properties.AddString("SaveCSharpCodeAs", _saveCSharpCodeAs_d).Comment.SetValue(_saveCSharpCodeAs_c);
                     section.Properties.AddString("Exit", _exit_d).Comment.SetValue(_exit_c);
                     section.Properties.AddString("Options", _options_d).Comment.SetValue(_options_c);
                     section.Properties.AddString("Help", _help_d).Comment.SetValue(_help_c);
+                    section.Properties.AddString("HomePage", _homePage_d).Comment.SetValue(_homePage_c);
                     section.Properties.AddString("About", _about_d).Comment.SetValue(_about_c);
                 }
                 else
                 {
                     section.Properties.AddString("File", this.File).Comment.SetValue(_file_c);
-                    section.Properties.AddString("CreateTemplate", this.CreateTemplate).Comment.SetValue(_createTemplate_c);
-                    section.Properties.AddString("OpenTemplate", this.OpenTemplate).Comment.SetValue(_openTemplate_c);
+                    section.Properties.AddString("CreateNew", this.CreateNew).Comment.SetValue(_createNew_c);
+                    section.Properties.AddString("Open", this.Open).Comment.SetValue(_open_c);
+                    section.Properties.AddString("Save", this.Save).Comment.SetValue(_save_c);
                     section.Properties.AddString("SaveAs", this.SaveAs).Comment.SetValue(_saveAs_c);
                     section.Properties.AddString("SaveCSharpCodeAs", this.SaveCSharpCodeAs).Comment.SetValue(_saveCSharpCodeAs_c);
                     section.Properties.AddString("Exit", this.Exit).Comment.SetValue(_exit_c);
                     section.Properties.AddString("Options", this.Options).Comment.SetValue(_options_c);
                     section.Properties.AddString("Help", this.Help).Comment.SetValue(_help_c);
+                    section.Properties.AddString("HomePage", this.HomePage).Comment.SetValue(_homePage_c);
                     section.Properties.AddString("About", this.About).Comment.SetValue(_about_c);
                 }
             }
@@ -486,7 +520,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _sections_c = "Tab name.";
             private const string _sort_c = "Button text.";
             private const string _sectionEntries_c = "Title text.";
-            private const string _languageEntries_c = "Title text.";
+            private const string _translationEntries_c = "Title text.";
+            private const string _hasNewVersion_c = "StatusBar tip.";
 
             #endregion Comments
 
@@ -496,7 +531,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _sections_d = "Sections";
             private const string _sort_d = "Sort";
             private const string _sectionEntries_d = "Section entries";
-            private const string _languageEntries_d = "Language entries";
+            private const string _translationEntries_d = "Translation entries";
+            private const string _hasNewVersion_d = "New version published";
 
             #endregion Default
 
@@ -506,7 +542,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _sections = _sections_d;
             private string _sort = _sort_d;
             private string _sectionEntries = _sectionEntries_d;
-            private string _languageEntries = _languageEntries_d;
+            private string _translationEntries = _translationEntries_d;
+            private string _hasNewVersion = _hasNewVersion_d;
 
             /// <summary>
             /// Tab name.
@@ -531,7 +568,12 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             /// <summary>
             /// Title text.
             /// </summary>
-            public string LanguageEntries { get { return _languageEntries; } set { OnPropertyChanging(nameof(this.LanguageEntries)); _languageEntries = value; OnPropertyChanged(nameof(this.LanguageEntries)); } }
+            public string TranslationEntries { get { return _translationEntries; } set { OnPropertyChanging(nameof(this.TranslationEntries)); _translationEntries = value; OnPropertyChanged(nameof(this.TranslationEntries)); } }
+
+            /// <summary>
+            /// StatusBar tip.
+            /// </summary>
+            public string HasNewVersion { get { return _hasNewVersion; } set { OnPropertyChanging(nameof(this.HasNewVersion)); _hasNewVersion = value; OnPropertyChanged(nameof(this.HasNewVersion)); } }
 
             #endregion Members
 
@@ -539,7 +581,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             {
             }
 
-            internal void Load(XConfigManager manager)
+            internal void LoadInternal(XConfigManager manager)
             {
                 if (manager.Sections.TryGetValue("Main", out XSection section))
                 {
@@ -547,20 +589,22 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     this.Sections = section.Properties.GetStringValue("Sections", _sections_d);
                     this.Sort = section.Properties.GetStringValue("Sort", _sort_d);
                     this.SectionEntries = section.Properties.GetStringValue("SectionEntries", _sectionEntries_d);
-                    this.LanguageEntries = section.Properties.GetStringValue("LanguageEntries", _languageEntries_d);
+                    this.TranslationEntries = section.Properties.GetStringValue("TranslationEntries", _translationEntries_d);
+                    this.HasNewVersion = section.Properties.GetStringValue("HasNewVersion", _hasNewVersion_d);
                 }
             }
 
-            internal void ResetDefault()
+            internal void ResetDefaultInternal()
             {
                 this.Informartion = _informartion_d;
                 this.Sections = _sections_d;
                 this.Sort = _sort_d;
                 this.SectionEntries = _sectionEntries_d;
-                this.LanguageEntries = _languageEntries_d;
+                this.TranslationEntries = _translationEntries_d;
+                this.HasNewVersion = _hasNewVersion_d;
             }
 
-            internal void Save(bool defaultField, XConfigManager manager)
+            internal void SaveInternal(bool defaultField, XConfigManager manager)
             {
                 XSection section = manager.Sections.Add("Main");
                 if (defaultField)
@@ -569,7 +613,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("Sections", _sections_d).Comment.SetValue(_sections_c);
                     section.Properties.AddString("Sort", _sort_d).Comment.SetValue(_sort_c);
                     section.Properties.AddString("SectionEntries", _sectionEntries_d).Comment.SetValue(_sectionEntries_c);
-                    section.Properties.AddString("LanguageEntries", _languageEntries_d).Comment.SetValue(_languageEntries_c);
+                    section.Properties.AddString("TranslationEntries", _translationEntries_d).Comment.SetValue(_translationEntries_c);
+                    section.Properties.AddString("HasNewVersion", _hasNewVersion_d).Comment.SetValue(_hasNewVersion_c);
                 }
                 else
                 {
@@ -577,16 +622,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("Sections", this.Sections).Comment.SetValue(_sections_c);
                     section.Properties.AddString("Sort", this.Sort).Comment.SetValue(_sort_c);
                     section.Properties.AddString("SectionEntries", this.SectionEntries).Comment.SetValue(_sectionEntries_c);
-                    section.Properties.AddString("LanguageEntries", this.LanguageEntries).Comment.SetValue(_languageEntries_c);
+                    section.Properties.AddString("TranslationEntries", this.TranslationEntries).Comment.SetValue(_translationEntries_c);
+                    section.Properties.AddString("HasNewVersion", this.HasNewVersion).Comment.SetValue(_hasNewVersion_c);
                 }
             }
         }
 
         /// <summary>
-        /// Messages section.
+        /// DialogMessages section.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-        public sealed class __Messages : INotifyPropertyChanging, INotifyPropertyChanged
+        public sealed class __DialogMessages : INotifyPropertyChanging, INotifyPropertyChanged
         {
             #region Events
 
@@ -616,16 +662,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             private const string _documentExistsCreateNew_c = "Dialog content.";
             private const string _documentExistsLoadNew_c = "Dialog content.";
-            private const string _createSctionTip_c = "Dialog content.";
-            private const string _createLanguageEntryTip_c = "Dialog content.";
-            private const string _nameEmpty_c = "Dialog content.";
-            private const string _keyEmpty_c = "Dialog content.";
-            private const string _nameExists_c = "Dialog content set custom field {0}.";
-            private const string _keyExists_c = "Dialog content set custom field {0}.";
-            private const string _removeItem_c = "Dialog content set custom field {0}.";
+            private const string _sectionNameEmpty_c = "Dialog content.";
+            private const string _sectionNameDuplicate_c = "Dialog content set field {0}=Section Name.";
+            private const string _translationNameEmpty_c = "Dialog content.";
+            private const string _translationNameDuplicate_c = "Dialog content set field {0}=Section Name,{1}=Translation Name.";
+            private const string _removeItem_c = "Dialog content set custom field {0}=Remove Name.";
             private const string _saveCodeStandard_c = "Dialog content.";
             private const string _saveCodeWpf_c = "Dialog content.";
             private const string _saveCodeMvvm_c = "Dialog content.";
+            private const string _exitSaveRemind_c = "Dialog content.";
 
             #endregion Comments
 
@@ -633,16 +678,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             private const string _documentExistsCreateNew_d = "Document loaded already. Create new document?";
             private const string _documentExistsLoadNew_d = "Document loaded already. Load new document?";
-            private const string _createSctionTip_d = "Input Section name.\r\nThe string using by code member name.\r\nSpaces and special characters cannot be used.";
-            private const string _createLanguageEntryTip_d = "Input language entry name.\r\nThe string using by code member name.\r\nSpaces and special characters cannot be used.";
-            private const string _nameEmpty_d = "Name can't be empty.";
-            private const string _keyEmpty_d = "Key can't be empty.";
-            private const string _nameExists_d = "Name \"{0}\" exists.";
-            private const string _keyExists_d = "Key \"{0}\" exists.";
+            private const string _sectionNameEmpty_d = "Section \"Name\" string can't be empty.";
+            private const string _sectionNameDuplicate_d = "Section \"{0}\" has duplicate name.";
+            private const string _translationNameEmpty_d = "Section \"{0}\"'s translation entry string can't be empty.";
+            private const string _translationNameDuplicate_d = "Section \"{0}\"'s translation entry \"{1}\" has duplicate name.";
             private const string _removeItem_d = "Remove \"{0}\" ?";
             private const string _saveCodeStandard_d = "Standard class model for all app type";
             private const string _saveCodeWpf_d = "Using in WPF basic class";
             private const string _saveCodeMvvm_d = "MVVM structure for lib - CommunityToolkit.Mvvm";
+            private const string _exitSaveRemind_d = "The language file has not been saved. Sure to exit?";
 
             #endregion Default
 
@@ -650,16 +694,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             private string _documentExistsCreateNew = _documentExistsCreateNew_d;
             private string _documentExistsLoadNew = _documentExistsLoadNew_d;
-            private string _createSctionTip = _createSctionTip_d;
-            private string _createLanguageEntryTip = _createLanguageEntryTip_d;
-            private string _nameEmpty = _nameEmpty_d;
-            private string _keyEmpty = _keyEmpty_d;
-            private string _nameExists = _nameExists_d;
-            private string _keyExists = _keyExists_d;
+            private string _sectionNameEmpty = _sectionNameEmpty_d;
+            private string _sectionNameDuplicate = _sectionNameDuplicate_d;
+            private string _translationNameEmpty = _translationNameEmpty_d;
+            private string _translationNameDuplicate = _translationNameDuplicate_d;
             private string _removeItem = _removeItem_d;
             private string _saveCodeStandard = _saveCodeStandard_d;
             private string _saveCodeWpf = _saveCodeWpf_d;
             private string _saveCodeMvvm = _saveCodeMvvm_d;
+            private string _exitSaveRemind = _exitSaveRemind_d;
 
             /// <summary>
             /// Dialog content.
@@ -674,35 +717,25 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             /// <summary>
             /// Dialog content.
             /// </summary>
-            public string CreateSctionTip { get { return _createSctionTip; } set { OnPropertyChanging(nameof(this.CreateSctionTip)); _createSctionTip = value; OnPropertyChanged(nameof(this.CreateSctionTip)); } }
+            public string SectionNameEmpty { get { return _sectionNameEmpty; } set { OnPropertyChanging(nameof(this.SectionNameEmpty)); _sectionNameEmpty = value; OnPropertyChanged(nameof(this.SectionNameEmpty)); } }
+
+            /// <summary>
+            /// Dialog content set field {0}=Section Name.
+            /// </summary>
+            public string SectionNameDuplicate { get { return _sectionNameDuplicate; } set { OnPropertyChanging(nameof(this.SectionNameDuplicate)); _sectionNameDuplicate = value; OnPropertyChanged(nameof(this.SectionNameDuplicate)); } }
 
             /// <summary>
             /// Dialog content.
             /// </summary>
-            public string CreateLanguageEntryTip { get { return _createLanguageEntryTip; } set { OnPropertyChanging(nameof(this.CreateLanguageEntryTip)); _createLanguageEntryTip = value; OnPropertyChanged(nameof(this.CreateLanguageEntryTip)); } }
+            public string TranslationNameEmpty { get { return _translationNameEmpty; } set { OnPropertyChanging(nameof(this.TranslationNameEmpty)); _translationNameEmpty = value; OnPropertyChanged(nameof(this.TranslationNameEmpty)); } }
 
             /// <summary>
-            /// Dialog content.
+            /// Dialog content set field {0}=Section Name,{1}=Translation Name.
             /// </summary>
-            public string NameEmpty { get { return _nameEmpty; } set { OnPropertyChanging(nameof(this.NameEmpty)); _nameEmpty = value; OnPropertyChanged(nameof(this.NameEmpty)); } }
+            public string TranslationNameDuplicate { get { return _translationNameDuplicate; } set { OnPropertyChanging(nameof(this.TranslationNameDuplicate)); _translationNameDuplicate = value; OnPropertyChanged(nameof(this.TranslationNameDuplicate)); } }
 
             /// <summary>
-            /// Dialog content.
-            /// </summary>
-            public string KeyEmpty { get { return _keyEmpty; } set { OnPropertyChanging(nameof(this.KeyEmpty)); _keyEmpty = value; OnPropertyChanged(nameof(this.KeyEmpty)); } }
-
-            /// <summary>
-            /// Dialog content set custom field {0}.
-            /// </summary>
-            public string NameExists { get { return _nameExists; } set { OnPropertyChanging(nameof(this.NameExists)); _nameExists = value; OnPropertyChanged(nameof(this.NameExists)); } }
-
-            /// <summary>
-            /// Dialog content set custom field {0}.
-            /// </summary>
-            public string KeyExists { get { return _keyExists; } set { OnPropertyChanging(nameof(this.KeyExists)); _keyExists = value; OnPropertyChanged(nameof(this.KeyExists)); } }
-
-            /// <summary>
-            /// Dialog content set custom field {0}.
+            /// Dialog content set custom field {0}=Remove Name.
             /// </summary>
             public string RemoveItem { get { return _removeItem; } set { OnPropertyChanging(nameof(this.RemoveItem)); _removeItem = value; OnPropertyChanged(nameof(this.RemoveItem)); } }
 
@@ -721,79 +754,164 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             /// </summary>
             public string SaveCodeMvvm { get { return _saveCodeMvvm; } set { OnPropertyChanging(nameof(this.SaveCodeMvvm)); _saveCodeMvvm = value; OnPropertyChanged(nameof(this.SaveCodeMvvm)); } }
 
+            /// <summary>
+            /// Dialog content.
+            /// </summary>
+            public string ExitSaveRemind { get { return _exitSaveRemind; } set { OnPropertyChanging(nameof(this.ExitSaveRemind)); _exitSaveRemind = value; OnPropertyChanged(nameof(this.ExitSaveRemind)); } }
+
             #endregion Members
 
-            internal __Messages()
+            internal __DialogMessages()
             {
             }
 
-            internal void Load(XConfigManager manager)
+            internal void LoadInternal(XConfigManager manager)
             {
-                if (manager.Sections.TryGetValue("Messages", out XSection section))
+                if (manager.Sections.TryGetValue("DialogMessages", out XSection section))
                 {
                     this.DocumentExistsCreateNew = section.Properties.GetStringValue("DocumentExistsCreateNew", _documentExistsCreateNew_d);
                     this.DocumentExistsLoadNew = section.Properties.GetStringValue("DocumentExistsLoadNew", _documentExistsLoadNew_d);
-                    this.CreateSctionTip = section.Properties.GetStringValue("CreateSctionTip", _createSctionTip_d);
-                    this.CreateLanguageEntryTip = section.Properties.GetStringValue("CreateLanguageEntryTip", _createLanguageEntryTip_d);
-                    this.NameEmpty = section.Properties.GetStringValue("NameEmpty", _nameEmpty_d);
-                    this.KeyEmpty = section.Properties.GetStringValue("KeyEmpty", _keyEmpty_d);
-                    this.NameExists = section.Properties.GetStringValue("NameExists", _nameExists_d);
-                    this.KeyExists = section.Properties.GetStringValue("KeyExists", _keyExists_d);
+                    this.SectionNameEmpty = section.Properties.GetStringValue("SectionNameEmpty", _sectionNameEmpty_d);
+                    this.SectionNameDuplicate = section.Properties.GetStringValue("SectionNameDuplicate", _sectionNameDuplicate_d);
+                    this.TranslationNameEmpty = section.Properties.GetStringValue("TranslationNameEmpty", _translationNameEmpty_d);
+                    this.TranslationNameDuplicate = section.Properties.GetStringValue("TranslationNameDuplicate", _translationNameDuplicate_d);
                     this.RemoveItem = section.Properties.GetStringValue("RemoveItem", _removeItem_d);
                     this.SaveCodeStandard = section.Properties.GetStringValue("SaveCodeStandard", _saveCodeStandard_d);
                     this.SaveCodeWpf = section.Properties.GetStringValue("SaveCodeWpf", _saveCodeWpf_d);
                     this.SaveCodeMvvm = section.Properties.GetStringValue("SaveCodeMvvm", _saveCodeMvvm_d);
+                    this.ExitSaveRemind = section.Properties.GetStringValue("ExitSaveRemind", _exitSaveRemind_d);
                 }
             }
 
-            internal void ResetDefault()
+            internal void ResetDefaultInternal()
             {
                 this.DocumentExistsCreateNew = _documentExistsCreateNew_d;
                 this.DocumentExistsLoadNew = _documentExistsLoadNew_d;
-                this.CreateSctionTip = _createSctionTip_d;
-                this.CreateLanguageEntryTip = _createLanguageEntryTip_d;
-                this.NameEmpty = _nameEmpty_d;
-                this.KeyEmpty = _keyEmpty_d;
-                this.NameExists = _nameExists_d;
-                this.KeyExists = _keyExists_d;
+                this.SectionNameEmpty = _sectionNameEmpty_d;
+                this.SectionNameDuplicate = _sectionNameDuplicate_d;
+                this.TranslationNameEmpty = _translationNameEmpty_d;
+                this.TranslationNameDuplicate = _translationNameDuplicate_d;
                 this.RemoveItem = _removeItem_d;
                 this.SaveCodeStandard = _saveCodeStandard_d;
                 this.SaveCodeWpf = _saveCodeWpf_d;
                 this.SaveCodeMvvm = _saveCodeMvvm_d;
+                this.ExitSaveRemind = _exitSaveRemind_d;
             }
 
-            internal void Save(bool defaultField, XConfigManager manager)
+            internal void SaveInternal(bool defaultField, XConfigManager manager)
             {
-                XSection section = manager.Sections.Add("Messages");
+                XSection section = manager.Sections.Add("DialogMessages");
                 if (defaultField)
                 {
                     section.Properties.AddString("DocumentExistsCreateNew", _documentExistsCreateNew_d).Comment.SetValue(_documentExistsCreateNew_c);
                     section.Properties.AddString("DocumentExistsLoadNew", _documentExistsLoadNew_d).Comment.SetValue(_documentExistsLoadNew_c);
-                    section.Properties.AddString("CreateSctionTip", _createSctionTip_d).Comment.SetValue(_createSctionTip_c);
-                    section.Properties.AddString("CreateLanguageEntryTip", _createLanguageEntryTip_d).Comment.SetValue(_createLanguageEntryTip_c);
-                    section.Properties.AddString("NameEmpty", _nameEmpty_d).Comment.SetValue(_nameEmpty_c);
-                    section.Properties.AddString("KeyEmpty", _keyEmpty_d).Comment.SetValue(_keyEmpty_c);
-                    section.Properties.AddString("NameExists", _nameExists_d).Comment.SetValue(_nameExists_c);
-                    section.Properties.AddString("KeyExists", _keyExists_d).Comment.SetValue(_keyExists_c);
+                    section.Properties.AddString("SectionNameEmpty", _sectionNameEmpty_d).Comment.SetValue(_sectionNameEmpty_c);
+                    section.Properties.AddString("SectionNameDuplicate", _sectionNameDuplicate_d).Comment.SetValue(_sectionNameDuplicate_c);
+                    section.Properties.AddString("TranslationNameEmpty", _translationNameEmpty_d).Comment.SetValue(_translationNameEmpty_c);
+                    section.Properties.AddString("TranslationNameDuplicate", _translationNameDuplicate_d).Comment.SetValue(_translationNameDuplicate_c);
                     section.Properties.AddString("RemoveItem", _removeItem_d).Comment.SetValue(_removeItem_c);
                     section.Properties.AddString("SaveCodeStandard", _saveCodeStandard_d).Comment.SetValue(_saveCodeStandard_c);
                     section.Properties.AddString("SaveCodeWpf", _saveCodeWpf_d).Comment.SetValue(_saveCodeWpf_c);
                     section.Properties.AddString("SaveCodeMvvm", _saveCodeMvvm_d).Comment.SetValue(_saveCodeMvvm_c);
+                    section.Properties.AddString("ExitSaveRemind", _exitSaveRemind_d).Comment.SetValue(_exitSaveRemind_c);
                 }
                 else
                 {
                     section.Properties.AddString("DocumentExistsCreateNew", this.DocumentExistsCreateNew).Comment.SetValue(_documentExistsCreateNew_c);
                     section.Properties.AddString("DocumentExistsLoadNew", this.DocumentExistsLoadNew).Comment.SetValue(_documentExistsLoadNew_c);
-                    section.Properties.AddString("CreateSctionTip", this.CreateSctionTip).Comment.SetValue(_createSctionTip_c);
-                    section.Properties.AddString("CreateLanguageEntryTip", this.CreateLanguageEntryTip).Comment.SetValue(_createLanguageEntryTip_c);
-                    section.Properties.AddString("NameEmpty", this.NameEmpty).Comment.SetValue(_nameEmpty_c);
-                    section.Properties.AddString("KeyEmpty", this.KeyEmpty).Comment.SetValue(_keyEmpty_c);
-                    section.Properties.AddString("NameExists", this.NameExists).Comment.SetValue(_nameExists_c);
-                    section.Properties.AddString("KeyExists", this.KeyExists).Comment.SetValue(_keyExists_c);
+                    section.Properties.AddString("SectionNameEmpty", this.SectionNameEmpty).Comment.SetValue(_sectionNameEmpty_c);
+                    section.Properties.AddString("SectionNameDuplicate", this.SectionNameDuplicate).Comment.SetValue(_sectionNameDuplicate_c);
+                    section.Properties.AddString("TranslationNameEmpty", this.TranslationNameEmpty).Comment.SetValue(_translationNameEmpty_c);
+                    section.Properties.AddString("TranslationNameDuplicate", this.TranslationNameDuplicate).Comment.SetValue(_translationNameDuplicate_c);
                     section.Properties.AddString("RemoveItem", this.RemoveItem).Comment.SetValue(_removeItem_c);
                     section.Properties.AddString("SaveCodeStandard", this.SaveCodeStandard).Comment.SetValue(_saveCodeStandard_c);
                     section.Properties.AddString("SaveCodeWpf", this.SaveCodeWpf).Comment.SetValue(_saveCodeWpf_c);
                     section.Properties.AddString("SaveCodeMvvm", this.SaveCodeMvvm).Comment.SetValue(_saveCodeMvvm_c);
+                    section.Properties.AddString("ExitSaveRemind", this.ExitSaveRemind).Comment.SetValue(_exitSaveRemind_c);
+                }
+            }
+        }
+
+        /// <summary>
+        /// ToastMessages section.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
+        public sealed class __ToastMessages : INotifyPropertyChanging, INotifyPropertyChanged
+        {
+            #region Events
+
+            /// <summary>
+            /// Property changed event handler.
+            /// </summary>
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+            /// <summary>
+            /// Property changing event handler.
+            /// </summary>
+            public event PropertyChangingEventHandler? PropertyChanging;
+
+            private void OnPropertyChanged(string name)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+
+            private void OnPropertyChanging(string name)
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
+            }
+
+            #endregion Events
+
+            #region Comments
+
+            private const string _languageFileSaved_c = "Toast content.";
+
+            #endregion Comments
+
+            #region Default
+
+            private const string _languageFileSaved_d = "Language file saved.";
+
+            #endregion Default
+
+            #region Members
+
+            private string _languageFileSaved = _languageFileSaved_d;
+
+            /// <summary>
+            /// Toast content.
+            /// </summary>
+            public string LanguageFileSaved { get { return _languageFileSaved; } set { OnPropertyChanging(nameof(this.LanguageFileSaved)); _languageFileSaved = value; OnPropertyChanged(nameof(this.LanguageFileSaved)); } }
+
+            #endregion Members
+
+            internal __ToastMessages()
+            {
+            }
+
+            internal void LoadInternal(XConfigManager manager)
+            {
+                if (manager.Sections.TryGetValue("ToastMessages", out XSection section))
+                {
+                    this.LanguageFileSaved = section.Properties.GetStringValue("LanguageFileSaved", _languageFileSaved_d);
+                }
+            }
+
+            internal void ResetDefaultInternal()
+            {
+                this.LanguageFileSaved = _languageFileSaved_d;
+            }
+
+            internal void SaveInternal(bool defaultField, XConfigManager manager)
+            {
+                XSection section = manager.Sections.Add("ToastMessages");
+                if (defaultField)
+                {
+                    section.Properties.AddString("LanguageFileSaved", _languageFileSaved_d).Comment.SetValue(_languageFileSaved_c);
+                }
+                else
+                {
+                    section.Properties.AddString("LanguageFileSaved", this.LanguageFileSaved).Comment.SetValue(_languageFileSaved_c);
                 }
             }
         }

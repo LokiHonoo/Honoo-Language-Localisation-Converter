@@ -20,6 +20,7 @@ namespace HonooLanguageLocalisationConverter
                 manager.Default.Properties.AddString("WindowWidth", Settings.Instance.WindowWidth.ToString());
                 manager.Default.Properties.AddString("WindowHeight", Settings.Instance.WindowHeight.ToString());
                 manager.Default.Properties.AddString("LanguageFile", Settings.Instance.LanguageFile);
+                manager.Default.Properties.AddString("LastUpdate", Settings.Instance.LastUpdate.ToString("yyyy-MM-dd"));
                 manager.Save(_configFile);
             }
             base.OnExit(e);
@@ -35,11 +36,12 @@ namespace HonooLanguageLocalisationConverter
             {
                 using (var manager = new XConfigManager(_configFile, true))
                 {
-                    width = manager.Default.Properties.GetValue("WindowWidth", new XString(800.ToString())).GetDoubleValue();
+                    width = manager.Default.Properties.GetValue("WindowWidth", new XString(1200.ToString())).GetDoubleValue();
                     height = manager.Default.Properties.GetValue("WindowHeight", new XString(580.ToString())).GetDoubleValue();
                     languageFile = manager.Default.Properties.GetStringValue("LanguageFile", string.Empty);
+                    Settings.Instance.LastUpdate = manager.Default.Properties.GetValue("LastUpdate", new XString(DateTime.MinValue.ToString("yyyy-MM-dd"))).GetDateTimeValue();
                 }
-                if (string.IsNullOrEmpty(languageFile))
+                if (!string.IsNullOrEmpty(languageFile))
                 {
                     LanguagePackage.Instance.Load(languageFile);
                 }

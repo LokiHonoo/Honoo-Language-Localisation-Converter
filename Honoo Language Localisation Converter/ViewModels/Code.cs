@@ -12,7 +12,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("using Honoo.Configuration;");
             builder.AppendLine("using System.IO;");
             builder.AppendLine();
-            builder.AppendLine("namespace HonooLanguageLocalisationConverter");
+            builder.AppendLine("namespace HonooLanguageLocalisationConverter.ViewModels");
             builder.AppendLine("{");
             builder.AppendLine("    /// <summary>");
             builder.AppendLine($"    /// Language package class. MVVM structure for lib - CommunityToolkit.Mvvm.");
@@ -40,12 +40,12 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        public __Informartion Informartion { get; } = new __Informartion();");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
                 builder.AppendLine();
                 builder.AppendLine("        /// <summary>");
-                builder.AppendLine($"        /// {sNameU} section.");
+                builder.AppendLine($"        /// {sectionNameU} section.");
                 builder.AppendLine("        /// </summary>");
-                builder.AppendLine($"        public __{sNameU} {sNameU} {{ get; }} = new __{sNameU}();");
+                builder.AppendLine($"        public __{sectionNameU} {sectionNameU} {{ get; }} = new __{sectionNameU}();");
             }
             builder.AppendLine();
             builder.AppendLine("        #endregion Members");
@@ -66,11 +66,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(fileName, true))");
             builder.AppendLine("            {");
-            builder.AppendLine("                this.Informartion.Load(manager);");
+            builder.AppendLine("                this.Informartion.LoadInternal(manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.LoadInternal(manager);");
             }
             builder.AppendLine("            }");
             builder.AppendLine("        }");
@@ -84,11 +84,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(stream))");
             builder.AppendLine("            {");
-            builder.AppendLine("                this.Informartion.Load(manager);");
+            builder.AppendLine("                this.Informartion.LoadInternal(manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.LoadInternal(manager);");
             }
             builder.AppendLine("            }");
             builder.AppendLine("        }");
@@ -98,11 +98,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        public void ResetDefault()");
             builder.AppendLine("        {");
-            builder.AppendLine("            this.Informartion.ResetDefault();");
+            builder.AppendLine("            this.Informartion.ResetDefaultInternal();");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"            this.{sNameU}.ResetDefault();");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"            this.{sectionNameU}.ResetDefaultInternal();");
             }
             builder.AppendLine("        }");
             builder.AppendLine();
@@ -116,11 +116,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
-            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
+            builder.AppendLine($"                this.Informartion.SaveInternal(defaultField, manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.SaveInternal(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(fileName);");
             builder.AppendLine("            }");
@@ -136,11 +136,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
-            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
+            builder.AppendLine($"                this.Informartion.SaveInternal(defaultField, manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.SaveInternal(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(stream);");
             builder.AppendLine("            }");
@@ -214,7 +214,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("            {");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Load(XConfigManager manager)");
+            builder.AppendLine("            internal void LoadInternal(XConfigManager manager)");
             builder.AppendLine("            {");
             builder.AppendLine("                this.AppName = manager.Default.Properties.GetStringValue(\"AppName\", _appName_d);");
             builder.AppendLine("                this.AppVer = manager.Default.Properties.GetStringValue(\"AppVer\", _appVer_d);");
@@ -225,7 +225,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                this.Remarks = manager.Default.Properties.GetStringValue(\"Remarks\", _remarks_d);");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void ResetDefault()");
+            builder.AppendLine("            internal void ResetDefaultInternal()");
             builder.AppendLine("            {");
             builder.AppendLine("                this.AppName = _appName_d;");
             builder.AppendLine("                this.AppVer = _appVer_d;");
@@ -236,7 +236,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                this.Remarks = _remarks_d;");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
+            builder.AppendLine("            internal void SaveInternal(bool defaultField, XConfigManager manager)");
             builder.AppendLine("            {");
             builder.AppendLine("                if (defaultField)");
             builder.AppendLine("                {");
@@ -262,93 +262,93 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        }");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
                 builder.AppendLine();
                 builder.AppendLine("        /// <summary>");
-                builder.AppendLine($"        /// {sNameU} section.");
+                builder.AppendLine($"        /// {sectionNameU} section.");
                 builder.AppendLine("        /// </summary>");
                 builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE1006:Naming Styles\", Justification = \"<Pending>\")]");
-                builder.AppendLine($"        public sealed partial class __{sNameU} : ObservableObject");
+                builder.AppendLine($"        public sealed partial class __{sectionNameU} : ObservableObject");
                 builder.AppendLine("        {");
                 builder.AppendLine("            #region Comments");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private const string _{eKeyL}_c = \"{FixString(entry.Comment)}\";");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private const string _{translationNameL}_c = \"{FixString(entry.Comment)}\";");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Comments");
                 builder.AppendLine();
                 builder.AppendLine("            #region Default");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private const string _{eKeyL}_d = \"{FixString(entry.Value)}\";");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private const string _{translationNameL}_d = \"{FixString(entry.Value)}\";");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Default");
                 builder.AppendLine();
                 builder.AppendLine("            #region Members");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
                     builder.AppendLine();
                     builder.AppendLine("            /// <summary>");
                     builder.AppendLine($"            /// {entry.Comment}");
                     builder.AppendLine("            /// </summary>");
                     builder.AppendLine("            [ObservableProperty]");
-                    builder.AppendLine($"            private string _{eKeyL} = _{eKeyL}_d;");
+                    builder.AppendLine($"            private string _{translationNameL} = _{translationNameL}_d;");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Members");
                 builder.AppendLine();
-                builder.AppendLine($"            internal __{sNameU}()");
+                builder.AppendLine($"            internal __{sectionNameU}()");
                 builder.AppendLine("            {");
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Load(XConfigManager manager)");
+                builder.AppendLine("            internal void LoadInternal(XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                if (manager.Sections.TryGetValue(\"{section.Name}\", out XSection section))");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    this.{eKeyU} = section.Properties.GetStringValue(\"{entry.Key!}\", _{eKeyL}_d);");
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    this.{translationNameU} = section.Properties.GetStringValue(\"{entry.Name!}\", _{translationNameL}_d);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void ResetDefault()");
+                builder.AppendLine("            internal void ResetDefaultInternal()");
                 builder.AppendLine("            {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                this.{eKeyU} = _{eKeyL}_d;");
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                this.{translationNameU} = _{translationNameL}_d;");
                 }
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
+                builder.AppendLine("            internal void SaveInternal(bool defaultField, XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                XSection section = manager.Sections.Add(\"{section.Name}\");");
                 builder.AppendLine("                if (defaultField)");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d).Comment.SetValue(_{eKeyL}_c);");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("                else");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", this.{eKeyU}).Comment.SetValue(_{eKeyL}_c);");
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", this.{translationNameU}).Comment.SetValue(_{translationNameL}_c);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");
@@ -365,7 +365,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("using Honoo.Configuration;");
             builder.AppendLine("using System.IO;");
             builder.AppendLine();
-            builder.AppendLine("namespace HonooLanguageLocalisationConverter");
+            builder.AppendLine("namespace HonooLanguageLocalisationConverter.ViewModels");
             builder.AppendLine("{");
             builder.AppendLine("    /// <summary>");
             builder.AppendLine($"    /// Language package class. Standard class model for all app type.");
@@ -392,12 +392,12 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
                 builder.AppendLine();
                 builder.AppendLine("        /// <summary>");
-                builder.AppendLine($"        /// {sNameU} section.");
+                builder.AppendLine($"        /// {sectionNameU} section.");
                 builder.AppendLine("        /// </summary>");
-                builder.AppendLine($"        public __{sNameU} {sNameU} {{ get; }} = new __{sNameU}();");
+                builder.AppendLine($"        public __{sectionNameU} {sectionNameU} {{ get; }} = new __{sectionNameU}();");
             }
             builder.AppendLine();
             builder.AppendLine("        #endregion Members");
@@ -418,11 +418,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(fileName, true))");
             builder.AppendLine("            {");
-            builder.AppendLine("                this.Informartion.Load(manager);");
+            builder.AppendLine("                this.Informartion.LoadInternal(manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.LoadInternal(manager);");
             }
             builder.AppendLine("            }");
             builder.AppendLine("        }");
@@ -436,11 +436,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(stream))");
             builder.AppendLine("            {");
-            builder.AppendLine("                this.Informartion.Load(manager);");
+            builder.AppendLine("                this.Informartion.LoadInternal(manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.LoadInternal(manager);");
             }
             builder.AppendLine("            }");
             builder.AppendLine("        }");
@@ -450,11 +450,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        public void ResetDefault()");
             builder.AppendLine("        {");
-            builder.AppendLine("            this.Informartion.ResetDefault();");
+            builder.AppendLine("            this.Informartion.ResetDefaultInternal();");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"            this.{sNameU}.ResetDefault();");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"            this.{sectionNameU}.ResetDefaultInternal();");
             }
             builder.AppendLine("        }");
             builder.AppendLine();
@@ -468,11 +468,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
-            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
+            builder.AppendLine($"                this.Informartion.SaveInternal(defaultField, manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.SaveInternal(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(fileName);");
             builder.AppendLine("            }");
@@ -488,11 +488,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
-            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
+            builder.AppendLine($"                this.Informartion.SaveInternal(defaultField, manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.SaveInternal(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(stream);");
             builder.AppendLine("            }");
@@ -567,7 +567,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("            {");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Load(XConfigManager manager)");
+            builder.AppendLine("            internal void LoadInternal(XConfigManager manager)");
             builder.AppendLine("            {");
             builder.AppendLine("                _appName = manager.Default.Properties.GetStringValue(\"AppName\", _appName_d);");
             builder.AppendLine("                _appVer = manager.Default.Properties.GetStringValue(\"AppVer\", _appVer_d);");
@@ -578,7 +578,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                _remarks = manager.Default.Properties.GetStringValue(\"Remarks\", _remarks_d);");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void ResetDefault()");
+            builder.AppendLine("            internal void ResetDefaultInternal()");
             builder.AppendLine("            {");
             builder.AppendLine("                _appName = _appName_d;");
             builder.AppendLine("                _appVer = _appVer_d;");
@@ -589,7 +589,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                _remarks = _remarks_d;");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
+            builder.AppendLine("            internal void SaveInternal(bool defaultField, XConfigManager manager)");
             builder.AppendLine("            {");
             builder.AppendLine("                if (defaultField)");
             builder.AppendLine("                {");
@@ -615,96 +615,96 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        }");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
                 builder.AppendLine();
                 builder.AppendLine("        /// <summary>");
-                builder.AppendLine($"        /// {sNameU} section.");
+                builder.AppendLine($"        /// {sectionNameU} section.");
                 builder.AppendLine("        /// </summary>");
                 builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE1006:Naming Styles\", Justification = \"<Pending>\")]");
-                builder.AppendLine($"        public sealed class __{sNameU}");
+                builder.AppendLine($"        public sealed class __{sectionNameU}");
                 builder.AppendLine("        {");
                 builder.AppendLine("            #region Comments");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private const string _{eKeyL}_c = \"{FixString(entry.Comment)}\";");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private const string _{translationNameL}_c = \"{FixString(entry.Comment)}\";");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Comments");
                 builder.AppendLine();
                 builder.AppendLine("            #region Default");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private const string _{eKeyL}_d = \"{FixString(entry.Value)}\";");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private const string _{translationNameL}_d = \"{FixString(entry.Value)}\";");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Default");
                 builder.AppendLine();
                 builder.AppendLine("            #region Members");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private string _{eKeyL} = _{eKeyL}_d;");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private string _{translationNameL} = _{translationNameL}_d;");
                 }
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
                     builder.AppendLine();
                     builder.AppendLine("            /// <summary>");
                     builder.AppendLine($"            /// {entry.Comment}");
                     builder.AppendLine("            /// </summary>");
-                    builder.AppendLine($"            public string {eKeyU} => _{eKeyL};");
+                    builder.AppendLine($"            public string {translationNameU} => _{translationNameL};");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Members");
                 builder.AppendLine();
-                builder.AppendLine($"            internal __{sNameU}()");
+                builder.AppendLine($"            internal __{sectionNameU}()");
                 builder.AppendLine("            {");
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Load(XConfigManager manager)");
+                builder.AppendLine("            internal void LoadInternal(XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                if (manager.Sections.TryGetValue(\"{section.Name}\", out XSection section))");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    _{eKeyL} = section.Properties.GetStringValue(\"{entry.Key!}\", _{eKeyL}_d);");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    _{translationNameL} = section.Properties.GetStringValue(\"{entry.Name!}\", _{translationNameL}_d);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void ResetDefault()");
+                builder.AppendLine("            internal void ResetDefaultInternal()");
                 builder.AppendLine("            {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                _{eKeyL} = _{eKeyL}_d;");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                _{translationNameL} = _{translationNameL}_d;");
                 }
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
+                builder.AppendLine("            internal void SaveInternal(bool defaultField, XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                XSection section = manager.Sections.Add(\"{section.Name}\");");
                 builder.AppendLine("                if (defaultField)");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d).Comment.SetValue(_{eKeyL}_c);");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("                else");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}).Comment.SetValue(_{eKeyL}_c);");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}).Comment.SetValue(_{translationNameL}_c);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");
@@ -722,7 +722,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("using System.ComponentModel;");
             builder.AppendLine("using System.IO;");
             builder.AppendLine();
-            builder.AppendLine("namespace HonooLanguageLocalisationConverter");
+            builder.AppendLine("namespace HonooLanguageLocalisationConverter.ViewModels");
             builder.AppendLine("{");
             builder.AppendLine("    /// <summary>");
             builder.AppendLine($"    /// Language package class. Using in WPF basic class {(nullSign ? "[.NET 6.0+][With Project field <Nullable>enable</Nullable>]" : "[.NET Framework 4.0+]")}.");
@@ -748,12 +748,12 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        public __Informartion Informartion { get; } = new __Informartion();");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
                 builder.AppendLine();
                 builder.AppendLine("        /// <summary>");
-                builder.AppendLine($"        /// {sNameU} section.");
+                builder.AppendLine($"        /// {sectionNameU} section.");
                 builder.AppendLine("        /// </summary>");
-                builder.AppendLine($"        public __{sNameU} {sNameU} {{ get; }} = new __{sNameU}();");
+                builder.AppendLine($"        public __{sectionNameU} {sectionNameU} {{ get; }} = new __{sectionNameU}();");
             }
             builder.AppendLine();
             builder.AppendLine("        #endregion Members");
@@ -774,11 +774,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(fileName, true))");
             builder.AppendLine("            {");
-            builder.AppendLine("                this.Informartion.Load(manager);");
+            builder.AppendLine("                this.Informartion.LoadInternal(manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.LoadInternal(manager);");
             }
             builder.AppendLine("            }");
             builder.AppendLine("        }");
@@ -792,11 +792,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager(stream))");
             builder.AppendLine("            {");
-            builder.AppendLine("                this.Informartion.Load(manager);");
+            builder.AppendLine("                this.Informartion.LoadInternal(manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Load(manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.LoadInternal(manager);");
             }
             builder.AppendLine("            }");
             builder.AppendLine("        }");
@@ -806,11 +806,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        /// </summary>");
             builder.AppendLine("        public void ResetDefault()");
             builder.AppendLine("        {");
-            builder.AppendLine("            this.Informartion.ResetDefault();");
+            builder.AppendLine("            this.Informartion.ResetDefaultInternal();");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"            this.{sNameU}.ResetDefault();");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"            this.{sectionNameU}.ResetDefaultInternal();");
             }
             builder.AppendLine("        }");
             builder.AppendLine();
@@ -824,11 +824,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
-            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
+            builder.AppendLine($"                this.Informartion.SaveInternal(defaultField, manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.SaveInternal(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(fileName);");
             builder.AppendLine("            }");
@@ -844,11 +844,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            using (var manager = new XConfigManager())");
             builder.AppendLine("            {");
-            builder.AppendLine($"                this.Informartion.Save(defaultField, manager);");
+            builder.AppendLine($"                this.Informartion.SaveInternal(defaultField, manager);");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
-                builder.AppendLine($"                this.{sNameU}.Save(defaultField, manager);");
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                builder.AppendLine($"                this.{sectionNameU}.SaveInternal(defaultField, manager);");
             }
             builder.AppendLine("                manager.Save(stream);");
             builder.AppendLine("            }");
@@ -947,7 +947,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("            {");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Load(XConfigManager manager)");
+            builder.AppendLine("            internal void LoadInternal(XConfigManager manager)");
             builder.AppendLine("            {");
             builder.AppendLine("                this.AppName = manager.Default.Properties.GetStringValue(\"AppName\", _appName_d);");
             builder.AppendLine("                this.AppVer = manager.Default.Properties.GetStringValue(\"AppVer\", _appVer_d);");
@@ -958,7 +958,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                this.Remarks = manager.Default.Properties.GetStringValue(\"Remarks\", _remarks_d);");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void ResetDefault()");
+            builder.AppendLine("            internal void ResetDefaultInternal()");
             builder.AppendLine("            {");
             builder.AppendLine("                this.AppName = _appName_d;");
             builder.AppendLine("                this.AppVer = _appVer_d;");
@@ -969,7 +969,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("                this.Remarks = _remarks_d;");
             builder.AppendLine("            }");
             builder.AppendLine();
-            builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
+            builder.AppendLine("            internal void SaveInternal(bool defaultField, XConfigManager manager)");
             builder.AppendLine("            {");
             builder.AppendLine("                if (defaultField)");
             builder.AppendLine("                {");
@@ -995,13 +995,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        }");
             foreach (var section in sections)
             {
-                string sNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
+                string sectionNameU = char.ToUpperInvariant(section.Name![0]) + section.Name![1..];
                 builder.AppendLine();
                 builder.AppendLine("        /// <summary>");
-                builder.AppendLine($"        /// {sNameU} section.");
+                builder.AppendLine($"        /// {sectionNameU} section.");
                 builder.AppendLine("        /// </summary>");
                 builder.AppendLine("        [System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE1006:Naming Styles\", Justification = \"<Pending>\")]");
-                builder.AppendLine($"        public sealed class __{sNameU} : INotifyPropertyChanging, INotifyPropertyChanged");
+                builder.AppendLine($"        public sealed class __{sectionNameU} : INotifyPropertyChanging, INotifyPropertyChanged");
                 builder.AppendLine("        {");
                 builder.AppendLine("            #region Events");
                 builder.AppendLine();
@@ -1029,89 +1029,89 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 builder.AppendLine();
                 builder.AppendLine("            #region Comments");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private const string _{eKeyL}_c = \"{FixString(entry.Comment)}\";");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private const string _{translationNameL}_c = \"{FixString(entry.Comment)}\";");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Comments");
                 builder.AppendLine();
                 builder.AppendLine("            #region Default");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private const string _{eKeyL}_d = \"{FixString(entry.Value)}\";");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private const string _{translationNameL}_d = \"{FixString(entry.Value)}\";");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Default");
                 builder.AppendLine();
                 builder.AppendLine("            #region Members");
                 builder.AppendLine();
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"            private string _{eKeyL} = _{eKeyL}_d;");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"            private string _{translationNameL} = _{translationNameL}_d;");
                 }
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
                     builder.AppendLine();
                     builder.AppendLine("            /// <summary>");
                     builder.AppendLine($"            /// {entry.Comment}");
                     builder.AppendLine("            /// </summary>");
-                    builder.AppendLine($"            public string {eKeyU} {{ get {{ return _{eKeyL}; }} set {{ OnPropertyChanging(nameof(this.{eKeyU})); _{eKeyL} = value; OnPropertyChanged(nameof(this.{eKeyU})); }} }}");
+                    builder.AppendLine($"            public string {translationNameU} {{ get {{ return _{translationNameL}; }} set {{ OnPropertyChanging(nameof(this.{translationNameU})); _{translationNameL} = value; OnPropertyChanged(nameof(this.{translationNameU})); }} }}");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Members");
                 builder.AppendLine();
-                builder.AppendLine($"            internal __{sNameU}()");
+                builder.AppendLine($"            internal __{sectionNameU}()");
                 builder.AppendLine("            {");
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Load(XConfigManager manager)");
+                builder.AppendLine("            internal void LoadInternal(XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                if (manager.Sections.TryGetValue(\"{section.Name}\", out XSection section))");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    this.{eKeyU} = section.Properties.GetStringValue(\"{entry.Key!}\", _{eKeyL}_d);");
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    this.{translationNameU} = section.Properties.GetStringValue(\"{entry.Name!}\", _{translationNameL}_d);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void ResetDefault()");
+                builder.AppendLine("            internal void ResetDefaultInternal()");
                 builder.AppendLine("            {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                this.{eKeyU} = _{eKeyL}_d;");
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                this.{translationNameU} = _{translationNameL}_d;");
                 }
                 builder.AppendLine("            }");
                 builder.AppendLine();
-                builder.AppendLine("            internal void Save(bool defaultField, XConfigManager manager)");
+                builder.AppendLine("            internal void SaveInternal(bool defaultField, XConfigManager manager)");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                XSection section = manager.Sections.Add(\"{section.Name}\");");
                 builder.AppendLine("                if (defaultField)");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", _{eKeyL}_d).Comment.SetValue(_{eKeyL}_c);");
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("                else");
                 builder.AppendLine("                {");
-                foreach (var entry in section.LanguageEntries)
+                foreach (var entry in section.TranslationEntries)
                 {
-                    string eKeyU = char.ToUpperInvariant(entry.Key![0]) + entry.Key![1..];
-                    string eKeyL = char.ToLowerInvariant(entry.Key![0]) + entry.Key![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Key!}\", this.{eKeyU}).Comment.SetValue(_{eKeyL}_c);");
+                    string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
+                    string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", this.{translationNameU}).Comment.SetValue(_{translationNameL}_c);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");

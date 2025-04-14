@@ -5,7 +5,7 @@
   - [SCREENSHOTS](#screenshots)
   - [EXAMPLES](#examples)
   - [CHANGELOG](#changelog)
-    - [1.0.1](#101)
+    - [1.0.3](#103)
   - [LICENSE](#license)
 
 ## INTRODUCTION
@@ -23,14 +23,14 @@ Language file creator. Create xml file from template. And create C# code file to
 ```xaml
 
 <MenuItem Header="{Binding Menu.File, Source={x:Static vm:LanguagePackage.Instance}}">
-    <MenuItem Command="{Binding CreateCommand}" Header="{Binding Menu.CreateTemplate, Source={x:Static vm:LanguagePackage.Instance}}" />
+    <MenuItem Command="{Binding CreateNewCommand}" Header="{Binding Menu.CreateNew, Source={x:Static vm:LanguagePackage.Instance}}" />
 </MenuItem>
 
 ```
 
 ## CHANGELOG
 
-### 1.0.1
+### 1.0.3
 
 **Features* Published.
 

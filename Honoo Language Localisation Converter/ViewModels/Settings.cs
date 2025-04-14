@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 
 namespace HonooLanguageLocalisationConverter.ViewModels
 {
@@ -27,6 +28,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         [ObservableProperty]
         private double _windowWidth;
 
+        public DateTime LastUpdate { get; set; }
         #endregion Members
     }
 }
