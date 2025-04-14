@@ -19,7 +19,7 @@
     WindowStartupLocation="Manual"
     mc:Ignorable="d">
     <hui:Window.DataContext>
-        <vm:MainWindowViewModel />
+        <vm:MainWindowViewModel x:Name="VM"/>
     </hui:Window.DataContext>
     <hui:Window.CaptionBar>
         <DockPanel LastChildFill="False">

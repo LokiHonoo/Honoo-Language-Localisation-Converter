@@ -129,7 +129,16 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         foreach (var item in this.CurrentSection.LanguageEntries)
                         {
                             string key = textBox.Text.Trim();
-                            if (item.Key == key)
+                            if (string.IsNullOrWhiteSpace(key))
+                            {
+                                DialogManager.Default.Show(string.Format(LanguagePackage.Instance.Messages.KeyEmpty, key),
+                                    string.Empty,
+                                    DialogButtons.OK,
+                                    DialogCloseButton.Ordinary,
+                                    DialogImage.Error);
+                                return false;
+                            }
+                            else if (item.Key == key)
                             {
                                 DialogManager.Default.Show(string.Format(LanguagePackage.Instance.Messages.KeyExists, key),
                                     string.Empty,
@@ -181,7 +190,16 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         foreach (var item in this.Sections)
                         {
                             string name = textBox.Text.Trim();
-                            if (item.Name == name)
+                            if (string.IsNullOrWhiteSpace(name))
+                            {
+                                DialogManager.Default.Show(string.Format(LanguagePackage.Instance.Messages.NameEmpty, name),
+                                    string.Empty,
+                                    DialogButtons.OK,
+                                    DialogCloseButton.Ordinary,
+                                    DialogImage.Error);
+                                return false;
+                            }
+                            else if (item.Name == name)
                             {
                                 DialogManager.Default.Show(string.Format(LanguagePackage.Instance.Messages.NameExists, name),
                                     string.Empty,
@@ -266,6 +284,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             section3.LanguageEntries.Add(new LanguageEntry("DocumentExistsLoadNew", "Document loaded already. Load new document?", "Dialog content."));
             section3.LanguageEntries.Add(new LanguageEntry("CreateSctionTip", "Input Section name.\r\nThe string using by code member name.\r\nSpaces and special characters cannot be used.", "Dialog content."));
             section3.LanguageEntries.Add(new LanguageEntry("CreateLanguageEntryTip", "Input language entry name.\r\nThe string using by code member name.\r\nSpaces and special characters cannot be used.", "Dialog content."));
+            section3.LanguageEntries.Add(new LanguageEntry("NameEmpty", "Name can't be empty.", "Dialog content."));
+            section3.LanguageEntries.Add(new LanguageEntry("KeyEmpty", "Key can't be empty.", "Dialog content."));
             section3.LanguageEntries.Add(new LanguageEntry("NameExists", "Name \"{0}\" exists.", "Dialog content set custom field {0}."));
             section3.LanguageEntries.Add(new LanguageEntry("KeyExists", "Key \"{0}\" exists.", "Dialog content set custom field {0}."));
             section3.LanguageEntries.Add(new LanguageEntry("RemoveItem", "Remove \"{0}\" ?", "Dialog content set custom field {0}."));

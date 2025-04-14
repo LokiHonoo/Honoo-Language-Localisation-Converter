@@ -618,6 +618,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _documentExistsLoadNew_c = "Dialog content.";
             private const string _createSctionTip_c = "Dialog content.";
             private const string _createLanguageEntryTip_c = "Dialog content.";
+            private const string _nameEmpty_c = "Dialog content.";
+            private const string _keyEmpty_c = "Dialog content.";
             private const string _nameExists_c = "Dialog content set custom field {0}.";
             private const string _keyExists_c = "Dialog content set custom field {0}.";
             private const string _removeItem_c = "Dialog content set custom field {0}.";
@@ -633,6 +635,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _documentExistsLoadNew_d = "Document loaded already. Load new document?";
             private const string _createSctionTip_d = "Input Section name.\r\nThe string using by code member name.\r\nSpaces and special characters cannot be used.";
             private const string _createLanguageEntryTip_d = "Input language entry name.\r\nThe string using by code member name.\r\nSpaces and special characters cannot be used.";
+            private const string _nameEmpty_d = "Name can't be empty.";
+            private const string _keyEmpty_d = "Key can't be empty.";
             private const string _nameExists_d = "Name \"{0}\" exists.";
             private const string _keyExists_d = "Key \"{0}\" exists.";
             private const string _removeItem_d = "Remove \"{0}\" ?";
@@ -648,6 +652,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _documentExistsLoadNew = _documentExistsLoadNew_d;
             private string _createSctionTip = _createSctionTip_d;
             private string _createLanguageEntryTip = _createLanguageEntryTip_d;
+            private string _nameEmpty = _nameEmpty_d;
+            private string _keyEmpty = _keyEmpty_d;
             private string _nameExists = _nameExists_d;
             private string _keyExists = _keyExists_d;
             private string _removeItem = _removeItem_d;
@@ -674,6 +680,16 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             /// Dialog content.
             /// </summary>
             public string CreateLanguageEntryTip { get { return _createLanguageEntryTip; } set { OnPropertyChanging(nameof(this.CreateLanguageEntryTip)); _createLanguageEntryTip = value; OnPropertyChanged(nameof(this.CreateLanguageEntryTip)); } }
+
+            /// <summary>
+            /// Dialog content.
+            /// </summary>
+            public string NameEmpty { get { return _nameEmpty; } set { OnPropertyChanging(nameof(this.NameEmpty)); _nameEmpty = value; OnPropertyChanged(nameof(this.NameEmpty)); } }
+
+            /// <summary>
+            /// Dialog content.
+            /// </summary>
+            public string KeyEmpty { get { return _keyEmpty; } set { OnPropertyChanging(nameof(this.KeyEmpty)); _keyEmpty = value; OnPropertyChanged(nameof(this.KeyEmpty)); } }
 
             /// <summary>
             /// Dialog content set custom field {0}.
@@ -719,6 +735,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     this.DocumentExistsLoadNew = section.Properties.GetStringValue("DocumentExistsLoadNew", _documentExistsLoadNew_d);
                     this.CreateSctionTip = section.Properties.GetStringValue("CreateSctionTip", _createSctionTip_d);
                     this.CreateLanguageEntryTip = section.Properties.GetStringValue("CreateLanguageEntryTip", _createLanguageEntryTip_d);
+                    this.NameEmpty = section.Properties.GetStringValue("NameEmpty", _nameEmpty_d);
+                    this.KeyEmpty = section.Properties.GetStringValue("KeyEmpty", _keyEmpty_d);
                     this.NameExists = section.Properties.GetStringValue("NameExists", _nameExists_d);
                     this.KeyExists = section.Properties.GetStringValue("KeyExists", _keyExists_d);
                     this.RemoveItem = section.Properties.GetStringValue("RemoveItem", _removeItem_d);
@@ -734,6 +752,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.DocumentExistsLoadNew = _documentExistsLoadNew_d;
                 this.CreateSctionTip = _createSctionTip_d;
                 this.CreateLanguageEntryTip = _createLanguageEntryTip_d;
+                this.NameEmpty = _nameEmpty_d;
+                this.KeyEmpty = _keyEmpty_d;
                 this.NameExists = _nameExists_d;
                 this.KeyExists = _keyExists_d;
                 this.RemoveItem = _removeItem_d;
@@ -751,6 +771,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("DocumentExistsLoadNew", _documentExistsLoadNew_d).Comment.SetValue(_documentExistsLoadNew_c);
                     section.Properties.AddString("CreateSctionTip", _createSctionTip_d).Comment.SetValue(_createSctionTip_c);
                     section.Properties.AddString("CreateLanguageEntryTip", _createLanguageEntryTip_d).Comment.SetValue(_createLanguageEntryTip_c);
+                    section.Properties.AddString("NameEmpty", _nameEmpty_d).Comment.SetValue(_nameEmpty_c);
+                    section.Properties.AddString("KeyEmpty", _keyEmpty_d).Comment.SetValue(_keyEmpty_c);
                     section.Properties.AddString("NameExists", _nameExists_d).Comment.SetValue(_nameExists_c);
                     section.Properties.AddString("KeyExists", _keyExists_d).Comment.SetValue(_keyExists_c);
                     section.Properties.AddString("RemoveItem", _removeItem_d).Comment.SetValue(_removeItem_c);
@@ -764,6 +786,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("DocumentExistsLoadNew", this.DocumentExistsLoadNew).Comment.SetValue(_documentExistsLoadNew_c);
                     section.Properties.AddString("CreateSctionTip", this.CreateSctionTip).Comment.SetValue(_createSctionTip_c);
                     section.Properties.AddString("CreateLanguageEntryTip", this.CreateLanguageEntryTip).Comment.SetValue(_createLanguageEntryTip_c);
+                    section.Properties.AddString("NameEmpty", this.NameEmpty).Comment.SetValue(_nameEmpty_c);
+                    section.Properties.AddString("KeyEmpty", this.KeyEmpty).Comment.SetValue(_keyEmpty_c);
                     section.Properties.AddString("NameExists", this.NameExists).Comment.SetValue(_nameExists_c);
                     section.Properties.AddString("KeyExists", this.KeyExists).Comment.SetValue(_keyExists_c);
                     section.Properties.AddString("RemoveItem", this.RemoveItem).Comment.SetValue(_removeItem_c);
