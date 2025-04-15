@@ -15,8 +15,8 @@
     Background="{DynamicResource PrimaryBackgroundBrush}"
     FontSize="{DynamicResource PrimaryFontSize}"
     Foreground="{DynamicResource PrimaryForegroundBrush}"
-    Left="{Binding WindowLeft, Source={x:Static vm:Settings.Instance}, Mode=OneWay}"
-    Top="{Binding WindowTop, Source={x:Static vm:Settings.Instance}, Mode=TwoWay}"
+    Left="{Binding WindowLeft, Source={x:Static vm:Settings.Instance}, Mode=OneTime}"
+    Top="{Binding WindowTop, Source={x:Static vm:Settings.Instance}, Mode=OneTime}"
     WindowStartupLocation="Manual"
     mc:Ignorable="d">
     <b:Interaction.Triggers>

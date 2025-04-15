@@ -153,17 +153,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         private void AddSectionCommandExecute()
         {
+            _manualAdd = true;
             this.Sections.Insert(0, new SectionEntry("Section" + _counter++));
             this.CurrentSection = this.Sections[0];
-            _manualAdd = true;
         }
 
         private void AddTranslationCommandExecute()
         {
             if (this.CurrentSection != null)
             {
-                this.CurrentSection.TranslationEntries.Insert(0, new TranslationEntry("Translation" + _counter++, string.Empty, "The \"Name\" string using by code member name. Spaces and special characters cannot be used."));
                 _manualAdd = true;
+                this.CurrentSection.TranslationEntries.Insert(0, new TranslationEntry("Translation" + _counter++, string.Empty, "The \"Name\" string using by code member name. Spaces and special characters cannot be used."));
             }
         }
 

@@ -30,34 +30,36 @@ namespace HonooLanguageLocalisationConverter
         {
             base.OnStartup(e);
             string languageFile = string.Empty;
-            double width = 800;
+            double width = 1200;
             double height = 580;
             try
             {
-                using (var manager = new XConfigManager(_configFile, true))
-                {
-                    width = manager.Default.Properties.GetValue("WindowWidth", new XString(1200.ToString())).GetDoubleValue();
-                    height = manager.Default.Properties.GetValue("WindowHeight", new XString(580.ToString())).GetDoubleValue();
-                    languageFile = manager.Default.Properties.GetStringValue("LanguageFile", string.Empty);
-                    Settings.Instance.LastUpdate = manager.Default.Properties.GetValue("LastUpdate", new XString(DateTime.MinValue.ToString("yyyy-MM-dd"))).GetDateTimeValue();
-                }
-                if (!string.IsNullOrEmpty(languageFile))
-                {
-                    LanguagePackage.Instance.Load(languageFile);
-                }
+                using var manager = new XConfigManager(_configFile, true);
+                width = manager.Default.Properties.GetValue("WindowWidth", new XString(1200.ToString())).GetDoubleValue();
+                height = manager.Default.Properties.GetValue("WindowHeight", new XString(580.ToString())).GetDoubleValue();
+                languageFile = manager.Default.Properties.GetStringValue("LanguageFile", string.Empty);
+                Settings.Instance.LastUpdate = manager.Default.Properties.GetValue("LastUpdate", new XString(DateTime.MinValue.ToString("yyyy-MM-dd"))).GetDateTimeValue();
             }
             catch
             {
-                LanguagePackage.Instance.ResetDefault();
+            }
+            if (!string.IsNullOrEmpty(languageFile))
+            {
+                try
+                {
+                    LanguagePackage.Instance.Load(languageFile);
+                }
+                catch
+                {
+                    LanguagePackage.Instance.ResetDefault();
+                }
             }
             Size area = SystemParameters.WorkArea.Size;
-            var mainWindow = new MainWindow() { Width = width, Height = height };
             Settings.Instance.WindowWidth = width;
             Settings.Instance.WindowHeight = height;
             Settings.Instance.WindowLeft = (area.Width - width) / 2;
             Settings.Instance.WindowTop = (area.Height - height) / 2;
             Settings.Instance.LanguageFile = languageFile;
-            mainWindow.Show();
         }
     }
 }
