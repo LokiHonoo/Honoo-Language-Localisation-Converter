@@ -545,9 +545,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                                 {
                                     string code = radioButtonTray.SelectIndex switch
                                     {
-                                        3 => Code.CreateBindingNotifyCommunityToolkit(this.Informartion, this.Sections),
-                                        2 => Code.CreateBindingNotifyBasic(this.Informartion, this.Sections, true),
-                                        1 => Code.CreateBindingNotifyBasic(this.Informartion, this.Sections, false),
+                                        3 => Code.CreateCommunityToolkit(this.Informartion, this.Sections),
+                                        2 => Code.CreateNotifyBasic(this.Informartion, this.Sections, true),
+                                        1 => Code.CreateNotifyBasic(this.Informartion, this.Sections, false),
                                         _ => Code.CreateStandard(this.Informartion, this.Sections),
                                     };
                                     File.WriteAllText(dig.FileName, code, new UTF8Encoding(false));
