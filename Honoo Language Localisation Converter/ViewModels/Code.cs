@@ -5,7 +5,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 {
     internal static class Code
     {
-        internal static string CreateMvvm(string? appName, string? appVer, string? langName, string? langVer, string? author, string? url, string? remarks, IList<SectionEntry> sections, bool nullSign)
+        internal static string CreateBindingNotifyBasic(InformationEntry information, IList<SectionEntry> sections, bool nullSign)
         {
             var builder = new StringBuilder();
             builder.AppendLine("using Honoo.Configuration;");
@@ -176,13 +176,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine();
             builder.AppendLine("            #region Default");
             builder.AppendLine();
-            builder.AppendLine($"            private const string _appName_d = \"{FixString(appName)}\";");
-            builder.AppendLine($"            private const string _appVer_d = \"{FixString(appVer)}\";");
-            builder.AppendLine($"            private const string _author_d = \"{FixString(author)}\";");
-            builder.AppendLine($"            private const string _langName_d = \"{FixString(langName)}\";");
-            builder.AppendLine($"            private const string _langVer_d = \"{FixString(langVer)}\";");
-            builder.AppendLine($"            private const string _remarks_d = \"{FixString(remarks)}\";");
-            builder.AppendLine($"            private const string _url_d = \"{FixString(url)}\";");
+            builder.AppendLine($"            private const string _appName_d = \"{FixString(information.AppName)}\";");
+            builder.AppendLine($"            private const string _appVer_d = \"{FixString(information.AppVer)}\";");
+            builder.AppendLine($"            private const string _author_d = \"{FixString(information.Author)}\";");
+            builder.AppendLine($"            private const string _langName_d = \"{FixString(information.LangName)}\";");
+            builder.AppendLine($"            private const string _langVer_d = \"{FixString(information.LangVer)}\";");
+            builder.AppendLine($"            private const string _remarks_d = \"{FixString(information.Remarks)}\";");
+            builder.AppendLine($"            private const string _url_d = \"{FixString(information.Url)}\";");
             builder.AppendLine();
             builder.AppendLine("            #endregion Default");
             builder.AppendLine();
@@ -412,7 +412,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             return builder.ToString();
         }
 
-        internal static string CreateMvvmCommunityToolkit(string? appName, string? appVer, string? langName, string? langVer, string? author, string? url, string? remarks, IList<SectionEntry> sections)
+        internal static string CreateBindingNotifyCommunityToolkit(InformationEntry information, IList<SectionEntry> sections)
         {
             var builder = new StringBuilder();
             builder.AppendLine("using CommunityToolkit.Mvvm.ComponentModel;");
@@ -561,13 +561,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            #region Default");
             builder.AppendLine();
-            builder.AppendLine($"            private const string _appName_d = \"{FixString(appName)}\";");
-            builder.AppendLine($"            private const string _appVer_d = \"{FixString(appVer)}\";");
-            builder.AppendLine($"            private const string _author_d = \"{FixString(author)}\";");
-            builder.AppendLine($"            private const string _langName_d = \"{FixString(langName)}\";");
-            builder.AppendLine($"            private const string _langVer_d = \"{FixString(langVer)}\";");
-            builder.AppendLine($"            private const string _remarks_d = \"{FixString(remarks)}\";");
-            builder.AppendLine($"            private const string _url_d = \"{FixString(url)}\";");
+            builder.AppendLine($"            private const string _appName_d = \"{FixString(information.AppName)}\";");
+            builder.AppendLine($"            private const string _appVer_d = \"{FixString(information.AppVer)}\";");
+            builder.AppendLine($"            private const string _author_d = \"{FixString(information.Author)}\";");
+            builder.AppendLine($"            private const string _langName_d = \"{FixString(information.LangName)}\";");
+            builder.AppendLine($"            private const string _langVer_d = \"{FixString(information.LangVer)}\";");
+            builder.AppendLine($"            private const string _remarks_d = \"{FixString(information.Remarks)}\";");
+            builder.AppendLine($"            private const string _url_d = \"{FixString(information.Url)}\";");
             builder.AppendLine();
             builder.AppendLine("            #endregion Default");
             builder.AppendLine();
@@ -766,7 +766,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             return builder.ToString();
         }
 
-        internal static string CreateStandard(string? appName, string? appVer, string? langName, string? langVer, string? author, string? url, string? remarks, IList<SectionEntry> sections)
+        internal static string CreateStandard(InformationEntry information, IList<SectionEntry> sections)
         {
             var builder = new StringBuilder();
             builder.AppendLine("using Honoo.Configuration;");
@@ -913,13 +913,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("        {");
             builder.AppendLine("            #region Default");
             builder.AppendLine();
-            builder.AppendLine($"            private const string _appName_d = \"{FixString(appName)}\";");
-            builder.AppendLine($"            private const string _appVer_d = \"{FixString(appVer)}\";");
-            builder.AppendLine($"            private const string _author_d = \"{FixString(author)}\";");
-            builder.AppendLine($"            private const string _langName_d = \"{FixString(langName)}\";");
-            builder.AppendLine($"            private const string _langVer_d = \"{FixString(langVer)}\";");
-            builder.AppendLine($"            private const string _remarks_d = \"{FixString(remarks)}\";");
-            builder.AppendLine($"            private const string _url_d = \"{FixString(url)}\";");
+            builder.AppendLine($"            private const string _appName_d = \"{FixString(information.AppName)}\";");
+            builder.AppendLine($"            private const string _appVer_d = \"{FixString(information.AppVer)}\";");
+            builder.AppendLine($"            private const string _author_d = \"{FixString(information.Author)}\";");
+            builder.AppendLine($"            private const string _langName_d = \"{FixString(information.LangName)}\";");
+            builder.AppendLine($"            private const string _langVer_d = \"{FixString(information.LangVer)}\";");
+            builder.AppendLine($"            private const string _remarks_d = \"{FixString(information.Remarks)}\";");
+            builder.AppendLine($"            private const string _url_d = \"{FixString(information.Url)}\";");
             builder.AppendLine();
             builder.AppendLine("            #endregion Default");
             builder.AppendLine();
@@ -936,37 +936,37 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Application name.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public string AppName => _appName;");
+            builder.AppendLine("            public string AppName { get { return _appName; } set { _appName = value; } }");
             builder.AppendLine();
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Application version.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public string AppVer => _appVer;");
+            builder.AppendLine("            public string AppVer { get { return _appVer; } set { _appVer = value; } }");
             builder.AppendLine();
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Author name.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public string Author => _author;");
+            builder.AppendLine("            public string Author { get { return _author; } set { _author = value; } }");
             builder.AppendLine();
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Language name as \"en-US\".");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public string LangName => _langName;");
+            builder.AppendLine("            public string LangName { get { return _langName; } set { _langName = value; } }");
             builder.AppendLine();
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Language file version.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public string LangVer => _langVer;");
+            builder.AppendLine("            public string LangVer { get { return _langVer; } set { _langVer = value; } }");
             builder.AppendLine();
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Remarks.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public string Remarks => _remarks;");
+            builder.AppendLine("            public string Remarks { get { return _remarks; } set { _remarks = value; } }");
             builder.AppendLine();
             builder.AppendLine("            /// <summary>");
             builder.AppendLine("            /// Author / file related url.");
             builder.AppendLine("            /// </summary>");
-            builder.AppendLine("            public string Url => _url;");
+            builder.AppendLine("            public string Url { get { return _url; } set { _url = value; } }");
             builder.AppendLine();
             builder.AppendLine("            #endregion Members");
             builder.AppendLine();
@@ -1065,7 +1065,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     builder.AppendLine("            /// <summary>");
                     builder.AppendLine($"            /// {entry.Comment}");
                     builder.AppendLine("            /// </summary>");
-                    builder.AppendLine($"            public string {translationNameU} => _{translationNameL};");
+                    builder.AppendLine($"            public string {translationNameU} {{ get {{ return _{translationNameL}; }} set {{ _{translationNameL} = value; }} }}");
                 }
                 builder.AppendLine();
                 builder.AppendLine("            #endregion Members");

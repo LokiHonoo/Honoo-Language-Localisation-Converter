@@ -12,27 +12,28 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         [ObservableProperty]
         public string _name;
 
-        private readonly MainWindowViewModel _mainWindowViewModel;
+        [ObservableProperty]
+        private bool _modified;
+
         public ObservableCollection<TranslationEntry> TranslationEntries { get; } = [];
 
         #endregion Members
 
-        public SectionEntry(string name, MainWindowViewModel mainWindowViewModel)
+        public SectionEntry(string name)
         {
             this.Name = name;
-            _mainWindowViewModel = mainWindowViewModel;
             this.TranslationEntries.CollectionChanged += TranslationEntriesChanged;
             this.PropertyChanged += OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            _mainWindowViewModel.Modified = true;
+            General.Instance.DocumentModified = true;
         }
 
         private void TranslationEntriesChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            _mainWindowViewModel.Modified = true;
+            General.Instance.DocumentModified = true;
         }
     }
 }

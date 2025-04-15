@@ -7,8 +7,6 @@ namespace HonooLanguageLocalisationConverter.ViewModels
     {
         #region Members
 
-        private readonly MainWindowViewModel _mainWindowViewModel;
-
         [ObservableProperty]
         private string _comment;
 
@@ -18,20 +16,22 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         [ObservableProperty]
         private string _value;
 
+        [ObservableProperty]
+        private bool _modified;
+
         #endregion Members
 
-        public TranslationEntry(string key, string value, string comment, MainWindowViewModel mainWindowViewModel)
+        public TranslationEntry(string key, string value, string comment)
         {
             this.Name = key;
             this.Value = value;
             this.Comment = comment;
-            _mainWindowViewModel = mainWindowViewModel;
             this.PropertyChanged += OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            _mainWindowViewModel.Modified = true;
+            General.Instance.DocumentModified = true;
         }
     }
 }

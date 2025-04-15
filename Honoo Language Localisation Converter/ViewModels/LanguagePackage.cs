@@ -176,7 +176,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _appVer_d = "1.0.0";
             private const string _author_d = "HLLC";
             private const string _langName_d = "en-US";
-            private const string _langVer_d = "1.0.0";
+            private const string _langVer_d = "00";
             private const string _remarks_d = "";
             private const string _url_d = "https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter";
 
@@ -328,7 +328,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _exit_c = "Exit app.";
             private const string _options_c = "Menu button, Top item.";
             private const string _help_c = "Menu button, Top item.";
-            private const string _homePage_c = "Menu button, Navigate to project url.";
+            private const string _website_c = "Menu button, Navigate to project url.";
             private const string _about_c = "Menu button, Show dialog for app information.";
 
             #endregion Comments
@@ -344,7 +344,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _exit_d = "E_xit";
             private const string _options_d = "_Options";
             private const string _help_d = "_Help";
-            private const string _homePage_d = "_HomePage";
+            private const string _website_d = "_Website";
             private const string _about_d = "_About";
 
             #endregion Default
@@ -360,7 +360,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _exit = _exit_d;
             private string _options = _options_d;
             private string _help = _help_d;
-            private string _homePage = _homePage_d;
+            private string _website = _website_d;
             private string _about = _about_d;
 
             /// <summary>
@@ -420,8 +420,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             /// <summary>
             /// Menu button, Navigate to project url.
             /// </summary>
-            public string HomePage
-            { get { return _homePage; } set { OnPropertyChanging(nameof(this.HomePage)); _homePage = value; OnPropertyChanged(nameof(this.HomePage)); } }
+            public string Website
+            { get { return _website; } set { OnPropertyChanging(nameof(this.Website)); _website = value; OnPropertyChanged(nameof(this.Website)); } }
 
             /// <summary>
             /// Menu button, Show dialog for app information.
@@ -448,7 +448,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     this.Exit = section.Properties.GetStringValue("Exit", _exit_d);
                     this.Options = section.Properties.GetStringValue("Options", _options_d);
                     this.Help = section.Properties.GetStringValue("Help", _help_d);
-                    this.HomePage = section.Properties.GetStringValue("HomePage", _homePage_d);
+                    this.Website = section.Properties.GetStringValue("Website", _website_d);
                     this.About = section.Properties.GetStringValue("About", _about_d);
                 }
             }
@@ -464,7 +464,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.Exit = _exit_d;
                 this.Options = _options_d;
                 this.Help = _help_d;
-                this.HomePage = _homePage_d;
+                this.Website = _website_d;
                 this.About = _about_d;
             }
 
@@ -482,7 +482,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("Exit", _exit_d).Comment.SetValue(_exit_c);
                     section.Properties.AddString("Options", _options_d).Comment.SetValue(_options_c);
                     section.Properties.AddString("Help", _help_d).Comment.SetValue(_help_c);
-                    section.Properties.AddString("HomePage", _homePage_d).Comment.SetValue(_homePage_c);
+                    section.Properties.AddString("Website", _website_d).Comment.SetValue(_website_c);
                     section.Properties.AddString("About", _about_d).Comment.SetValue(_about_c);
                 }
                 else
@@ -496,7 +496,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("Exit", this.Exit).Comment.SetValue(_exit_c);
                     section.Properties.AddString("Options", this.Options).Comment.SetValue(_options_c);
                     section.Properties.AddString("Help", this.Help).Comment.SetValue(_help_c);
-                    section.Properties.AddString("HomePage", this.HomePage).Comment.SetValue(_homePage_c);
+                    section.Properties.AddString("Website", this.Website).Comment.SetValue(_website_c);
                     section.Properties.AddString("About", this.About).Comment.SetValue(_about_c);
                 }
             }
@@ -692,8 +692,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _translationNameDuplicate_c = "Dialog content set field {0}=Section Name,{1}=Translation Name.";
             private const string _removeItem_c = "Dialog content set custom field {0}=Remove Name.";
             private const string _saveCodeStandard_c = "Dialog content.";
-            private const string _saveCodeMvvm_c = "Dialog content. INotifyPropertyChanging, INotifyPropertyChanged implemented.";
-            private const string _saveCodeMvvmCommunityToolkit_c = "Dialog content. CommunityToolkit.Mvvm style.";
+            private const string _saveCodeNotifyBasic_c = "Dialog content. INotifyPropertyChanging, INotifyPropertyChanged implemented.";
+            private const string _saveCodeCommunityToolkit_c = "Dialog content. CommunityToolkit.Mvvm code style.";
             private const string _exitSaveRemind_c = "Dialog content.";
 
             #endregion Comments
@@ -708,8 +708,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private const string _translationNameDuplicate_d = "Section \"{0}\"'s translation entry \"{1}\" has duplicate name.";
             private const string _removeItem_d = "Remove \"{0}\" ?";
             private const string _saveCodeStandard_d = "Standard class model for all code style";
-            private const string _saveCodeMvvm_d = "Mvvm basic binding-notify class";
-            private const string _saveCodeMvvmCommunityToolkit_d = "Mvvm code style for lib - CommunityToolkit.Mvvm";
+            private const string _saveCodeNotifyBasic_d = "Binding-notify basic class";
+            private const string _saveCodeCommunityToolkit_d = "Binding-notify code style for lib - CommunityToolkit.Mvvm";
             private const string _exitSaveRemind_d = "The document modified but has not been saved.\r\n\r\nExit application without save?";
 
             #endregion Default
@@ -724,8 +724,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             private string _translationNameDuplicate = _translationNameDuplicate_d;
             private string _removeItem = _removeItem_d;
             private string _saveCodeStandard = _saveCodeStandard_d;
-            private string _saveCodeMvvm = _saveCodeMvvm_d;
-            private string _saveCodeMvvmCommunityToolkit = _saveCodeMvvmCommunityToolkit_d;
+            private string _saveCodeNotifyBasic = _saveCodeNotifyBasic_d;
+            private string _saveCodeCommunityToolkit = _saveCodeCommunityToolkit_d;
             private string _exitSaveRemind = _exitSaveRemind_d;
 
             /// <summary>
@@ -779,14 +779,14 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             /// <summary>
             /// Dialog content. INotifyPropertyChanging, INotifyPropertyChanged implemented.
             /// </summary>
-            public string SaveCodeMvvm
-            { get { return _saveCodeMvvm; } set { OnPropertyChanging(nameof(this.SaveCodeMvvm)); _saveCodeMvvm = value; OnPropertyChanged(nameof(this.SaveCodeMvvm)); } }
+            public string SaveCodeNotifyBasic
+            { get { return _saveCodeNotifyBasic; } set { OnPropertyChanging(nameof(this.SaveCodeNotifyBasic)); _saveCodeNotifyBasic = value; OnPropertyChanged(nameof(this.SaveCodeNotifyBasic)); } }
 
             /// <summary>
-            /// Dialog content. CommunityToolkit.Mvvm style.
+            /// Dialog content. CommunityToolkit.Mvvm code style.
             /// </summary>
-            public string SaveCodeMvvmCommunityToolkit
-            { get { return _saveCodeMvvmCommunityToolkit; } set { OnPropertyChanging(nameof(this.SaveCodeMvvmCommunityToolkit)); _saveCodeMvvmCommunityToolkit = value; OnPropertyChanged(nameof(this.SaveCodeMvvmCommunityToolkit)); } }
+            public string SaveCodeCommunityToolkit
+            { get { return _saveCodeCommunityToolkit; } set { OnPropertyChanging(nameof(this.SaveCodeCommunityToolkit)); _saveCodeCommunityToolkit = value; OnPropertyChanged(nameof(this.SaveCodeCommunityToolkit)); } }
 
             /// <summary>
             /// Dialog content.
@@ -812,8 +812,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     this.TranslationNameDuplicate = section.Properties.GetStringValue("TranslationNameDuplicate", _translationNameDuplicate_d);
                     this.RemoveItem = section.Properties.GetStringValue("RemoveItem", _removeItem_d);
                     this.SaveCodeStandard = section.Properties.GetStringValue("SaveCodeStandard", _saveCodeStandard_d);
-                    this.SaveCodeMvvm = section.Properties.GetStringValue("SaveCodeMvvm", _saveCodeMvvm_d);
-                    this.SaveCodeMvvmCommunityToolkit = section.Properties.GetStringValue("SaveCodeMvvmCommunityToolkit", _saveCodeMvvmCommunityToolkit_d);
+                    this.SaveCodeNotifyBasic = section.Properties.GetStringValue("SaveCodeNotifyBasic", _saveCodeNotifyBasic_d);
+                    this.SaveCodeCommunityToolkit = section.Properties.GetStringValue("SaveCodeCommunityToolkit", _saveCodeCommunityToolkit_d);
                     this.ExitSaveRemind = section.Properties.GetStringValue("ExitSaveRemind", _exitSaveRemind_d);
                 }
             }
@@ -828,8 +828,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.TranslationNameDuplicate = _translationNameDuplicate_d;
                 this.RemoveItem = _removeItem_d;
                 this.SaveCodeStandard = _saveCodeStandard_d;
-                this.SaveCodeMvvm = _saveCodeMvvm_d;
-                this.SaveCodeMvvmCommunityToolkit = _saveCodeMvvmCommunityToolkit_d;
+                this.SaveCodeNotifyBasic = _saveCodeNotifyBasic_d;
+                this.SaveCodeCommunityToolkit = _saveCodeCommunityToolkit_d;
                 this.ExitSaveRemind = _exitSaveRemind_d;
             }
 
@@ -846,8 +846,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("TranslationNameDuplicate", _translationNameDuplicate_d).Comment.SetValue(_translationNameDuplicate_c);
                     section.Properties.AddString("RemoveItem", _removeItem_d).Comment.SetValue(_removeItem_c);
                     section.Properties.AddString("SaveCodeStandard", _saveCodeStandard_d).Comment.SetValue(_saveCodeStandard_c);
-                    section.Properties.AddString("SaveCodeMvvm", _saveCodeMvvm_d).Comment.SetValue(_saveCodeMvvm_c);
-                    section.Properties.AddString("SaveCodeMvvmCommunityToolkit", _saveCodeMvvmCommunityToolkit_d).Comment.SetValue(_saveCodeMvvmCommunityToolkit_c);
+                    section.Properties.AddString("SaveCodeNotifyBasic", _saveCodeNotifyBasic_d).Comment.SetValue(_saveCodeNotifyBasic_c);
+                    section.Properties.AddString("SaveCodeCommunityToolkit", _saveCodeCommunityToolkit_d).Comment.SetValue(_saveCodeCommunityToolkit_c);
                     section.Properties.AddString("ExitSaveRemind", _exitSaveRemind_d).Comment.SetValue(_exitSaveRemind_c);
                 }
                 else
@@ -860,8 +860,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     section.Properties.AddString("TranslationNameDuplicate", this.TranslationNameDuplicate).Comment.SetValue(_translationNameDuplicate_c);
                     section.Properties.AddString("RemoveItem", this.RemoveItem).Comment.SetValue(_removeItem_c);
                     section.Properties.AddString("SaveCodeStandard", this.SaveCodeStandard).Comment.SetValue(_saveCodeStandard_c);
-                    section.Properties.AddString("SaveCodeMvvm", this.SaveCodeMvvm).Comment.SetValue(_saveCodeMvvm_c);
-                    section.Properties.AddString("SaveCodeMvvmCommunityToolkit", this.SaveCodeMvvmCommunityToolkit).Comment.SetValue(_saveCodeMvvmCommunityToolkit_c);
+                    section.Properties.AddString("SaveCodeNotifyBasic", this.SaveCodeNotifyBasic).Comment.SetValue(_saveCodeNotifyBasic_c);
+                    section.Properties.AddString("SaveCodeCommunityToolkit", this.SaveCodeCommunityToolkit).Comment.SetValue(_saveCodeCommunityToolkit_c);
                     section.Properties.AddString("ExitSaveRemind", this.ExitSaveRemind).Comment.SetValue(_exitSaveRemind_c);
                 }
             }

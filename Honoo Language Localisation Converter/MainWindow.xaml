@@ -20,9 +20,6 @@
     WindowStartupLocation="Manual"
     mc:Ignorable="d">
     <b:Interaction.Triggers>
-        <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding WindowLoadedCommand}" PassEventArgsToCommand="True" />
-        </b:EventTrigger>
         <b:EventTrigger EventName="Closing">
             <b:InvokeCommandAction Command="{Binding WindowClosingCommand}" PassEventArgsToCommand="True" />
         </b:EventTrigger>
@@ -139,7 +136,7 @@
                     <MenuItem Command="{Binding TestExportCommand}" Header="Test Export..." />
                 </MenuItem>
                 <MenuItem Header="{Binding Menu.Help, Source={x:Static vm:LanguagePackage.Instance}}">
-                    <MenuItem Command="{Binding NavigateToHomePageCommand}" Header="{Binding Menu.HomePage, Source={x:Static vm:LanguagePackage.Instance}}">
+                    <MenuItem Command="{Binding NavigateToWebsiteCommand}" Header="{Binding Menu.Website, Source={x:Static vm:LanguagePackage.Instance}}">
                         <MenuItem.Icon>
                             <Path
                                 Data="{StaticResource GitHubGeometry}"
@@ -174,34 +171,45 @@
                         <Setter Property="Background" Value="{DynamicResource AccentLight100Brush}" />
                     </Style>
                 </hui:TabControl.Resources>
+                <hui:TabControl.Footer>
+                    <Button
+                        Margin="0,0,40,0"
+                        Padding="7"
+                        VerticalAlignment="Center"
+                        d:Visibility="Visible"
+                        Command="{Binding SaveCommand}"
+                        Content="{StaticResource Floppy35Geometry}"
+                        ContentTemplate="{StaticResource GeometryToPathIcon16DataTemplate}"
+                        Visibility="{Binding DocumentModified, Source={x:Static vm:General.Instance}, Converter={x:Static hui:BooleanToVisibilityVisibleConverter.Instance}}" />
+                </hui:TabControl.Footer>
                 <hui:TabItem Header="{Binding Main.Informartion, Source={x:Static vm:LanguagePackage.Instance}}">
                     <StackPanel Margin="10">
-                        <hui:TextBox Text="{Binding AppName, Mode=TwoWay}">
+                        <hui:TextBox Text="{Binding Informartion.AppName, Mode=TwoWay}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="AppName" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding AppVer, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.AppVer, Mode=TwoWay}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="AppVer" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding LangName, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangName, Mode=TwoWay}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="LangName" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding LangVer, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangVer, Mode=TwoWay}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="LangVer" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Author, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Author, Mode=TwoWay}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="Author" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Url, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Url, Mode=TwoWay}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="Url" />
                             </hui:TextBox.Header>
@@ -209,7 +217,7 @@
                         <hui:TextBox
                             Margin="0,5,0,0"
                             AcceptsReturn="True"
-                            Text="{Binding Remarks, Mode=TwoWay}"
+                            Text="{Binding Informartion.Remarks, Mode=TwoWay}"
                             TextWrapping="Wrap">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="Remarks" />
@@ -396,7 +404,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center">
                     <Button
-                        Command="{Binding NavigateToHomePageCommand}"
+                        Command="{Binding NavigateToWebsiteCommand}"
                         Foreground="{DynamicResource ThirdlyForegroundBrush}"
                         Style="{StaticResource ButtonTransparentStyle}"
                         Visibility="{Binding HasNewVersion, Converter={x:Static hui:BooleanToVisibilityVisibleConverter.Instance}}">
