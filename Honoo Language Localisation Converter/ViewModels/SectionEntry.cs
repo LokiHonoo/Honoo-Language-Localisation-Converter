@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace HonooLanguageLocalisationConverter.ViewModels
@@ -21,10 +21,16 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             this.Name = name;
             _mainWindowViewModel = mainWindowViewModel;
+            this.TranslationEntries.CollectionChanged += TranslationEntriesChanged;
             this.PropertyChanged += OnPropertyChanged;
         }
 
         private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            _mainWindowViewModel.Modified = true;
+        }
+
+        private void TranslationEntriesChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             _mainWindowViewModel.Modified = true;
         }

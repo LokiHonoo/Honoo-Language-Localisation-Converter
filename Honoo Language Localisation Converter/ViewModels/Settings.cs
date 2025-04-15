@@ -29,6 +29,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         private double _windowWidth;
 
         public DateTime LastUpdate { get; set; }
+
         #endregion Members
     }
 }

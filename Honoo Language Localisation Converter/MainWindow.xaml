@@ -20,6 +20,9 @@
     WindowStartupLocation="Manual"
     mc:Ignorable="d">
     <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding WindowLoadedCommand}" PassEventArgsToCommand="True" />
+        </b:EventTrigger>
         <b:EventTrigger EventName="Closing">
             <b:InvokeCommandAction Command="{Binding WindowClosingCommand}" PassEventArgsToCommand="True" />
         </b:EventTrigger>
@@ -336,6 +339,7 @@
                                                 <hui:TextBox
                                                     x:Name="ItemNameTextBox"
                                                     Width="370"
+                                                    VerticalAlignment="Top"
                                                     DockPanel.Dock="Left"
                                                     Text="{Binding Name, Mode=TwoWay}">
                                                     <hui:TextBox.Header>
@@ -361,6 +365,7 @@
                                                 <hui:TextBox
                                                     Margin="10,0,0,0"
                                                     AcceptsReturn="True"
+                                                    DockPanel.Dock="Right"
                                                     Text="{Binding Value, Mode=TwoWay}"
                                                     TextWrapping="Wrap">
                                                     <hui:TextBox.Header>
@@ -396,7 +401,10 @@
                         Style="{StaticResource ButtonTransparentStyle}"
                         Visibility="{Binding HasNewVersion, Converter={x:Static hui:BooleanToVisibilityVisibleConverter.Instance}}">
                         <StackPanel Orientation="Horizontal">
-                            <Path Data="{StaticResource WebGeometry}" Style="{StaticResource PathIcon16Style}" />
+                            <Path
+                                Data="{StaticResource WebGeometry}"
+                                Fill="{DynamicResource StressBrush}"
+                                Style="{StaticResource PathIcon16Style}" />
                             <TextBlock
                                 Margin="10,0,0,0"
                                 VerticalAlignment="Center"

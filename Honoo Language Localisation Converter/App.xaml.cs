@@ -20,7 +20,7 @@ namespace HonooLanguageLocalisationConverter
                 manager.Default.Properties.AddString("WindowWidth", Settings.Instance.WindowWidth.ToString());
                 manager.Default.Properties.AddString("WindowHeight", Settings.Instance.WindowHeight.ToString());
                 manager.Default.Properties.AddString("LanguageFile", Settings.Instance.LanguageFile);
-                manager.Default.Properties.AddString("LastUpdate", Settings.Instance.LastUpdate.ToString("yyyy-MM-dd"));
+                manager.Default.Properties.AddString("LastUpdate", Settings.Instance.LastUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
                 manager.Save(_configFile);
             }
             base.OnExit(e);

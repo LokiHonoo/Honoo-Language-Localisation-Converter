@@ -11,6 +11,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         [ObservableProperty]
         private string _comment;
+
         [ObservableProperty]
         private string _name;
 
