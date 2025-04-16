@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
+using System.Windows;
 
 namespace HonooLanguageLocalisationConverter.ViewModels
 {
@@ -21,6 +22,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         [ObservableProperty]
         private double _windowLeft;
+
+        [ObservableProperty]
+        private WindowState _windowState;
 
         [ObservableProperty]
         private double _windowTop;

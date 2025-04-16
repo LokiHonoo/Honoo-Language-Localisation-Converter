@@ -17,6 +17,7 @@ namespace HonooLanguageLocalisationConverter
         {
             using (var manager = new XConfigManager())
             {
+                manager.Default.Properties.AddString("WindowState", Settings.Instance.WindowState.ToString());
                 manager.Default.Properties.AddString("WindowWidth", Settings.Instance.WindowWidth.ToString());
                 manager.Default.Properties.AddString("WindowHeight", Settings.Instance.WindowHeight.ToString());
                 manager.Default.Properties.AddString("LanguageFile", Settings.Instance.LanguageFile);
@@ -32,9 +33,11 @@ namespace HonooLanguageLocalisationConverter
             string languageFile = string.Empty;
             double width = 1200;
             double height = 580;
+            WindowState state = WindowState.Normal;
             try
             {
                 using var manager = new XConfigManager(_configFile, true);
+                state = manager.Default.Properties.GetValue("WindowState", new XString(WindowState.Normal.ToString())).GetEnumValue<WindowState>();
                 width = manager.Default.Properties.GetValue("WindowWidth", new XString(1200.ToString())).GetDoubleValue();
                 height = manager.Default.Properties.GetValue("WindowHeight", new XString(580.ToString())).GetDoubleValue();
                 languageFile = manager.Default.Properties.GetStringValue("LanguageFile", string.Empty);
@@ -42,6 +45,12 @@ namespace HonooLanguageLocalisationConverter
             }
             catch
             {
+            }
+            if (state == WindowState.Minimized)
+            {
+                state = WindowState.Normal;
+                width = 1200;
+                height = 580;
             }
             if (!string.IsNullOrEmpty(languageFile))
             {
@@ -55,6 +64,7 @@ namespace HonooLanguageLocalisationConverter
                 }
             }
             Size area = SystemParameters.WorkArea.Size;
+            Settings.Instance.WindowState = state;
             Settings.Instance.WindowWidth = width;
             Settings.Instance.WindowHeight = height;
             Settings.Instance.WindowLeft = (area.Width - width) / 2;

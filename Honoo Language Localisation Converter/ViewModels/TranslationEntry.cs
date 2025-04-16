@@ -16,9 +16,6 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         [ObservableProperty]
         private string _value;
 
-        [ObservableProperty]
-        private bool _modified;
-
         #endregion Members
 
         public TranslationEntry(string key, string value, string comment)

@@ -12,9 +12,6 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         [ObservableProperty]
         public string _name;
 
-        [ObservableProperty]
-        private bool _modified;
-
         public ObservableCollection<TranslationEntry> TranslationEntries { get; } = [];
 
         #endregion Members

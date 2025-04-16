@@ -95,7 +95,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             if (DateTime.Now - Settings.Instance.LastUpdate > TimeSpan.FromDays(7))
             {
                 var client = new HttpClient();
-                client.GetStringAsync("https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter/blob/master/version.published").ContinueWith((t) =>
+                client.GetStringAsync("https://raw.githubusercontent.com/LokiHonoo/Honoo-Language-Localisation-Converter/refs/heads/master/version.published").ContinueWith((t) =>
                 {
                     try
                     {

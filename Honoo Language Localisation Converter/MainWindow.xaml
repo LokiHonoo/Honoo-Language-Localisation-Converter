@@ -18,6 +18,7 @@
     Left="{Binding WindowLeft, Source={x:Static vm:Settings.Instance}, Mode=OneTime}"
     Top="{Binding WindowTop, Source={x:Static vm:Settings.Instance}, Mode=OneTime}"
     WindowStartupLocation="Manual"
+    WindowState="{Binding WindowState, Source={x:Static vm:Settings.Instance}, Mode=TwoWay}"
     mc:Ignorable="d">
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Closing">
@@ -265,7 +266,6 @@
                                                 Command="{Binding SectionMoveCommand, ElementName=VM}"
                                                 PassEventArgsToCommand="True" />
                                             <hui:TextBox
-                                                x:Name="ItemNameTextBox"
                                                 Grid.Column="1"
                                                 Margin="10,5"
                                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -276,16 +276,24 @@
                                                             VerticalAlignment="Center"
                                                             Command="{Binding RemoveSectionCommand, ElementName=VM}"
                                                             CommandParameter="{Binding}"
-                                                            Foreground="{DynamicResource ErrorBrush}"
                                                             Style="{StaticResource ButtonTransparentStyle}">
-                                                            <Path Data="{StaticResource CloseCircleFillGeometry}" Style="{StaticResource PathIcon16Style}" />
+                                                            <Path
+                                                                Data="{StaticResource CloseCircleFillGeometry}"
+                                                                Fill="{DynamicResource ErrorBrush}"
+                                                                Style="{StaticResource PathIcon16Style}" />
                                                         </Button>
                                                         <Label Content="Name" />
                                                     </StackPanel>
                                                 </hui:TextBox.Header>
                                                 <b:Interaction.Triggers>
                                                     <b:EventTrigger EventName="Loaded">
-                                                        <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=VM}" CommandParameter="{Binding ElementName=ItemNameTextBox}" />
+                                                        <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=VM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
+                                                    </b:EventTrigger>
+                                                    <b:EventTrigger EventName="GotFocus">
+                                                        <b:ChangePropertyAction
+                                                            PropertyName="IsSelected"
+                                                            TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"
+                                                            Value="True" />
                                                     </b:EventTrigger>
                                                 </b:Interaction.Triggers>
                                             </hui:TextBox>
@@ -342,10 +350,18 @@
                                                 FontSize="12"
                                                 Foreground="ForestGreen"
                                                 IsTrayBorderDisplayed="False"
-                                                Text="{Binding Comment, Mode=TwoWay}" />
+                                                Text="{Binding Comment, Mode=TwoWay}">
+                                                <b:Interaction.Triggers>
+                                                    <b:EventTrigger EventName="GotFocus">
+                                                        <b:ChangePropertyAction
+                                                            PropertyName="IsSelected"
+                                                            TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"
+                                                            Value="True" />
+                                                    </b:EventTrigger>
+                                                </b:Interaction.Triggers>
+                                            </hui:TextBox>
                                             <DockPanel LastChildFill="True">
                                                 <hui:TextBox
-                                                    x:Name="ItemNameTextBox"
                                                     Width="370"
                                                     VerticalAlignment="Top"
                                                     DockPanel.Dock="Left"
@@ -357,21 +373,29 @@
                                                                 VerticalAlignment="Center"
                                                                 Command="{Binding RemoveTranslationCommand, ElementName=VM}"
                                                                 CommandParameter="{Binding}"
-                                                                Foreground="{DynamicResource ErrorBrush}"
                                                                 Style="{StaticResource ButtonTransparentStyle}">
-                                                                <Path Data="{StaticResource CloseCircleFillGeometry}" Style="{StaticResource PathIcon16Style}" />
+                                                                <Path
+                                                                    Data="{StaticResource CloseCircleFillGeometry}"
+                                                                    Fill="{DynamicResource ErrorBrush}"
+                                                                    Style="{StaticResource PathIcon16Style}" />
                                                             </Button>
                                                             <Label Content="Name" />
                                                         </StackPanel>
                                                     </hui:TextBox.Header>
                                                     <b:Interaction.Triggers>
                                                         <b:EventTrigger EventName="Loaded">
-                                                            <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=VM}" CommandParameter="{Binding ElementName=ItemNameTextBox}" />
+                                                            <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=VM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
+                                                        </b:EventTrigger>
+                                                        <b:EventTrigger EventName="GotFocus">
+                                                            <b:ChangePropertyAction
+                                                                PropertyName="IsSelected"
+                                                                TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"
+                                                                Value="True" />
                                                         </b:EventTrigger>
                                                     </b:Interaction.Triggers>
                                                 </hui:TextBox>
                                                 <hui:TextBox
-                                                    Margin="10,0,0,0"
+                                                    Margin="2,0,0,0"
                                                     AcceptsReturn="True"
                                                     DockPanel.Dock="Right"
                                                     Text="{Binding Value, Mode=TwoWay}"
@@ -379,6 +403,14 @@
                                                     <hui:TextBox.Header>
                                                         <Label Content="Value" />
                                                     </hui:TextBox.Header>
+                                                    <b:Interaction.Triggers>
+                                                        <b:EventTrigger EventName="GotFocus">
+                                                            <b:ChangePropertyAction
+                                                                PropertyName="IsSelected"
+                                                                TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"
+                                                                Value="True" />
+                                                        </b:EventTrigger>
+                                                    </b:Interaction.Triggers>
                                                 </hui:TextBox>
                                             </DockPanel>
                                         </StackPanel>
