@@ -32,7 +32,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-		<PackageReference Include="HonooUI.WPF" Version="1.0.2-svn202504.4" />
+		<PackageReference Include="HonooUI.WPF" Version="1.0.2-svn202504.6" />
 		<PackageReference Include="Honoo.Configuration.ConfigurationManager" Version="1.5.14" />
 	</ItemGroup>
 
