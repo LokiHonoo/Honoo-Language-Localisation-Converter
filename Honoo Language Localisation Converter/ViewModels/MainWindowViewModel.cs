@@ -90,7 +90,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             this.SortTranslationCommand = new RelayCommand(SortTranslationCommandExecute);
             this.RemoveTranslationCommand = new RelayCommand<object>(RemoveTranslationCommandExecute);
 
-            this.Sections.CollectionChanged += SectionEntriesChanged;
+            this.Sections.CollectionChanged += OnSectionEntriesChanged;
             this.PropertyChanged += OnPropertyChanged;
             if (DateTime.Now - Settings.Instance.LastUpdate > TimeSpan.FromDays(7))
             {
@@ -134,7 +134,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             }
         }
 
-        private void SectionEntriesChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void OnSectionEntriesChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             General.Instance.DocumentModified = true;
         }
