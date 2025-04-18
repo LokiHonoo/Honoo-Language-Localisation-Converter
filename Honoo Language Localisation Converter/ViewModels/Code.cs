@@ -339,7 +339,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 foreach (var entry in section.TranslationEntries)
                 {
                     string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c, true);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("                else");
@@ -348,7 +348,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 {
                     string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
                     string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", this.{translationNameU}).Comment.SetValue(_{translationNameL}_c);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", this.{translationNameU}).Comment.SetValue(_{translationNameL}_c, true);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");
@@ -746,7 +746,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 foreach (var entry in section.TranslationEntries)
                 {
                     string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c, true);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("                else");
@@ -755,7 +755,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 {
                     string translationNameU = char.ToUpperInvariant(entry.Name![0]) + entry.Name![1..];
                     string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", this.{translationNameU}).Comment.SetValue(_{translationNameL}_c);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", this.{translationNameU}).Comment.SetValue(_{translationNameL}_c, true);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");
@@ -1103,7 +1103,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 foreach (var entry in section.TranslationEntries)
                 {
                     string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}_d).Comment.SetValue(_{translationNameL}_c, true);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("                else");
@@ -1111,7 +1111,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 foreach (var entry in section.TranslationEntries)
                 {
                     string translationNameL = char.ToLowerInvariant(entry.Name![0]) + entry.Name![1..];
-                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}).Comment.SetValue(_{translationNameL}_c);");
+                    builder.AppendLine($"                    section.Properties.AddString(\"{entry.Name!}\", _{translationNameL}).Comment.SetValue(_{translationNameL}_c, true);");
                 }
                 builder.AppendLine("                }");
                 builder.AppendLine("            }");

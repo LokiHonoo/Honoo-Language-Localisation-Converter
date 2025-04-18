@@ -169,6 +169,7 @@
                     <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                         <Setter Property="Margin" Value="9,0,0,0" />
                         <Setter Property="Padding" Value="7,2" />
+                        <Setter Property="Foreground" Value="{DynamicResource PrimaryForegroundBrush}" />
                         <Setter Property="Background" Value="{DynamicResource AccentLight100Brush}" />
                     </Style>
                 </hui:TabControl.Resources>
@@ -185,32 +186,32 @@
                 </hui:TabControl.Footer>
                 <hui:TabItem Header="{Binding Main.Informartion, Source={x:Static vm:LanguagePackage.Instance}}">
                     <StackPanel Margin="10">
-                        <hui:TextBox Text="{Binding Informartion.AppName, Mode=TwoWay}">
+                        <hui:TextBox Text="{Binding Informartion.AppName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="AppName" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.AppVer, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.AppVer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="AppVer" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangName, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="LangName" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangVer, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangVer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="LangVer" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Author, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="Author" />
                             </hui:TextBox.Header>
                         </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Url, Mode=TwoWay}">
+                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="Url" />
                             </hui:TextBox.Header>
@@ -218,7 +219,7 @@
                         <hui:TextBox
                             Margin="0,5,0,0"
                             AcceptsReturn="True"
-                            Text="{Binding Informartion.Remarks, Mode=TwoWay}"
+                            Text="{Binding Informartion.Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="Wrap">
                             <hui:TextBox.Header>
                                 <Label Width="100" Content="Remarks" />
@@ -239,10 +240,11 @@
                             <GroupBox.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
-                                        Margin="20"
+                                        Margin="20,0,20,0"
                                         VerticalAlignment="Center"
                                         Text="{Binding Main.SectionEntries, Source={x:Static vm:LanguagePackage.Instance}}" />
                                     <Button
+                                        Margin="20,0,20,0"
                                         Padding="7"
                                         VerticalAlignment="Center"
                                         Command="{Binding AddSectionCommand}">
@@ -322,13 +324,14 @@
                                         VerticalAlignment="Center"
                                         Text="{Binding Main.TranslationEntries, Source={x:Static vm:LanguagePackage.Instance}}" />
                                     <Button
+                                        Margin="20,0,20,0"
                                         Padding="7"
                                         VerticalAlignment="Center"
                                         Command="{Binding AddTranslationCommand}">
                                         <Path Data="{StaticResource PlusGeometry}" Style="{StaticResource PathIcon16Style}" />
                                     </Button>
                                     <Button
-                                        Margin="10,0,0,0"
+                                        Margin="20,0,20,0"
                                         Padding="7"
                                         VerticalAlignment="Center"
                                         Command="{Binding SortTranslationCommand}">
@@ -351,7 +354,7 @@
                                                 FontSize="12"
                                                 Foreground="ForestGreen"
                                                 IsTrayBorderDisplayed="False"
-                                                Text="{Binding Comment, Mode=TwoWay}">
+                                                Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                 <b:Interaction.Triggers>
                                                     <b:EventTrigger EventName="GotFocus">
                                                         <b:ChangePropertyAction
@@ -366,7 +369,7 @@
                                                     Width="370"
                                                     VerticalAlignment="Top"
                                                     DockPanel.Dock="Left"
-                                                    Text="{Binding Name, Mode=TwoWay}">
+                                                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                     <hui:TextBox.Header>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Button
@@ -399,7 +402,7 @@
                                                     Margin="2,0,0,0"
                                                     AcceptsReturn="True"
                                                     DockPanel.Dock="Right"
-                                                    Text="{Binding Value, Mode=TwoWay}"
+                                                    Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     TextWrapping="Wrap">
                                                     <hui:TextBox.Header>
                                                         <Label Content="Value" />

@@ -17,6 +17,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace HonooLanguageLocalisationConverter.ViewModels
 {
@@ -92,16 +93,18 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             this.Sections.CollectionChanged += OnSectionEntriesChanged;
             this.PropertyChanged += OnPropertyChanged;
-            if (DateTime.Now - Settings.Instance.LastUpdate > TimeSpan.FromDays(7))
+
+            if (DateTime.Now - Settings.Instance.LastUpdate > TimeSpan.FromDays(30))
             {
                 var client = new HttpClient();
-                client.GetStringAsync("https://raw.githubusercontent.com/LokiHonoo/Honoo-Language-Localisation-Converter/refs/heads/master/version.published").ContinueWith((t) =>
+                client.GetStringAsync("https://raw.githubusercontent.com/LokiHonoo/Honoo-Language-Localisation-Converter/refs/heads/master/Honoo%20Language%20Localisation%20Converter/Honoo%20Language%20Localisation%20Converter.csproj").ContinueWith((t) =>
                 {
                     try
                     {
                         if (t.Result != null)
                         {
-                            var version = t.Result;
+                            XElement csproj = XElement.Parse(t.Result);
+                            var version = csproj.Element("PropertyGroup")!.Element("Version")!.Value;
                             if (version != this.Version)
                             {
                                 this.HasNewVersion = true;
@@ -170,10 +173,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         private void CreateDocument()
         {
             this.Informartion.AppName = "Application name";
-            this.Informartion.AppVer = "1.0.0";
+            this.Informartion.AppVer = "1.x";
             this.Informartion.LangName = "en-US";
             this.Informartion.LangVer = "00";
-            this.Informartion.Author = "HLLC";
+            this.Informartion.Author = "Honoo Language Localisation Converter";
             this.Informartion.Url = "https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter";
             this.Informartion.Remarks = string.Empty;
             this.Sections.Clear();

@@ -326,31 +326,31 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 XSection section = manager.Sections.Add("DialogMessages");
                 if (defaultField)
                 {
-                    section.Properties.AddString("DocumentExistsCreateNew", _documentExistsCreateNew_d).Comment.SetValue(_documentExistsCreateNew_c);
-                    section.Properties.AddString("DocumentExistsLoadNew", _documentExistsLoadNew_d).Comment.SetValue(_documentExistsLoadNew_c);
-                    section.Properties.AddString("SectionNameEmpty", _sectionNameEmpty_d).Comment.SetValue(_sectionNameEmpty_c);
-                    section.Properties.AddString("SectionNameDuplicate", _sectionNameDuplicate_d).Comment.SetValue(_sectionNameDuplicate_c);
-                    section.Properties.AddString("TranslationNameEmpty", _translationNameEmpty_d).Comment.SetValue(_translationNameEmpty_c);
-                    section.Properties.AddString("TranslationNameDuplicate", _translationNameDuplicate_d).Comment.SetValue(_translationNameDuplicate_c);
-                    section.Properties.AddString("RemoveItem", _removeItem_d).Comment.SetValue(_removeItem_c);
-                    section.Properties.AddString("SaveCodeStandard", _saveCodeStandard_d).Comment.SetValue(_saveCodeStandard_c);
-                    section.Properties.AddString("SaveCodeNotifyBasic", _saveCodeNotifyBasic_d).Comment.SetValue(_saveCodeNotifyBasic_c);
-                    section.Properties.AddString("SaveCodeCommunityToolkit", _saveCodeCommunityToolkit_d).Comment.SetValue(_saveCodeCommunityToolkit_c);
-                    section.Properties.AddString("ExitSaveRemind", _exitSaveRemind_d).Comment.SetValue(_exitSaveRemind_c);
+                    section.Properties.AddString("DocumentExistsCreateNew", _documentExistsCreateNew_d).Comment.SetValue(_documentExistsCreateNew_c, true);
+                    section.Properties.AddString("DocumentExistsLoadNew", _documentExistsLoadNew_d).Comment.SetValue(_documentExistsLoadNew_c, true);
+                    section.Properties.AddString("SectionNameEmpty", _sectionNameEmpty_d).Comment.SetValue(_sectionNameEmpty_c, true);
+                    section.Properties.AddString("SectionNameDuplicate", _sectionNameDuplicate_d).Comment.SetValue(_sectionNameDuplicate_c, true);
+                    section.Properties.AddString("TranslationNameEmpty", _translationNameEmpty_d).Comment.SetValue(_translationNameEmpty_c, true);
+                    section.Properties.AddString("TranslationNameDuplicate", _translationNameDuplicate_d).Comment.SetValue(_translationNameDuplicate_c, true);
+                    section.Properties.AddString("RemoveItem", _removeItem_d).Comment.SetValue(_removeItem_c, true);
+                    section.Properties.AddString("SaveCodeStandard", _saveCodeStandard_d).Comment.SetValue(_saveCodeStandard_c, true);
+                    section.Properties.AddString("SaveCodeNotifyBasic", _saveCodeNotifyBasic_d).Comment.SetValue(_saveCodeNotifyBasic_c, true);
+                    section.Properties.AddString("SaveCodeCommunityToolkit", _saveCodeCommunityToolkit_d).Comment.SetValue(_saveCodeCommunityToolkit_c, true);
+                    section.Properties.AddString("ExitSaveRemind", _exitSaveRemind_d).Comment.SetValue(_exitSaveRemind_c, true);
                 }
                 else
                 {
-                    section.Properties.AddString("DocumentExistsCreateNew", this.DocumentExistsCreateNew).Comment.SetValue(_documentExistsCreateNew_c);
-                    section.Properties.AddString("DocumentExistsLoadNew", this.DocumentExistsLoadNew).Comment.SetValue(_documentExistsLoadNew_c);
-                    section.Properties.AddString("SectionNameEmpty", this.SectionNameEmpty).Comment.SetValue(_sectionNameEmpty_c);
-                    section.Properties.AddString("SectionNameDuplicate", this.SectionNameDuplicate).Comment.SetValue(_sectionNameDuplicate_c);
-                    section.Properties.AddString("TranslationNameEmpty", this.TranslationNameEmpty).Comment.SetValue(_translationNameEmpty_c);
-                    section.Properties.AddString("TranslationNameDuplicate", this.TranslationNameDuplicate).Comment.SetValue(_translationNameDuplicate_c);
-                    section.Properties.AddString("RemoveItem", this.RemoveItem).Comment.SetValue(_removeItem_c);
-                    section.Properties.AddString("SaveCodeStandard", this.SaveCodeStandard).Comment.SetValue(_saveCodeStandard_c);
-                    section.Properties.AddString("SaveCodeNotifyBasic", this.SaveCodeNotifyBasic).Comment.SetValue(_saveCodeNotifyBasic_c);
-                    section.Properties.AddString("SaveCodeCommunityToolkit", this.SaveCodeCommunityToolkit).Comment.SetValue(_saveCodeCommunityToolkit_c);
-                    section.Properties.AddString("ExitSaveRemind", this.ExitSaveRemind).Comment.SetValue(_exitSaveRemind_c);
+                    section.Properties.AddString("DocumentExistsCreateNew", this.DocumentExistsCreateNew).Comment.SetValue(_documentExistsCreateNew_c, true);
+                    section.Properties.AddString("DocumentExistsLoadNew", this.DocumentExistsLoadNew).Comment.SetValue(_documentExistsLoadNew_c, true);
+                    section.Properties.AddString("SectionNameEmpty", this.SectionNameEmpty).Comment.SetValue(_sectionNameEmpty_c, true);
+                    section.Properties.AddString("SectionNameDuplicate", this.SectionNameDuplicate).Comment.SetValue(_sectionNameDuplicate_c, true);
+                    section.Properties.AddString("TranslationNameEmpty", this.TranslationNameEmpty).Comment.SetValue(_translationNameEmpty_c, true);
+                    section.Properties.AddString("TranslationNameDuplicate", this.TranslationNameDuplicate).Comment.SetValue(_translationNameDuplicate_c, true);
+                    section.Properties.AddString("RemoveItem", this.RemoveItem).Comment.SetValue(_removeItem_c, true);
+                    section.Properties.AddString("SaveCodeStandard", this.SaveCodeStandard).Comment.SetValue(_saveCodeStandard_c, true);
+                    section.Properties.AddString("SaveCodeNotifyBasic", this.SaveCodeNotifyBasic).Comment.SetValue(_saveCodeNotifyBasic_c, true);
+                    section.Properties.AddString("SaveCodeCommunityToolkit", this.SaveCodeCommunityToolkit).Comment.SetValue(_saveCodeCommunityToolkit_c, true);
+                    section.Properties.AddString("ExitSaveRemind", this.ExitSaveRemind).Comment.SetValue(_exitSaveRemind_c, true);
                 }
             }
         }
@@ -387,9 +387,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             #region Default
 
-            private const string _appName_d = "Application name";
-            private const string _appVer_d = "1.0.0";
-            private const string _author_d = "HLLC";
+            private const string _appName_d = "Honoo Language Localisation Converter";
+            private const string _appVer_d = "1.x";
+            private const string _author_d = "Honoo Language Localisation Converter";
             private const string _langName_d = "en-US";
             private const string _langVer_d = "00";
             private const string _remarks_d = "";
@@ -633,21 +633,21 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 XSection section = manager.Sections.Add("Main");
                 if (defaultField)
                 {
-                    section.Properties.AddString("Informartion", _informartion_d).Comment.SetValue(_informartion_c);
-                    section.Properties.AddString("Sections", _sections_d).Comment.SetValue(_sections_c);
-                    section.Properties.AddString("Sort", _sort_d).Comment.SetValue(_sort_c);
-                    section.Properties.AddString("SectionEntries", _sectionEntries_d).Comment.SetValue(_sectionEntries_c);
-                    section.Properties.AddString("TranslationEntries", _translationEntries_d).Comment.SetValue(_translationEntries_c);
-                    section.Properties.AddString("HasNewVersion", _hasNewVersion_d).Comment.SetValue(_hasNewVersion_c);
+                    section.Properties.AddString("Informartion", _informartion_d).Comment.SetValue(_informartion_c, true);
+                    section.Properties.AddString("Sections", _sections_d).Comment.SetValue(_sections_c, true);
+                    section.Properties.AddString("Sort", _sort_d).Comment.SetValue(_sort_c, true);
+                    section.Properties.AddString("SectionEntries", _sectionEntries_d).Comment.SetValue(_sectionEntries_c, true);
+                    section.Properties.AddString("TranslationEntries", _translationEntries_d).Comment.SetValue(_translationEntries_c, true);
+                    section.Properties.AddString("HasNewVersion", _hasNewVersion_d).Comment.SetValue(_hasNewVersion_c, true);
                 }
                 else
                 {
-                    section.Properties.AddString("Informartion", this.Informartion).Comment.SetValue(_informartion_c);
-                    section.Properties.AddString("Sections", this.Sections).Comment.SetValue(_sections_c);
-                    section.Properties.AddString("Sort", this.Sort).Comment.SetValue(_sort_c);
-                    section.Properties.AddString("SectionEntries", this.SectionEntries).Comment.SetValue(_sectionEntries_c);
-                    section.Properties.AddString("TranslationEntries", this.TranslationEntries).Comment.SetValue(_translationEntries_c);
-                    section.Properties.AddString("HasNewVersion", this.HasNewVersion).Comment.SetValue(_hasNewVersion_c);
+                    section.Properties.AddString("Informartion", this.Informartion).Comment.SetValue(_informartion_c, true);
+                    section.Properties.AddString("Sections", this.Sections).Comment.SetValue(_sections_c, true);
+                    section.Properties.AddString("Sort", this.Sort).Comment.SetValue(_sort_c, true);
+                    section.Properties.AddString("SectionEntries", this.SectionEntries).Comment.SetValue(_sectionEntries_c, true);
+                    section.Properties.AddString("TranslationEntries", this.TranslationEntries).Comment.SetValue(_translationEntries_c, true);
+                    section.Properties.AddString("HasNewVersion", this.HasNewVersion).Comment.SetValue(_hasNewVersion_c, true);
                 }
             }
         }
@@ -838,31 +838,31 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 XSection section = manager.Sections.Add("Menu");
                 if (defaultField)
                 {
-                    section.Properties.AddString("File", _file_d).Comment.SetValue(_file_c);
-                    section.Properties.AddString("CreateNew", _createNew_d).Comment.SetValue(_createNew_c);
-                    section.Properties.AddString("Open", _open_d).Comment.SetValue(_open_c);
-                    section.Properties.AddString("Save", _save_d).Comment.SetValue(_save_c);
-                    section.Properties.AddString("SaveAs", _saveAs_d).Comment.SetValue(_saveAs_c);
-                    section.Properties.AddString("SaveCSharpCodeAs", _saveCSharpCodeAs_d).Comment.SetValue(_saveCSharpCodeAs_c);
-                    section.Properties.AddString("Exit", _exit_d).Comment.SetValue(_exit_c);
-                    section.Properties.AddString("Options", _options_d).Comment.SetValue(_options_c);
-                    section.Properties.AddString("Help", _help_d).Comment.SetValue(_help_c);
-                    section.Properties.AddString("Website", _website_d).Comment.SetValue(_website_c);
-                    section.Properties.AddString("About", _about_d).Comment.SetValue(_about_c);
+                    section.Properties.AddString("File", _file_d).Comment.SetValue(_file_c, true);
+                    section.Properties.AddString("CreateNew", _createNew_d).Comment.SetValue(_createNew_c, true);
+                    section.Properties.AddString("Open", _open_d).Comment.SetValue(_open_c, true);
+                    section.Properties.AddString("Save", _save_d).Comment.SetValue(_save_c, true);
+                    section.Properties.AddString("SaveAs", _saveAs_d).Comment.SetValue(_saveAs_c, true);
+                    section.Properties.AddString("SaveCSharpCodeAs", _saveCSharpCodeAs_d).Comment.SetValue(_saveCSharpCodeAs_c, true);
+                    section.Properties.AddString("Exit", _exit_d).Comment.SetValue(_exit_c, true);
+                    section.Properties.AddString("Options", _options_d).Comment.SetValue(_options_c, true);
+                    section.Properties.AddString("Help", _help_d).Comment.SetValue(_help_c, true);
+                    section.Properties.AddString("Website", _website_d).Comment.SetValue(_website_c, true);
+                    section.Properties.AddString("About", _about_d).Comment.SetValue(_about_c, true);
                 }
                 else
                 {
-                    section.Properties.AddString("File", this.File).Comment.SetValue(_file_c);
-                    section.Properties.AddString("CreateNew", this.CreateNew).Comment.SetValue(_createNew_c);
-                    section.Properties.AddString("Open", this.Open).Comment.SetValue(_open_c);
-                    section.Properties.AddString("Save", this.Save).Comment.SetValue(_save_c);
-                    section.Properties.AddString("SaveAs", this.SaveAs).Comment.SetValue(_saveAs_c);
-                    section.Properties.AddString("SaveCSharpCodeAs", this.SaveCSharpCodeAs).Comment.SetValue(_saveCSharpCodeAs_c);
-                    section.Properties.AddString("Exit", this.Exit).Comment.SetValue(_exit_c);
-                    section.Properties.AddString("Options", this.Options).Comment.SetValue(_options_c);
-                    section.Properties.AddString("Help", this.Help).Comment.SetValue(_help_c);
-                    section.Properties.AddString("Website", this.Website).Comment.SetValue(_website_c);
-                    section.Properties.AddString("About", this.About).Comment.SetValue(_about_c);
+                    section.Properties.AddString("File", this.File).Comment.SetValue(_file_c, true);
+                    section.Properties.AddString("CreateNew", this.CreateNew).Comment.SetValue(_createNew_c, true);
+                    section.Properties.AddString("Open", this.Open).Comment.SetValue(_open_c, true);
+                    section.Properties.AddString("Save", this.Save).Comment.SetValue(_save_c, true);
+                    section.Properties.AddString("SaveAs", this.SaveAs).Comment.SetValue(_saveAs_c, true);
+                    section.Properties.AddString("SaveCSharpCodeAs", this.SaveCSharpCodeAs).Comment.SetValue(_saveCSharpCodeAs_c, true);
+                    section.Properties.AddString("Exit", this.Exit).Comment.SetValue(_exit_c, true);
+                    section.Properties.AddString("Options", this.Options).Comment.SetValue(_options_c, true);
+                    section.Properties.AddString("Help", this.Help).Comment.SetValue(_help_c, true);
+                    section.Properties.AddString("Website", this.Website).Comment.SetValue(_website_c, true);
+                    section.Properties.AddString("About", this.About).Comment.SetValue(_about_c, true);
                 }
             }
         }
@@ -943,11 +943,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 XSection section = manager.Sections.Add("ToastMessages");
                 if (defaultField)
                 {
-                    section.Properties.AddString("LanguageFileSaved", _languageFileSaved_d).Comment.SetValue(_languageFileSaved_c);
+                    section.Properties.AddString("LanguageFileSaved", _languageFileSaved_d).Comment.SetValue(_languageFileSaved_c, true);
                 }
                 else
                 {
-                    section.Properties.AddString("LanguageFileSaved", this.LanguageFileSaved).Comment.SetValue(_languageFileSaved_c);
+                    section.Properties.AddString("LanguageFileSaved", this.LanguageFileSaved).Comment.SetValue(_languageFileSaved_c, true);
                 }
             }
         }
