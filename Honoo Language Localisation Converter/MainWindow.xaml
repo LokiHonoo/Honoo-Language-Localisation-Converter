@@ -263,6 +263,7 @@
                                             </Grid.ColumnDefinitions>
                                             <hui:DraggableHaft
                                                 Margin="10,0,0,0"
+                                                AllowDrop="True"
                                                 Command="{Binding SectionMoveCommand, ElementName=VM}"
                                                 PassEventArgsToCommand="True" />
                                             <hui:TextBox
