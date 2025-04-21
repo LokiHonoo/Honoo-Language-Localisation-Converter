@@ -517,10 +517,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             {
                 var stackPanel = new StackPanel();
                 var radioButtonTray = new RadioButtonTray();
-                radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeStandard });
-                radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeNotifyBasic + " [.NET Framework 4.0+]", Margin = new Thickness(0, 10, 0, 0) });
-                radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeNotifyBasic + " [.NET 6.0+]", Margin = new Thickness(0, 10, 0, 0), IsChecked = true });
-                radioButtonTray.Children.Add(new RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeCommunityToolkit, Margin = new Thickness(0, 10, 0, 0) });
+                radioButtonTray.Children.Add(new System.Windows.Controls.RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeStandard });
+                radioButtonTray.Children.Add(new System.Windows.Controls.RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeNotifyBasic + " [.NET Framework 4.0+]", Margin = new Thickness(0, 10, 0, 0) });
+                radioButtonTray.Children.Add(new System.Windows.Controls.RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeNotifyBasic + " [.NET 6.0+]", Margin = new Thickness(0, 10, 0, 0), IsChecked = true });
+                radioButtonTray.Children.Add(new System.Windows.Controls.RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeCommunityToolkit, Margin = new Thickness(0, 10, 0, 0) });
                 DialogManager.Default.Show(radioButtonTray,
                     string.Empty,
                     DialogButtons.OKCancel,

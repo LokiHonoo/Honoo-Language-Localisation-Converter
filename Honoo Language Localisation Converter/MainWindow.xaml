@@ -56,7 +56,6 @@
                 Margin="14,0,0,0"
                 Padding="7,3"
                 VerticalAlignment="Center"
-                hui:LabelAttaches.CornerRadius="5"
                 Background="#FF137588"
                 Content="{Binding Version}"
                 DockPanel.Dock="Left"
@@ -233,10 +232,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <GroupBox
-                            Width="370"
-                            Margin="10,10,0,10"
-                            hui:GroupBoxAttaches.IsBodyBorderDisplayed="True">
+                        <GroupBox Width="370" Margin="10,10,0,10">
                             <GroupBox.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
@@ -266,8 +262,8 @@
                                             <hui:DraggableHaft
                                                 Margin="10,0,0,0"
                                                 AllowDrop="True"
-                                                Command="{Binding SectionMoveCommand, ElementName=VM}"
-                                                PassEventArgsToCommand="True" />
+                                                DropCommand="{Binding SectionMoveCommand, ElementName=VM}"
+                                                PassEventArgsToDropCommand="True" />
                                             <hui:TextBox
                                                 Grid.Column="1"
                                                 Margin="10,5"
@@ -305,10 +301,7 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <GroupBox
-                            Grid.Column="1"
-                            Margin="10"
-                            hui:GroupBoxAttaches.IsBodyBorderDisplayed="True">
+                        <GroupBox Grid.Column="1" Margin="10">
                             <GroupBox.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Label
@@ -353,8 +346,8 @@
                                                 Margin="0,0,0,2"
                                                 FontSize="12"
                                                 Foreground="ForestGreen"
-                                                IsTrayBorderDisplayed="False"
-                                                Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TrayBorderVisibility="Collapsed">
                                                 <b:Interaction.Triggers>
                                                     <b:EventTrigger EventName="GotFocus">
                                                         <b:ChangePropertyAction
