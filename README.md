@@ -4,8 +4,6 @@
   - [INTRODUCTION](#introduction)
   - [SCREENSHOTS](#screenshots)
   - [EXAMPLES](#examples)
-  - [CHANGELOG](#changelog)
-    - [1.0.3](#103)
   - [LICENSE](#license)
 
 ## INTRODUCTION
@@ -27,12 +25,6 @@ Language file creator. Create xml file from template. And create C# code file to
 </MenuItem>
 
 ```
-
-## CHANGELOG
-
-### 1.0.3
-
-**Features* Published.
 
 ## LICENSE
 

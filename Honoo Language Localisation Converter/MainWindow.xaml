@@ -31,7 +31,7 @@
         <KeyBinding Command="{Binding SaveCommand}" Gesture="Ctrl+S" />
     </Window.InputBindings>
     <hui:Window.DataContext>
-        <vm:MainWindowViewModel x:Name="VM" />
+        <vm:MainWindowViewModel x:Name="MAINVM" />
     </hui:Window.DataContext>
     <hui:Window.CaptionBar>
         <DockPanel LastChildFill="False">
@@ -57,7 +57,7 @@
                 Padding="7,3"
                 VerticalAlignment="Center"
                 Background="#FF137588"
-                Content="{Binding Version}"
+                Content="{Binding Version, Source={x:Static vm:General.Instance}}"
                 DockPanel.Dock="Left"
                 Foreground="{DynamicResource ThirdlyForegroundBrush}"
                 WindowChrome.IsHitTestVisibleInChrome="False" />
@@ -132,8 +132,8 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{Binding Menu.Options, Source={x:Static vm:LanguagePackage.Instance}}">
-                    <MenuItem Command="{Binding LoadLanguageFileCommand}" Header="Language..." />
-                    <MenuItem Command="{Binding TestExportCommand}" Header="Test Export..." />
+                    <MenuItem Command="{Binding LoadLanguageFileCommand}" Header="Test Load Language..." />
+                    <MenuItem Command="{Binding TestExportCommand}" Header="Test Save Language..." />
                 </MenuItem>
                 <MenuItem Header="{Binding Menu.Help, Source={x:Static vm:LanguagePackage.Instance}}">
                     <MenuItem Command="{Binding NavigateToWebsiteCommand}" Header="{Binding Menu.Website, Source={x:Static vm:LanguagePackage.Instance}}">
@@ -184,47 +184,32 @@
                         Visibility="{Binding DocumentModified, Source={x:Static vm:General.Instance}, Converter={x:Static hui:BooleanToVisibilityVisibleConverter.Instance}}" />
                 </hui:TabControl.Footer>
                 <hui:TabItem Header="{Binding Main.Informartion, Source={x:Static vm:LanguagePackage.Instance}}">
-                    <StackPanel Margin="10">
-                        <hui:TextBox Text="{Binding Informartion.AppName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <hui:TextBox.Header>
-                                <Label Width="100" Content="AppName" />
-                            </hui:TextBox.Header>
-                        </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.AppVer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <hui:TextBox.Header>
-                                <Label Width="100" Content="AppVer" />
-                            </hui:TextBox.Header>
-                        </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <hui:TextBox.Header>
-                                <Label Width="100" Content="LangName" />
-                            </hui:TextBox.Header>
-                        </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.LangVer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <hui:TextBox.Header>
-                                <Label Width="100" Content="LangVer" />
-                            </hui:TextBox.Header>
-                        </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <hui:TextBox.Header>
-                                <Label Width="100" Content="Author" />
-                            </hui:TextBox.Header>
-                        </hui:TextBox>
-                        <hui:TextBox Margin="0,5,0,0" Text="{Binding Informartion.Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <hui:TextBox.Header>
-                                <Label Width="100" Content="Url" />
-                            </hui:TextBox.Header>
-                        </hui:TextBox>
-                        <hui:TextBox
-                            Margin="0,5,0,0"
-                            AcceptsReturn="True"
-                            Text="{Binding Informartion.Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            TextWrapping="Wrap">
-                            <hui:TextBox.Header>
-                                <Label Width="100" Content="Remarks" />
-                            </hui:TextBox.Header>
-                        </hui:TextBox>
-                    </StackPanel>
+                    <ListBox
+                        Margin="10"
+                        d:ItemsSource="{d:SampleData ItemCount=3}"
+                        ItemsSource="{Binding Informartion.TranslationEntries}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type vm:TranslationEntry}">
+                                <hui:TextBox
+                                    AcceptsReturn="True"
+                                    DockPanel.Dock="Right"
+                                    Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    TextWrapping="Wrap">
+                                    <hui:TextBox.Header>
+                                        <Label Width="100" Content="{Binding Name}" />
+                                    </hui:TextBox.Header>
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="GotFocus">
+                                            <b:ChangePropertyAction
+                                                PropertyName="IsSelected"
+                                                TargetObject="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"
+                                                Value="True" />
+                                        </b:EventTrigger>
+                                    </b:Interaction.Triggers>
+                                </hui:TextBox>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </hui:TabItem>
                 <hui:TabItem Header="{Binding Main.Sections, Source={x:Static vm:LanguagePackage.Instance}}">
                     <Grid>
@@ -262,7 +247,7 @@
                                             <hui:DraggableHaft
                                                 Margin="10,0,0,0"
                                                 AllowDrop="True"
-                                                DropCommand="{Binding SectionMoveCommand, ElementName=VM}"
+                                                DropCommand="{Binding SectionMoveCommand, ElementName=MAINVM}"
                                                 PassEventArgsToDropCommand="True" />
                                             <hui:TextBox
                                                 Grid.Column="1"
@@ -273,7 +258,7 @@
                                                         <Button
                                                             Margin="10,0,0,0"
                                                             VerticalAlignment="Center"
-                                                            Command="{Binding RemoveSectionCommand, ElementName=VM}"
+                                                            Command="{Binding RemoveSectionCommand, ElementName=MAINVM}"
                                                             CommandParameter="{Binding}"
                                                             Style="{StaticResource ButtonTransparentStyle}">
                                                             <Path
@@ -286,7 +271,7 @@
                                                 </hui:TextBox.Header>
                                                 <b:Interaction.Triggers>
                                                     <b:EventTrigger EventName="Loaded">
-                                                        <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=VM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
+                                                        <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=MAINVM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
                                                     </b:EventTrigger>
                                                     <b:EventTrigger EventName="GotFocus">
                                                         <b:ChangePropertyAction
@@ -368,7 +353,7 @@
                                                             <Button
                                                                 Margin="10,0,0,0"
                                                                 VerticalAlignment="Center"
-                                                                Command="{Binding RemoveTranslationCommand, ElementName=VM}"
+                                                                Command="{Binding RemoveTranslationCommand, ElementName=MAINVM}"
                                                                 CommandParameter="{Binding}"
                                                                 Style="{StaticResource ButtonTransparentStyle}">
                                                                 <Path
@@ -381,7 +366,7 @@
                                                     </hui:TextBox.Header>
                                                     <b:Interaction.Triggers>
                                                         <b:EventTrigger EventName="Loaded">
-                                                            <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=VM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
+                                                            <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=MAINVM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
                                                         </b:EventTrigger>
                                                         <b:EventTrigger EventName="GotFocus">
                                                             <b:ChangePropertyAction
