@@ -5,6 +5,7 @@
   - [SCREENSHOTS](#screenshots)
   - [EXAMPLES](#examples)
   - [CHANGELOG](#changelog)
+    - [1.0.4](#104)
     - [1.0.3](#103)
   - [LICENSE](#license)
 
@@ -29,6 +30,10 @@ Language file creator. Create xml file from template. And create C# code file to
 ```
 
 ## CHANGELOG
+
+### 1.0.4
+
+**Fix* Fix bug.
 
 ### 1.0.3
 
