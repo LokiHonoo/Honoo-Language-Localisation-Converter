@@ -12,9 +12,9 @@ Language file creator. Create xml file from template. And create C# code file to
 
 ## SCREENSHOTS
 
-![screenshots1](screenshots/screenshots1.png)
+![screenshot1](screenshots/screenshot1.png)
 
-![screenshots2](screenshots/screenshots2.png)
+![screenshot2](screenshots/screenshot2.png)
 
 ## EXAMPLES
 
