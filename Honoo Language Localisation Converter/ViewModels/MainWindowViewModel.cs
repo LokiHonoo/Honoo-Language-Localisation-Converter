@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Honoo.Configuration;
+using HonooLanguageLocalisationConverter.Models;
 using HonooUI.WPF;
 using HonooUI.WPF.Controls;
 using Microsoft.Win32;
@@ -33,7 +34,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         private bool _documentLoaded;
 
         [ObservableProperty]
-        private string? _fileName;
+        private string? _documentFileName;
 
         private bool _forceExit;
 
@@ -49,9 +50,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         public ICommand ExitCommand { get; } = new RelayCommand(() => { SystemCommands.CloseWindow(Application.Current.MainWindow); });
         public SectionEntry Information { get; } = new SectionEntry("Information");
         public ICommand ItemAddedCommand { get; }
-        public ICommand LoadLanguageFileCommand { get; }
         public ICommand NavigateToWebsiteCommand { get; } = new RelayCommand(() => { Process.Start(new ProcessStartInfo("https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter/") { UseShellExecute = true }); });
         public ICommand OpenCommand { get; }
+        public ICommand RemoveExternalLanguageFileCommand { get; }
         public ICommand RemoveSectionCommand { get; }
         public ICommand RemoveTranslationCommand { get; }
         public ICommand SaveAsCommand { get; }
@@ -60,7 +61,8 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         public ICommand SectionMoveCommand { get; }
         public ObservableCollection<SectionEntry> Sections { get; } = [];
         public ICommand SortTranslationCommand { get; }
-        public ICommand TestExportCommand { get; }
+        public ICommand TestLoadLanguageCommand { get; }
+        public ICommand TestSaveLanguageCommand { get; }
         public ICommand WindowClosingCommand { get; }
 
         #endregion Members
@@ -76,8 +78,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             this.SaveCommand = new RelayCommand(SaveCommandExecute, () => { return this.DocumentLoaded; });
             this.SaveAsCommand = new RelayCommand(SaveAsCommandExecute, () => { return this.DocumentLoaded; });
             this.SaveCSharpCodeAsCommand = new RelayCommand(SaveCSharpCodeAsCommandExecute, () => { return this.DocumentLoaded; });
-            this.LoadLanguageFileCommand = new RelayCommand(LoadLanguageFileCommandExecute);
-            this.TestExportCommand = new RelayCommand(TestExportCommandExecute);
+            this.TestLoadLanguageCommand = new RelayCommand(TestLoadLanguageCommandExecute);
+            this.TestSaveLanguageCommand = new RelayCommand(TestSaveLanguageCommandExecute);
+            this.RemoveExternalLanguageFileCommand = new RelayCommand(RemoveExternalLanguageFileCommandExecute);
             this.AboutCommand = new RelayCommand(AboutCommandExecute);
             this.ItemAddedCommand = new RelayCommand<HonooUI.WPF.Controls.TextBox>(ItemAddedCommandExecute);
             this.AddSectionCommand = new RelayCommand(AddSectionCommandExecute);
@@ -140,27 +143,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         #endregion Construction
 
-        private static bool SaveSection(SectionEntry sctionEntry, XConfigManager manager)
+        private static bool SaveSection(SectionEntry sctionEntry, XConfigManager manager, out string message)
         {
             string sectionName = sctionEntry.Name.Trim();
-            if (sectionName.Length == 0)
+            if (sectionName.Length == 0 || !VerifyField(sectionName))
             {
-                DialogManager.Default.Show(LanguagePackage.Instance.DialogMessages.SectionNameEmpty,
-                    string.Empty,
-                    DialogButtons.OK,
-                    DialogDefaultButton.OK,
-                    DialogCloseButton.Ordinary,
-                    DialogImage.Error);
+                message = string.Format(LanguagePackage.Instance.DialogMessages.SectionNameInvalid, sectionName);
                 return false;
             }
             else if (manager.Sections.ContainsName(sectionName))
             {
-                DialogManager.Default.Show(string.Format(LanguagePackage.Instance.DialogMessages.SectionNameDuplicate, sectionName),
-                    string.Empty,
-                    DialogButtons.OK,
-                    DialogDefaultButton.OK,
-                    DialogCloseButton.Ordinary,
-                    DialogImage.Error);
+                message = string.Format(LanguagePackage.Instance.DialogMessages.SectionNameDuplicate, sectionName);
                 return false;
             }
             var section = manager.Sections.Add(sectionName);
@@ -169,27 +162,30 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 foreach (var item in sctionEntry.TranslationEntries)
                 {
                     string translationName = item.Name.Trim();
-                    if (translationName.Length == 0)
+                    if (translationName.Length == 0 || !VerifyField(translationName))
                     {
-                        DialogManager.Default.Show(string.Format(LanguagePackage.Instance.DialogMessages.TranslationNameEmpty, translationName),
-                            string.Empty,
-                            DialogButtons.OK,
-                            DialogDefaultButton.OK,
-                            DialogCloseButton.Ordinary,
-                            DialogImage.Error);
+                        message = string.Format(LanguagePackage.Instance.DialogMessages.TranslationNameInvalid, sectionName, translationName);
                         return false;
                     }
                     else if (section.Properties.ContainsKey(translationName))
                     {
-                        DialogManager.Default.Show(string.Format(LanguagePackage.Instance.DialogMessages.TranslationNameDuplicate, translationName),
-                            string.Empty,
-                            DialogButtons.OK,
-                            DialogDefaultButton.OK,
-                            DialogCloseButton.Ordinary,
-                            DialogImage.Error);
+                        message = string.Format(LanguagePackage.Instance.DialogMessages.TranslationNameDuplicate, sectionName, translationName);
                         return false;
                     }
                     section.Properties.Add(item.Name, new XString(item.Value)).Comment.SetValue(item.Comment, true);
+                }
+            }
+            message = string.Empty;
+            return true;
+        }
+
+        private static bool VerifyField(string field)
+        {
+            foreach (char chr in field)
+            {
+                if (char.IsAscii(chr) && !char.IsAsciiLetterOrDigit(chr) && chr != '_')
+                {
+                    return false;
                 }
             }
             return true;
@@ -217,7 +213,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             if (this.CurrentSection != null)
             {
                 _manualAdd = true;
-                this.CurrentSection.TranslationEntries.Insert(0, new TranslationEntry("Translation" + _counter++, string.Empty, "The \"Name\" string using by code member name. Spaces and special characters cannot be used."));
+                this.CurrentSection.TranslationEntries.Insert(0, new TranslationEntry("Translation" + _counter++, string.Empty, "The Name string using by code member name. Can't be empty and special characters."));
             }
         }
 
@@ -246,7 +242,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             section1.TranslationEntries.Add(new TranslationEntry("Exit", "E_xit", "Menu button, Exit app."));
             section1.TranslationEntries.Add(new TranslationEntry("Options", "_Options", "Menu button, Top item."));
             section1.TranslationEntries.Add(new TranslationEntry("Help", "_Help", "Menu button, Top item."));
-            section1.TranslationEntries.Add(new TranslationEntry("Website", "_Website", "Menu button, Navigate to project url."));
+            section1.TranslationEntries.Add(new TranslationEntry("Website", "_Website", "Menu button, Navigate to project website."));
             section1.TranslationEntries.Add(new TranslationEntry("About", "_About", "Menu button, Show dialog for app information."));
             this.Sections.Add(section1);
             var section2 = new SectionEntry("Main");
@@ -260,21 +256,21 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             var section3 = new SectionEntry("DialogMessages");
             section3.TranslationEntries.Add(new TranslationEntry("DocumentExistsCreateNew", "Document loaded already. Create new document?", "Dialog content."));
             section3.TranslationEntries.Add(new TranslationEntry("DocumentExistsLoadNew", "Document loaded already. Load new document?", "Dialog content."));
-            section3.TranslationEntries.Add(new TranslationEntry("SectionNameEmpty", "Section \"Name\" string can't be empty.", "Dialog content."));
-            section3.TranslationEntries.Add(new TranslationEntry("SectionNameDuplicate", "Section \"{0}\" has duplicate name.", "Dialog content, set field {0}=Section Name."));
-            section3.TranslationEntries.Add(new TranslationEntry("TranslationNameEmpty", "Section \"{0}\"'s translation entry string can't be empty.", "Dialog content."));
-            section3.TranslationEntries.Add(new TranslationEntry("TranslationNameDuplicate", "Section \"{0}\"'s translation entry \"{1}\" has duplicate name.", "Dialog content set field {0}=Section Name,{1}=Translation Name."));
+            section3.TranslationEntries.Add(new TranslationEntry("SectionNameInvalid", "Section \"{0}\" string can't be empty and special characters.", "Dialog content, Set field {0}=Section Name."));
+            section3.TranslationEntries.Add(new TranslationEntry("SectionNameDuplicate", "Section \"{0}\" has duplicate name.", "Dialog content, Set field {0}=Section Name."));
+            section3.TranslationEntries.Add(new TranslationEntry("TranslationNameInvalid", "Section \"{0}\"'s translation entry \"{1}\" string can't be empty and special characters.", "Dialog content, Set field {0}=Section Name, {1}=Translation Name."));
+            section3.TranslationEntries.Add(new TranslationEntry("TranslationNameDuplicate", "Section \"{0}\"'s translation entry \"{1}\" has duplicate name.", "Dialog content, Set field {0}=Section Name, {1}=Translation Name."));
             section3.TranslationEntries.Add(new TranslationEntry("RemoveItem", "Remove \"{0}\" ?", "Dialog content set custom field {0}=Remove Name."));
-            section3.TranslationEntries.Add(new TranslationEntry("SaveCodeStandard", "Standard class model for all code style", "Dialog content."));
-            section3.TranslationEntries.Add(new TranslationEntry("SaveCodeNotifyBasic", "Binding-notify basic class", "Dialog content. INotifyPropertyChanging, INotifyPropertyChanged implemented."));
-            section3.TranslationEntries.Add(new TranslationEntry("SaveCodeCommunityToolkit", "Binding-notify code style for lib - CommunityToolkit.Mvvm", "Dialog content. CommunityToolkit.Mvvm code style."));
+            section3.TranslationEntries.Add(new TranslationEntry("SaveCodeStandard", "Standard class model, Changed-Notify NOT supported", "Dialog content selection text."));
+            section3.TranslationEntries.Add(new TranslationEntry("SaveCodeNotifyBasic", "Changed-Notify interface implemented", "Dialog content selection text. INotifyPropertyChanging, INotifyPropertyChanged implemented."));
+            section3.TranslationEntries.Add(new TranslationEntry("SaveCodeCommunityToolkit", "Changed-Notify implemented by CommunityToolkit.Mvvm", "Dialog content selection text. CommunityToolkit.Mvvm code style."));
             section3.TranslationEntries.Add(new TranslationEntry("ExitSaveRemind", "The document modified but has not been saved.\r\n\r\nExit application without save?", "Dialog content."));
             this.Sections.Add(section3);
             var section4 = new SectionEntry("ToastMessages");
             section4.TranslationEntries.Add(new TranslationEntry("LanguageFileSaved", "Language file saved.", "Toast content."));
             this.Sections.Add(section4);
             this.CurrentSection = section1;
-            this.FileName = null;
+            this.DocumentFileName = null;
             this.DocumentLoaded = true;
             General.Instance.DocumentModified = false;
         }
@@ -315,32 +311,6 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 textBox.Focus();
                 textBox.SelectAll();
                 _manualAdd = false;
-            }
-        }
-
-        private void LoadLanguageFileCommandExecute()
-        {
-            var dig = new OpenFileDialog
-            {
-                Filter = "Language files (*.lang;lng;*.xml)|*.lang;*.lng;*.xml|All files (*.*)|*.*"
-            };
-            if (dig.ShowDialog() == true)
-            {
-                try
-                {
-                    LanguagePackage.Instance.Load(dig.FileName);
-                    Settings.Instance.LanguageFile = dig.FileName;
-                }
-                catch (Exception ex)
-                {
-                    LanguagePackage.Instance.ResetDefault();
-                    DialogManager.Default.Show(ex.Message,
-                        string.Empty,
-                        DialogButtons.OK,
-                        DialogDefaultButton.OK,
-                        DialogCloseButton.Ordinary,
-                        DialogImage.Error);
-                }
             }
         }
 
@@ -439,7 +409,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         this.Information.TranslationEntries.Add(entry.Value);
                     }
                 }
-                this.FileName = fileName;
+                this.DocumentFileName = fileName;
                 this.DocumentLoaded = true;
                 General.Instance.DocumentModified = false;
             }
@@ -448,7 +418,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.Information.TranslationEntries.Clear();
                 this.Sections.Clear();
                 this.CurrentSection = null;
-                this.FileName = string.Empty;
+                this.DocumentFileName = string.Empty;
                 this.DocumentLoaded = false;
                 General.Instance.DocumentModified = false;
                 DialogManager.Default.Show(ex.Message,
@@ -458,6 +428,12 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     DialogCloseButton.Ordinary,
                     DialogImage.Error);
             }
+        }
+
+        private void RemoveExternalLanguageFileCommandExecute()
+        {
+            LanguagePackage.Instance.ResetDefault();
+            Settings.Instance.LanguageFile = string.Empty;
         }
 
         private void RemoveSectionCommandExecute(object? obj)
@@ -573,13 +549,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         private void SaveCommandExecute()
         {
-            if (string.IsNullOrEmpty(this.FileName))
+            if (string.IsNullOrEmpty(this.DocumentFileName))
             {
                 this.SaveAsCommand.Execute(null);
             }
             else
             {
-                SaveDocument(this.FileName);
+                SaveDocument(this.DocumentFileName);
             }
         }
 
@@ -637,10 +613,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                                 {
                                     string code = radioButtonTray.SelectIndex switch
                                     {
-                                        3 => Code.CreateCode(3, this.Information, this.Sections),
-                                        2 => Code.CreateCode(2, this.Information, this.Sections),
-                                        1 => Code.CreateCode(1, this.Information, this.Sections),
-                                        _ => Code.CreateCode(0, this.Information, this.Sections),
+                                        3 => CShapCode.CreateCode(3, this.Information, this.Sections),
+                                        2 => CShapCode.CreateCode(2, this.Information, this.Sections),
+                                        1 => CShapCode.CreateCode(1, this.Information, this.Sections),
+                                        _ => CShapCode.CreateCode(0, this.Information, this.Sections),
                                     };
                                     File.WriteAllText(dig.FileName, code, new UTF8Encoding(false));
                                 }
@@ -667,8 +643,15 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 using var manager = new XConfigManager();
                 manager.Default.Properties.AddString("Creator", General.Instance.Creator);
                 manager.Default.Properties.AddString("Website", General.Instance.Website);
-                if (!SaveSection(this.Information, manager))
+                manager.Default.Properties.AddString("CreatedTime", DateTime.Now.ToString("R"));
+                if (!SaveSection(this.Information, manager, out string message))
                 {
+                    DialogManager.Default.Show(message,
+                                               string.Empty,
+                                               DialogButtons.OK,
+                                               DialogDefaultButton.OK,
+                                               DialogCloseButton.Ordinary,
+                                               DialogImage.Error);
                     return;
                 }
                 if (this.Sections != null)
@@ -677,15 +660,21 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     {
                         foreach (var sctionEntry in this.Sections)
                         {
-                            if (!SaveSection(sctionEntry, manager))
+                            if (!SaveSection(sctionEntry, manager, out message))
                             {
+                                DialogManager.Default.Show(message,
+                                                           string.Empty,
+                                                           DialogButtons.OK,
+                                                           DialogDefaultButton.OK,
+                                                           DialogCloseButton.Ordinary,
+                                                           DialogImage.Error);
                                 return;
                             }
                         }
                     }
                 }
                 manager.Save(fileName);
-                this.FileName = fileName;
+                this.DocumentFileName = fileName;
                 General.Instance.DocumentModified = false;
                 ToastManager.Default.Show(LanguagePackage.Instance.ToastMessages.LanguageFileSaved, 2000, ToastOptions.Information, null);
             }
@@ -726,7 +715,40 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             }
         }
 
-        private void TestExportCommandExecute()
+        private void TestLoadLanguageCommandExecute()
+        {
+            var dig = new OpenFileDialog
+            {
+                Filter = "Language files (*.lang;lng;*.xml)|*.lang;*.lng;*.xml|All files (*.*)|*.*"
+            };
+            if (dig.ShowDialog() == true)
+            {
+                try
+                {
+                    LanguagePackage.GetInformation(dig.FileName);
+                    int loaded = LanguagePackage.Instance.Load(dig.FileName);
+                    Settings.Instance.LanguageFile = dig.FileName;
+                    DialogManager.Default.Show($"Load translation entries {loaded}. Total {LanguagePackage.Instance.Count}.",
+                                               string.Empty,
+                                               DialogButtons.OK,
+                                               DialogDefaultButton.OK,
+                                               DialogCloseButton.Ordinary,
+                                               DialogImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    LanguagePackage.Instance.ResetDefault();
+                    DialogManager.Default.Show(ex.Message,
+                        string.Empty,
+                        DialogButtons.OK,
+                        DialogDefaultButton.OK,
+                        DialogCloseButton.Ordinary,
+                        DialogImage.Error);
+                }
+            }
+        }
+
+        private void TestSaveLanguageCommandExecute()
         {
             var dig = new OpenFolderDialog()
             {

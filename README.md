@@ -20,6 +20,13 @@ Language file creator. Create xml file from template. And create C# code file to
 
 ```xaml
 
+<!-- Reference -->
+<!-- ViewModel Setup: public LanguagePackage LanguagePackageReference { get; } = LanguagePackage.Instance; -->
+<MenuItem Header="{Binding LanguagePackageReference.Menu.File}">
+    <MenuItem Command="{Binding CreateNewCommand}" Header="{Binding LanguagePackageReference.Menu.CreateNew}" />
+</MenuItem>
+
+<!-- Static Instance -->
 <MenuItem Header="{Binding Menu.File, Source={x:Static vm:LanguagePackage.Instance}}">
     <MenuItem Command="{Binding CreateNewCommand}" Header="{Binding Menu.CreateNew, Source={x:Static vm:LanguagePackage.Instance}}" />
 </MenuItem>

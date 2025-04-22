@@ -37,7 +37,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Release'">
-		<Exec Command="copy ..\LICENSE $(OutDir)LICENSE"  WorkingDirectory="$(ProjectDir)" />
+		<Exec Command="copy ..\LICENSE $(OutDir)LICENSE" WorkingDirectory="$(ProjectDir)" />
 	</Target>
 
 </Project>

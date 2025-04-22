@@ -132,8 +132,9 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{Binding Menu.Options, Source={x:Static vm:LanguagePackage.Instance}}">
-                    <MenuItem Command="{Binding LoadLanguageFileCommand}" Header="Test Load Language..." />
-                    <MenuItem Command="{Binding TestExportCommand}" Header="Test Save Language..." />
+                    <MenuItem Command="{Binding TestLoadLanguageCommand}" Header="Test Load Language..." />
+                    <MenuItem Command="{Binding TestSaveLanguageCommand}" Header="Test Save Language..." />
+                    <MenuItem Command="{Binding RemoveExternalLanguageFileCommand}" Header="Remove External Language File" />
                 </MenuItem>
                 <MenuItem Header="{Binding Menu.Help, Source={x:Static vm:LanguagePackage.Instance}}">
                     <MenuItem Command="{Binding NavigateToWebsiteCommand}" Header="{Binding Menu.Website, Source={x:Static vm:LanguagePackage.Instance}}">
@@ -196,7 +197,10 @@
                                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap">
                                     <hui:TextBox.Header>
-                                        <Label Width="100" Content="{Binding Name}" />
+                                        <Label
+                                            Width="100"
+                                            d:Content="Name"
+                                            Content="{Binding Name}" />
                                     </hui:TextBox.Header>
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="GotFocus">
@@ -412,7 +416,7 @@
                     VerticalAlignment="Center"
                     Content="{StaticResource ChatGeometry}"
                     ContentTemplate="{StaticResource GeometryToPathIcon16DataTemplate}" />
-                <StatusBarItem VerticalAlignment="Center" Content="{Binding FileName, TargetNullValue=...}" />
+                <StatusBarItem VerticalAlignment="Center" Content="{Binding DocumentFileName, TargetNullValue=...}" />
                 <StatusBarItem
                     Margin="0,0,10,0"
                     HorizontalAlignment="Right"
