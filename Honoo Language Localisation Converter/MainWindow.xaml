@@ -11,7 +11,7 @@
     Width="{Binding WindowWidth, Source={x:Static vm:Settings.Instance}, Mode=TwoWay}"
     Height="{Binding WindowHeight, Source={x:Static vm:Settings.Instance}, Mode=TwoWay}"
     MinWidth="1200"
-    MinHeight="580"
+    MinHeight="720"
     Background="{DynamicResource PrimaryBackgroundBrush}"
     FontSize="{DynamicResource PrimaryFontSize}"
     Foreground="{DynamicResource PrimaryForegroundBrush}"
@@ -183,11 +183,11 @@
                         ContentTemplate="{StaticResource GeometryToPathIcon16DataTemplate}"
                         Visibility="{Binding DocumentModified, Source={x:Static vm:General.Instance}, Converter={x:Static hui:BooleanToVisibilityVisibleConverter.Instance}}" />
                 </hui:TabControl.Footer>
-                <hui:TabItem Header="{Binding Main.Informartion, Source={x:Static vm:LanguagePackage.Instance}}">
+                <hui:TabItem Header="{Binding Main.Information, Source={x:Static vm:LanguagePackage.Instance}}">
                     <ListBox
                         Margin="10"
                         d:ItemsSource="{d:SampleData ItemCount=3}"
-                        ItemsSource="{Binding Informartion.TranslationEntries}">
+                        ItemsSource="{Binding Information.TranslationEntries}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type vm:TranslationEntry}">
                                 <hui:TextBox

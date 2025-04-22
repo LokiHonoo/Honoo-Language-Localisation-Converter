@@ -47,7 +47,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         public ICommand AddTranslationCommand { get; }
         public ICommand CreateNewCommand { get; }
         public ICommand ExitCommand { get; } = new RelayCommand(() => { SystemCommands.CloseWindow(Application.Current.MainWindow); });
-        public SectionEntry Informartion { get; } = new SectionEntry("Informartion");
+        public SectionEntry Information { get; } = new SectionEntry("Information");
         public ICommand ItemAddedCommand { get; }
         public ICommand LoadLanguageFileCommand { get; }
         public ICommand NavigateToWebsiteCommand { get; } = new RelayCommand(() => { Process.Start(new ProcessStartInfo("https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter/") { UseShellExecute = true }); });
@@ -223,18 +223,18 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         private void CreateDocument()
         {
-            this.Informartion.TranslationEntries.Clear();
+            this.Information.TranslationEntries.Clear();
             this.Sections.Clear();
             this.CurrentSection = null;
 
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("AppName", "Application name", "Application name."));
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("AppVer", "1.x", "Application version."));
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("LangName", "en-US", "Language name as \"en-US\"."));
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("LangVer", "00", "Language file revision version."));
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("Author", "Honoo Language Localisation Converter", "Author name."));
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("Email", string.Empty, "Author email."));
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("Website", "https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter", "Author related url."));
-            this.Informartion.TranslationEntries.Add(new TranslationEntry("Remarks", string.Empty, "Remarks."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("AppName", "Application name", "Application name."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("AppVer", "1.x", "Application version."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("LangName", "en-US", "Language name as \"en-US\"."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("LangVer", "00", "Language file revision version."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("Author", "Honoo Language Localisation Converter", "Author name."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("Email", string.Empty, "Author email."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("Website", "https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter", "Author related url."));
+            this.Information.TranslationEntries.Add(new TranslationEntry("Remarks", string.Empty, "Remarks."));
 
             var section1 = new SectionEntry("Menu");
             section1.TranslationEntries.Add(new TranslationEntry("File", "_File", "Menu button, Top item."));
@@ -250,7 +250,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             section1.TranslationEntries.Add(new TranslationEntry("About", "_About", "Menu button, Show dialog for app information."));
             this.Sections.Add(section1);
             var section2 = new SectionEntry("Main");
-            section2.TranslationEntries.Add(new TranslationEntry("Informartion", "Informartion", "Tab title text."));
+            section2.TranslationEntries.Add(new TranslationEntry("Information", "Information", "Tab title text."));
             section2.TranslationEntries.Add(new TranslationEntry("Sections", "Sections", "Tab title text."));
             section2.TranslationEntries.Add(new TranslationEntry("Sort", "Sort", "Button text."));
             section2.TranslationEntries.Add(new TranslationEntry("SectionEntries", "Section entries", "Title text."));
@@ -384,7 +384,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             try
             {
-                this.Informartion.TranslationEntries.Clear();
+                this.Information.TranslationEntries.Clear();
                 this.Sections.Clear();
                 this.CurrentSection = null;
                 using (var manager = new XConfigManager(fileName))
@@ -393,13 +393,13 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     {
                         foreach (var section in manager.Sections)
                         {
-                            if (section.Name == "Informartion")
+                            if (section.Name == "Information")
                             {
                                 foreach (var translation in section.Properties)
                                 {
                                     XString value = (XString)translation.Value;
                                     var translationEntry = new TranslationEntry(translation.Key, value.GetStringValue(), value.Comment.HasValue ? value.Comment.GetValue() : string.Empty);
-                                    this.Informartion.TranslationEntries.Add(translationEntry);
+                                    this.Information.TranslationEntries.Add(translationEntry);
                                 }
                             }
                             else
@@ -428,7 +428,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         { "Website", new TranslationEntry("Website", "https://github.com/LokiHonoo/Honoo-Language-Localisation-Converter", "Author related url.") },
                         { "Remarks", new TranslationEntry("Remarks", string.Empty, "Remarks.") }
                     };
-                foreach (var translationEntry in this.Informartion.TranslationEntries)
+                foreach (var translationEntry in this.Information.TranslationEntries)
                 {
                     entries.Remove(translationEntry.Name);
                 }
@@ -436,7 +436,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 {
                     foreach (var entry in entries)
                     {
-                        this.Informartion.TranslationEntries.Add(entry.Value);
+                        this.Information.TranslationEntries.Add(entry.Value);
                     }
                 }
                 this.FileName = fileName;
@@ -445,7 +445,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             }
             catch (Exception ex)
             {
-                this.Informartion.TranslationEntries.Clear();
+                this.Information.TranslationEntries.Clear();
                 this.Sections.Clear();
                 this.CurrentSection = null;
                 this.FileName = string.Empty;
@@ -519,7 +519,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             if (this.Sections != null)
             {
                 string fileName = string.Empty;
-                foreach (var translationEntry in this.Informartion.TranslationEntries)
+                foreach (var translationEntry in this.Information.TranslationEntries)
                 {
                     if (translationEntry.Name == "AppName")
                     {
@@ -608,7 +608,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         if (e.DialogResult == DialogResult.OK)
                         {
                             string fileName = string.Empty;
-                            foreach (var translationEntry in this.Informartion.TranslationEntries)
+                            foreach (var translationEntry in this.Information.TranslationEntries)
                             {
                                 if (translationEntry.Name == "AppName")
                                 {
@@ -637,10 +637,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                                 {
                                     string code = radioButtonTray.SelectIndex switch
                                     {
-                                        3 => Code.CreateCode(3, this.Informartion, this.Sections),
-                                        2 => Code.CreateCode(2, this.Informartion, this.Sections),
-                                        1 => Code.CreateCode(1, this.Informartion, this.Sections),
-                                        _ => Code.CreateCode(0, this.Informartion, this.Sections),
+                                        3 => Code.CreateCode(3, this.Information, this.Sections),
+                                        2 => Code.CreateCode(2, this.Information, this.Sections),
+                                        1 => Code.CreateCode(1, this.Information, this.Sections),
+                                        _ => Code.CreateCode(0, this.Information, this.Sections),
                                     };
                                     File.WriteAllText(dig.FileName, code, new UTF8Encoding(false));
                                 }
@@ -667,7 +667,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 using var manager = new XConfigManager();
                 manager.Default.Properties.AddString("Creator", General.Instance.Creator);
                 manager.Default.Properties.AddString("Website", General.Instance.Website);
-                if (!SaveSection(this.Informartion, manager))
+                if (!SaveSection(this.Information, manager))
                 {
                     return;
                 }

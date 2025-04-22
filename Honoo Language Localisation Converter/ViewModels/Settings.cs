@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Honoo.Configuration;
-using HonooUI.WPF;
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Windows;
 
@@ -54,14 +52,14 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             string languageFile = string.Empty;
             double width = 1200;
-            double height = 580;
+            double height = 720;
             WindowState state = System.Windows.WindowState.Normal;
             try
             {
                 using var manager = new XConfigManager(_configFile, true);
                 state = manager.Default.Properties.GetValue("WindowState", new XString(System.Windows.WindowState.Normal.ToString())).GetEnumValue<WindowState>();
                 width = manager.Default.Properties.GetValue("WindowWidth", new XString(1200.ToString())).GetDoubleValue();
-                height = manager.Default.Properties.GetValue("WindowHeight", new XString(580.ToString())).GetDoubleValue();
+                height = manager.Default.Properties.GetValue("WindowHeight", new XString(720.ToString())).GetDoubleValue();
                 languageFile = manager.Default.Properties.GetStringValue("LanguageFile", string.Empty);
                 this.LastUpdate = manager.Default.Properties.GetValue("LastUpdate", new XString(DateTime.MinValue.ToString("yyyy-MM-dd"))).GetDateTimeValue();
             }
@@ -72,7 +70,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             {
                 state = System.Windows.WindowState.Normal;
                 width = 1200;
-                height = 580;
+                height = 720;
             }
             if (!string.IsNullOrEmpty(languageFile))
             {
