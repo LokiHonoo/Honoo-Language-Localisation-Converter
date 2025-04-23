@@ -336,7 +336,7 @@
                                                 FontSize="12"
                                                 Foreground="ForestGreen"
                                                 Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                TrayBorderVisibility="Collapsed">
+                                                TrayBorderEventVisibility="Collapsed">
                                                 <b:Interaction.Triggers>
                                                     <b:EventTrigger EventName="GotFocus">
                                                         <b:ChangePropertyAction

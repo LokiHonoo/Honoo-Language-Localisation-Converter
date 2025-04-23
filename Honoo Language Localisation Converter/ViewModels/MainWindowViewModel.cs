@@ -243,7 +243,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             section1.TranslationEntries.Add(new TranslationEntry("Options", "_Options", "Menu button, Top item."));
             section1.TranslationEntries.Add(new TranslationEntry("Help", "_Help", "Menu button, Top item."));
             section1.TranslationEntries.Add(new TranslationEntry("Website", "_Website", "Menu button, Navigate to project website."));
-            section1.TranslationEntries.Add(new TranslationEntry("About", "_About", "Menu button, Show dialog for app information."));
+            section1.TranslationEntries.Add(new TranslationEntry("About", "_About...", "Menu button, Show dialog for app information."));
             this.Sections.Add(section1);
             var section2 = new SectionEntry("Main");
             section2.TranslationEntries.Add(new TranslationEntry("Information", "Information", "Tab title text."));

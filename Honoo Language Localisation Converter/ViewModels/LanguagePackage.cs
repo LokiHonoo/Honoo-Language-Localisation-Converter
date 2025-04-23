@@ -523,7 +523,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
             #region Default
 
-            private const string _about_d = "_About";
+            private const string _about_d = "_About...";
             private const string _createNew_d = "_New...";
             private const string _exit_d = "E_xit";
             private const string _file_d = "_File";
