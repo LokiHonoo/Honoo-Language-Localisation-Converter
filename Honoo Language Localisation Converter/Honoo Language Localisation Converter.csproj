@@ -9,7 +9,7 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<PackageId>HonooLanguageLocalisationConverter</PackageId>
 		<Product>Honoo Language Localisation Converter</Product>
-		<Version>1.0.5</Version>
+		<Version>1.0.6</Version>
 		<Authors>Loki Honoo</Authors>
 		<Company>Loki Honoo</Company>
 		<Copyright>Copyright (C) Loki Honoo 2025. All rights reserved.</Copyright>
@@ -32,7 +32,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-		<PackageReference Include="HonooUI.WPF" Version="1.0.2-svn202504.35" />
+		<PackageReference Include="HonooUI.WPF" Version="1.0.2-svn202505.22" />
 		<PackageReference Include="Honoo.Configuration.ConfigurationManager" Version="1.5.14" />
 	</ItemGroup>
 

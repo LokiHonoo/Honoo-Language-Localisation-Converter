@@ -31,10 +31,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         private SectionEntry? _currentSection;
 
         [ObservableProperty]
-        private bool _documentLoaded;
+        private string? _documentFileName;
 
         [ObservableProperty]
-        private string? _documentFileName;
+        private bool _documentLoaded;
 
         private bool _forceExit;
 
@@ -82,9 +82,9 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             this.TestSaveLanguageCommand = new RelayCommand(TestSaveLanguageCommandExecute);
             this.RemoveExternalLanguageFileCommand = new RelayCommand(RemoveExternalLanguageFileCommandExecute);
             this.AboutCommand = new RelayCommand(AboutCommandExecute);
-            this.ItemAddedCommand = new RelayCommand<HonooUI.WPF.Controls.TextBox>(ItemAddedCommandExecute);
+            this.ItemAddedCommand = new RelayCommand<HonooUI.WPF.Controls.TextBoxEx>(ItemAddedCommandExecute);
             this.AddSectionCommand = new RelayCommand(AddSectionCommandExecute);
-            this.SectionMoveCommand = new RelayCommand<DragEventArgs>(SectionMoveCommandExecute);
+            this.SectionMoveCommand = new RelayCommand<DraggableEventArgs>(SectionMoveCommandExecute);
             this.RemoveSectionCommand = new RelayCommand<object>(RemoveSectionCommandExecute);
             this.AddTranslationCommand = new RelayCommand(AddTranslationCommandExecute);
             this.SortTranslationCommand = new RelayCommand(SortTranslationCommandExecute);
@@ -193,11 +193,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
 
         private void AboutCommandExecute()
         {
-            DialogManager.Default.Show($"Honoo Language Localisation Converter\r\n\r\nVersion {General.Instance.Version}\r\n\r\nCopyright (C) Loki Honoo 2025. All rights reserved.",
+            DialogManager.Default!.Show($"Honoo Language Localisation Converter\r\n\r\nVersion {General.Instance.Version}\r\n\r\nCopyright (C) Loki Honoo 2025. All rights reserved.",
                 string.Empty,
-                DialogButtons.OK,
-                DialogDefaultButton.OK,
-                DialogCloseButton.Ordinary,
+                DialogButtons.TrueButton,
+                DialogDefaultButton.TrueButton,
                 DialogImage.Information);
         }
 
@@ -279,19 +278,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             if (this.DocumentLoaded)
             {
-                DialogManager.Default.Show(LanguagePackage.Instance.DialogMessages.DocumentExistsCreateNew,
+                DialogManager.Default!.Show(LanguagePackage.Instance.DialogMessages.DocumentExistsCreateNew,
                     string.Empty,
-                    DialogButtons.OKCancel,
-                    DialogDefaultButton.OK,
-                    DialogCloseButton.Ordinary,
+                    DialogButtons.All,
+                    DialogDefaultButton.FalseButton,
                     DialogImage.Information,
                     DialogSize.Default,
-                    false,
                     DialogLocalization.Default,
                     null,
                     (e) =>
                     {
-                        if (e.DialogResult == DialogResult.OK)
+                        if (e.DialogResult == true)
                         {
                             CreateDocument();
                         }
@@ -304,7 +301,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             }
         }
 
-        private void ItemAddedCommandExecute(HonooUI.WPF.Controls.TextBox? textBox)
+        private void ItemAddedCommandExecute(HonooUI.WPF.Controls.TextBoxEx? textBox)
         {
             if (textBox != null && _manualAdd)
             {
@@ -324,19 +321,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             {
                 if (this.DocumentLoaded)
                 {
-                    DialogManager.Default.Show(LanguagePackage.Instance.DialogMessages.DocumentExistsLoadNew,
+                    DialogManager.Default!.Show(LanguagePackage.Instance.DialogMessages.DocumentExistsLoadNew,
                         string.Empty,
-                        DialogButtons.OKCancel,
-                        DialogDefaultButton.OK,
-                        DialogCloseButton.Ordinary,
+                        DialogButtons.All,
+                        DialogDefaultButton.FalseButton,
                         DialogImage.Information,
                         DialogSize.Default,
-                        false,
                         DialogLocalization.Default,
                         null,
                         (e) =>
                         {
-                            if (e.DialogResult == DialogResult.OK)
+                            if (e.DialogResult == true)
                             {
                                 OpenDocument(dig.FileName);
                             }
@@ -421,11 +416,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 this.DocumentFileName = string.Empty;
                 this.DocumentLoaded = false;
                 General.Instance.DocumentModified = false;
-                DialogManager.Default.Show(ex.Message,
+                DialogManager.Default!.Show(ex.Message,
                     string.Empty,
-                    DialogButtons.OK,
-                    DialogDefaultButton.OK,
-                    DialogCloseButton.Ordinary,
+                    DialogButtons.TrueButton,
+                    DialogDefaultButton.TrueButton,
                     DialogImage.Error);
             }
         }
@@ -440,19 +434,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             if (obj is SectionEntry section && this.Sections != null)
             {
-                DialogManager.Default.Show(string.Format(LanguagePackage.Instance.DialogMessages.RemoveItem, section.Name),
+                DialogManager.Default!.Show(string.Format(LanguagePackage.Instance.DialogMessages.RemoveItem, section.Name),
                     string.Empty,
-                    DialogButtons.OKCancel,
-                    DialogDefaultButton.OK,
-                    DialogCloseButton.Ordinary,
+                    DialogButtons.All,
+                    DialogDefaultButton.TrueButton,
                     DialogImage.Information,
                     DialogSize.Default,
-                    false,
                     DialogLocalization.Default,
                     null,
                     (e) =>
                     {
-                        if (e.DialogResult == DialogResult.OK)
+                        if (e.DialogResult == true)
                         {
                             this.Sections.Remove(section);
                             if (section == this.CurrentSection)
@@ -469,19 +461,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
         {
             if (obj is TranslationEntry translation && this.CurrentSection != null)
             {
-                DialogManager.Default.Show(string.Format(LanguagePackage.Instance.DialogMessages.RemoveItem, translation.Name),
+                DialogManager.Default!.Show(string.Format(LanguagePackage.Instance.DialogMessages.RemoveItem, translation.Name),
                     string.Empty,
-                    DialogButtons.OKCancel,
-                    DialogDefaultButton.OK,
-                    DialogCloseButton.Ordinary,
+                    DialogButtons.All,
+                    DialogDefaultButton.TrueButton,
                     DialogImage.Information,
                     DialogSize.Default,
-                    false,
                     DialogLocalization.Default,
                     null,
                     (e) =>
                     {
-                        if (e.DialogResult == DialogResult.OK)
+                        if (e.DialogResult == true)
                         {
                             this.CurrentSection.TranslationEntries.Remove(translation);
                         }
@@ -569,19 +559,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 radioButtonTray.Children.Add(new System.Windows.Controls.RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeNotifyBasic + " [.NET Framework 4.0+]", Margin = new Thickness(0, 10, 0, 0) });
                 radioButtonTray.Children.Add(new System.Windows.Controls.RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeNotifyBasic + " [.NET 6.0+]", Margin = new Thickness(0, 10, 0, 0), IsChecked = true });
                 radioButtonTray.Children.Add(new System.Windows.Controls.RadioButton() { HorizontalAlignment = HorizontalAlignment.Left, Content = LanguagePackage.Instance.DialogMessages.SaveCodeCommunityToolkit, Margin = new Thickness(0, 10, 0, 0) });
-                DialogManager.Default.Show(radioButtonTray,
+                DialogManager.Default!.Show(radioButtonTray,
                     string.Empty,
-                    DialogButtons.OKCancel,
-                    DialogDefaultButton.OK,
-                    DialogCloseButton.Ordinary,
+                    DialogButtons.All,
+                    DialogDefaultButton.TrueButton,
                     DialogImage.Information,
                     DialogSize.Default,
-                    false,
                     DialogLocalization.Default,
                     null,
                     (e) =>
                     {
-                        if (e.DialogResult == DialogResult.OK)
+                        if (e.DialogResult == true)
                         {
                             string fileName = string.Empty;
                             foreach (var translationEntry in this.Information.TranslationEntries)
@@ -611,7 +599,7 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                             {
                                 try
                                 {
-                                    string code = radioButtonTray.SelectIndex switch
+                                    string code = radioButtonTray.CheckedIndex switch
                                     {
                                         3 => CShapCode.CreateCode(3, this.Information, this.Sections),
                                         2 => CShapCode.CreateCode(2, this.Information, this.Sections),
@@ -622,11 +610,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                                 }
                                 catch (Exception ex)
                                 {
-                                    DialogManager.Default.Show(ex.Message,
+                                    DialogManager.Default!.Show(ex.Message,
                                         string.Empty,
-                                        DialogButtons.OK,
-                                        DialogDefaultButton.OK,
-                                        DialogCloseButton.Ordinary,
+                                        DialogButtons.TrueButton,
+                                        DialogDefaultButton.TrueButton,
                                         DialogImage.Error);
                                 }
                             }
@@ -646,11 +633,10 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 manager.Default.Properties.AddString("CreatedTime", DateTime.Now.ToString("R"));
                 if (!SaveSection(this.Information, manager, out string message))
                 {
-                    DialogManager.Default.Show(message,
+                    DialogManager.Default!.Show(message,
                                                string.Empty,
-                                               DialogButtons.OK,
-                                               DialogDefaultButton.OK,
-                                               DialogCloseButton.Ordinary,
+                                               DialogButtons.TrueButton,
+                                               DialogDefaultButton.TrueButton,
                                                DialogImage.Error);
                     return;
                 }
@@ -662,12 +648,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                         {
                             if (!SaveSection(sctionEntry, manager, out message))
                             {
-                                DialogManager.Default.Show(message,
-                                                           string.Empty,
-                                                           DialogButtons.OK,
-                                                           DialogDefaultButton.OK,
-                                                           DialogCloseButton.Ordinary,
-                                                           DialogImage.Error);
+                                DialogManager.Default!.Show(message,
+                                               string.Empty,
+                                               DialogButtons.TrueButton,
+                                               DialogDefaultButton.TrueButton,
+                                               DialogImage.Error);
                                 return;
                             }
                         }
@@ -676,30 +661,37 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 manager.Save(fileName);
                 this.DocumentFileName = fileName;
                 General.Instance.DocumentModified = false;
-                ToastManager.Default.Show(LanguagePackage.Instance.ToastMessages.LanguageFileSaved, 2000, ToastOptions.Information, null);
+                ToastManager.Default!.Show(LanguagePackage.Instance.ToastMessages.LanguageFileSaved, 2000, ToastStyle.Information);
             }
             catch (Exception ex)
             {
-                DialogManager.Default.Show(ex.Message, string.Empty, DialogButtons.OK, DialogDefaultButton.OK, DialogCloseButton.Ordinary, DialogImage.Error);
+                DialogManager.Default!.Show(ex.Message,
+                                            string.Empty,
+                                            DialogButtons.TrueButton,
+                                            DialogDefaultButton.TrueButton,
+                                            DialogImage.Error);
             }
         }
 
-        private void SectionMoveCommandExecute(DragEventArgs? e)
+        private void SectionMoveCommandExecute(DraggableEventArgs? e)
         {
             if (e != null && this.Sections != null)
             {
-                var dropped = (DraggableHaft)e.Data.GetData(typeof(DraggableHaft));
-                var target = (DraggableHaft)e.Source;
-                SectionEntry droppedDataContext = (SectionEntry)dropped.DataContext;
-                SectionEntry targetDataContext = (SectionEntry)target.DataContext;
-                int sIndex = this.Sections.IndexOf(droppedDataContext);
-                int tIndex = this.Sections.IndexOf(targetDataContext);
-                if (sIndex != tIndex)
+                if (e.State == DraggableState.Dropped)
                 {
-                    this.Sections.RemoveAt(sIndex);
-                    this.Sections.Insert(tIndex, droppedDataContext);
+                    var dropped = (DraggableHaft)((DragEventArgs)e.InnerEventArgs).Data.GetData(typeof(DraggableHaft));
+                    var target = (DraggableHaft)e.Source;
+                    SectionEntry droppedDataContext = (SectionEntry)dropped.DataContext;
+                    SectionEntry targetDataContext = (SectionEntry)target.DataContext;
+                    int sIndex = this.Sections.IndexOf(droppedDataContext);
+                    int tIndex = this.Sections.IndexOf(targetDataContext);
+                    if (sIndex != tIndex)
+                    {
+                        this.Sections.RemoveAt(sIndex);
+                        this.Sections.Insert(tIndex, droppedDataContext);
+                    }
+                    this.CurrentSection = this.Sections[tIndex];
                 }
-                this.CurrentSection = this.Sections[tIndex];
             }
         }
 
@@ -728,22 +720,20 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                     LanguagePackage.GetInformation(dig.FileName);
                     int loaded = LanguagePackage.Instance.Load(dig.FileName);
                     Settings.Instance.LanguageFile = dig.FileName;
-                    DialogManager.Default.Show($"Load translation entries {loaded}. Total {LanguagePackage.Instance.Count}.",
+                    DialogManager.Default!.Show($"Load translation entries {loaded}. Total {LanguagePackage.Instance.Count}.",
                                                string.Empty,
-                                               DialogButtons.OK,
-                                               DialogDefaultButton.OK,
-                                               DialogCloseButton.Ordinary,
+                                               DialogButtons.TrueButton,
+                                               DialogDefaultButton.TrueButton,
                                                DialogImage.Information);
                 }
                 catch (Exception ex)
                 {
                     LanguagePackage.Instance.ResetDefault();
-                    DialogManager.Default.Show(ex.Message,
-                        string.Empty,
-                        DialogButtons.OK,
-                        DialogDefaultButton.OK,
-                        DialogCloseButton.Ordinary,
-                        DialogImage.Error);
+                    DialogManager.Default!.Show(ex.Message,
+                                               string.Empty,
+                                               DialogButtons.TrueButton,
+                                               DialogDefaultButton.TrueButton,
+                                               DialogImage.Error);
                 }
             }
         }
@@ -775,12 +765,11 @@ namespace HonooLanguageLocalisationConverter.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    DialogManager.Default.Show(ex.Message,
-                        string.Empty,
-                        DialogButtons.OK,
-                        DialogDefaultButton.OK,
-                        DialogCloseButton.Ordinary,
-                        DialogImage.Error);
+                    DialogManager.Default!.Show(ex.Message,
+                                               string.Empty,
+                                               DialogButtons.TrueButton,
+                                               DialogDefaultButton.TrueButton,
+                                               DialogImage.Error);
                 }
             }
         }
@@ -790,19 +779,17 @@ namespace HonooLanguageLocalisationConverter.ViewModels
             if (e != null && General.Instance.DocumentModified && !_forceExit)
             {
                 e.Cancel = true;
-                DialogManager.Default.Show(LanguagePackage.Instance.DialogMessages.ExitSaveRemind,
+                DialogManager.Default!.Show(LanguagePackage.Instance.DialogMessages.ExitSaveRemind,
                     string.Empty,
-                    DialogButtons.YesNo,
+                    DialogButtons.All,
                     DialogDefaultButton.None,
-                    DialogCloseButton.None,
                     DialogImage.Exclamation,
                     DialogSize.Default,
-                    false,
                     DialogLocalization.Default,
                     null,
                     (de) =>
                     {
-                        if (de.DialogResult == DialogResult.Yes)
+                        if (de.DialogResult == true)
                         {
                             _forceExit = true;
                             SystemCommands.CloseWindow(Application.Current.MainWindow);

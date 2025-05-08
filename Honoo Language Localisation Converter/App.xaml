@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--  Includes this for Visual Studio Intellisense.  -->
-                <ResourceDictionary Source="pack://application:,,,/HonooUI.WPF;component/Themes/DarkDesign.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HonooUI.WPF;component/Themes/Design.xaml" />
 
                 <!--  Theme Settings.  -->
                 <hui:Theme

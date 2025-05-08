@@ -1,4 +1,4 @@
-﻿<hui:Window
+﻿<hui:ChromeWindow
     x:Class="HonooLanguageLocalisationConverter.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -30,178 +30,181 @@
         <KeyBinding Command="{Binding OpenCommand}" Gesture="Ctrl+O" />
         <KeyBinding Command="{Binding SaveCommand}" Gesture="Ctrl+S" />
     </Window.InputBindings>
-    <hui:Window.DataContext>
+    <hui:ChromeWindow.DataContext>
         <vm:MainWindowViewModel x:Name="MAINVM" />
-    </hui:Window.DataContext>
-    <hui:Window.CaptionBar>
-        <DockPanel LastChildFill="False">
-            <Image
-                Width="20"
-                Height="20"
-                Margin="14,0,0,0"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Source="/くるみ.ico"
-                WindowChrome.IsHitTestVisibleInChrome="False" />
-            <TextBlock
-                Margin="14,0,0,0"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                FontSize="16"
-                FontWeight="Bold"
-                Foreground="{DynamicResource AccentBrush}"
-                Text="Honoo Language Localisation Converter"
-                WindowChrome.IsHitTestVisibleInChrome="False" />
-            <Label
-                Margin="14,0,0,0"
-                Padding="7,3"
-                VerticalAlignment="Center"
-                Background="#FF137588"
-                Content="{Binding Version, Source={x:Static vm:General.Instance}}"
-                DockPanel.Dock="Left"
-                Foreground="{DynamicResource ThirdlyForegroundBrush}"
-                WindowChrome.IsHitTestVisibleInChrome="False" />
-            <Menu
-                Margin="14,0,0,0"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Foreground="{DynamicResource ThirdlyForegroundBrush}"
-                WindowChrome.IsHitTestVisibleInChrome="True">
-                <MenuItem Header="{Binding Menu.File, Source={x:Static vm:LanguagePackage.Instance}}">
-                    <MenuItem
-                        Command="{Binding CreateNewCommand}"
-                        Header="{Binding Menu.CreateNew, Source={x:Static vm:LanguagePackage.Instance}}"
-                        InputGestureText="Ctrl+N">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource FileGeometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
-                        Command="{Binding OpenCommand}"
-                        Header="{Binding Menu.Open, Source={x:Static vm:LanguagePackage.Instance}}"
-                        InputGestureText="Ctrl+O">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource FolderOpenGeometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        Command="{Binding SaveCommand}"
-                        Header="{Binding Menu.Save, Source={x:Static vm:LanguagePackage.Instance}}"
-                        InputGestureText="Ctrl+S">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource Floppy35Geometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="{Binding SaveAsCommand}" Header="{Binding Menu.SaveAs, Source={x:Static vm:LanguagePackage.Instance}}">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource Floppy35Geometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="{Binding SaveCSharpCodeAsCommand}" Header="{Binding Menu.SaveCSharpCodeAs, Source={x:Static vm:LanguagePackage.Instance}}">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource FileCodeGeometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        Command="{Binding ExitCommand}"
-                        Header="{Binding Menu.Exit, Source={x:Static vm:LanguagePackage.Instance}}"
-                        InputGestureText="Alt+F4">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource ExitGeometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="{Binding Menu.Options, Source={x:Static vm:LanguagePackage.Instance}}">
-                    <MenuItem Command="{Binding TestLoadLanguageCommand}" Header="Test Load Language..." />
-                    <MenuItem Command="{Binding TestSaveLanguageCommand}" Header="Test Save Language..." />
-                    <MenuItem Command="{Binding RemoveExternalLanguageFileCommand}" Header="Remove External Language File" />
-                </MenuItem>
-                <MenuItem Header="{Binding Menu.Help, Source={x:Static vm:LanguagePackage.Instance}}">
-                    <MenuItem Command="{Binding NavigateToWebsiteCommand}" Header="{Binding Menu.Website, Source={x:Static vm:LanguagePackage.Instance}}">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource GitHubGeometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Command="{Binding AboutCommand}" Header="{Binding Menu.About, Source={x:Static vm:LanguagePackage.Instance}}">
-                        <MenuItem.Icon>
-                            <Path
-                                Data="{StaticResource InformationGeometry}"
-                                Fill="{DynamicResource ThirdlyForegroundBrush}"
-                                Style="{StaticResource PathIcon16Style}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
-        </DockPanel>
-    </hui:Window.CaptionBar>
+    </hui:ChromeWindow.DataContext>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <hui:TabControl Margin="10" IsEnabled="{Binding DocumentLoaded}">
-                <hui:TabControl.Resources>
+            <DockPanel VerticalAlignment="Center" LastChildFill="False">
+                <Image
+                    Width="20"
+                    Height="20"
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Left"
+                    Source="/くるみ.ico"
+                    WindowChrome.IsHitTestVisibleInChrome="False" />
+                <TextBlock
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Left"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource AccentBrush}"
+                    Text="Honoo Language Localisation Converter"
+                    WindowChrome.IsHitTestVisibleInChrome="False" />
+                <Label
+                    Margin="14,0,0,0"
+                    Padding="7,3"
+                    VerticalAlignment="Center"
+                    Background="#FF137588"
+                    Content="{Binding Version, Source={x:Static vm:General.Instance}}"
+                    DockPanel.Dock="Left"
+                    Foreground="{DynamicResource ThirdlyForegroundBrush}"
+                    WindowChrome.IsHitTestVisibleInChrome="False" />
+                <Menu
+                    Margin="14,0,0,0"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Left"
+                    Foreground="{DynamicResource ThirdlyForegroundBrush}"
+                    WindowChrome.IsHitTestVisibleInChrome="True">
+                    <MenuItem Header="{Binding Menu.File, Source={x:Static vm:LanguagePackage.Instance}}">
+                        <MenuItem
+                            Command="{Binding CreateNewCommand}"
+                            Header="{Binding Menu.CreateNew, Source={x:Static vm:LanguagePackage.Instance}}"
+                            InputGestureText="Ctrl+N">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource FileGeometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            Command="{Binding OpenCommand}"
+                            Header="{Binding Menu.Open, Source={x:Static vm:LanguagePackage.Instance}}"
+                            InputGestureText="Ctrl+O">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource FolderOpenGeometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem
+                            Command="{Binding SaveCommand}"
+                            Header="{Binding Menu.Save, Source={x:Static vm:LanguagePackage.Instance}}"
+                            InputGestureText="Ctrl+S">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource Floppy35Geometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Command="{Binding SaveAsCommand}" Header="{Binding Menu.SaveAs, Source={x:Static vm:LanguagePackage.Instance}}">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource Floppy35Geometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Command="{Binding SaveCSharpCodeAsCommand}" Header="{Binding Menu.SaveCSharpCodeAs, Source={x:Static vm:LanguagePackage.Instance}}">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource FileCodeGeometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem
+                            Command="{Binding ExitCommand}"
+                            Header="{Binding Menu.Exit, Source={x:Static vm:LanguagePackage.Instance}}"
+                            InputGestureText="Alt+F4">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource ExitGeometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="{Binding Menu.Options, Source={x:Static vm:LanguagePackage.Instance}}">
+                        <MenuItem Command="{Binding TestLoadLanguageCommand}" Header="Test Load Language..." />
+                        <MenuItem Command="{Binding TestSaveLanguageCommand}" Header="Test Save Language..." />
+                        <MenuItem Command="{Binding RemoveExternalLanguageFileCommand}" Header="Remove External Language File" />
+                    </MenuItem>
+                    <MenuItem Header="{Binding Menu.Help, Source={x:Static vm:LanguagePackage.Instance}}">
+                        <MenuItem Command="{Binding NavigateToWebsiteCommand}" Header="{Binding Menu.Website, Source={x:Static vm:LanguagePackage.Instance}}">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource GitHubGeometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Command="{Binding AboutCommand}" Header="{Binding Menu.About, Source={x:Static vm:LanguagePackage.Instance}}">
+                            <MenuItem.Icon>
+                                <Path
+                                    Data="{StaticResource InformationGeometry}"
+                                    Fill="{DynamicResource ThirdlyForegroundBrush}"
+                                    Style="{StaticResource PathIcon16Style}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
+            <Button
+                Grid.Row="1"
+                Margin="0,30,40,0"
+                Padding="7"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                d:Visibility="Visible"
+                Command="{Binding SaveCommand}"
+                Content="{StaticResource Floppy35Geometry}"
+                ContentTemplate="{StaticResource PathIcon16GeometryDataTemplate}"
+                Visibility="{Binding DocumentModified, Source={x:Static vm:General.Instance}, Converter={x:Static hui:BooleanToVisibilityVisibleConverter.Instance}}" />
+            <TabControl
+                Grid.Row="1"
+                Margin="10"
+                hui:TabControlAttached.TabStripMinSize="64"
+                IsEnabled="{Binding DocumentLoaded}">
+                <TabControl.Resources>
                     <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                         <Setter Property="Margin" Value="9,0,0,0" />
                         <Setter Property="Padding" Value="7,2" />
                         <Setter Property="Foreground" Value="{DynamicResource PrimaryForegroundBrush}" />
                         <Setter Property="Background" Value="{DynamicResource AccentLight100Brush}" />
                     </Style>
-                </hui:TabControl.Resources>
-                <hui:TabControl.Footer>
-                    <Button
-                        Margin="0,0,40,0"
-                        Padding="7"
-                        VerticalAlignment="Center"
-                        d:Visibility="Visible"
-                        Command="{Binding SaveCommand}"
-                        Content="{StaticResource Floppy35Geometry}"
-                        ContentTemplate="{StaticResource GeometryToPathIcon16DataTemplate}"
-                        Visibility="{Binding DocumentModified, Source={x:Static vm:General.Instance}, Converter={x:Static hui:BooleanToVisibilityVisibleConverter.Instance}}" />
-                </hui:TabControl.Footer>
-                <hui:TabItem Header="{Binding Main.Information, Source={x:Static vm:LanguagePackage.Instance}}">
+                </TabControl.Resources>
+                <TabItem Header="{Binding Main.Information, Source={x:Static vm:LanguagePackage.Instance}}">
                     <ListBox
                         Margin="10"
                         d:ItemsSource="{d:SampleData ItemCount=3}"
                         ItemsSource="{Binding Information.TranslationEntries}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type vm:TranslationEntry}">
-                                <hui:TextBox
+                                <hui:TextBoxEx
                                     AcceptsReturn="True"
                                     DockPanel.Dock="Right"
                                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     TextWrapping="Wrap">
-                                    <hui:TextBox.Header>
+                                    <hui:TextBoxEx.Header>
                                         <Label
                                             Width="100"
                                             d:Content="Name"
                                             Content="{Binding Name}" />
-                                    </hui:TextBox.Header>
+                                    </hui:TextBoxEx.Header>
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="GotFocus">
                                             <b:ChangePropertyAction
@@ -210,18 +213,21 @@
                                                 Value="True" />
                                         </b:EventTrigger>
                                     </b:Interaction.Triggers>
-                                </hui:TextBox>
+                                </hui:TextBoxEx>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                </hui:TabItem>
-                <hui:TabItem Header="{Binding Main.Sections, Source={x:Static vm:LanguagePackage.Instance}}">
+                </TabItem>
+                <TabItem Header="{Binding Main.Sections, Source={x:Static vm:LanguagePackage.Instance}}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <GroupBox Width="370" Margin="10,10,0,10">
+                        <GroupBox
+                            Width="370"
+                            Margin="10,10,0,10"
+                            hui:GroupBoxAttached.HeaderMinSize="64">
                             <GroupBox.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
@@ -250,14 +256,17 @@
                                             </Grid.ColumnDefinitions>
                                             <hui:DraggableHaft
                                                 Margin="10,0,0,0"
+                                                VerticalAlignment="Center"
                                                 AllowDrop="True"
-                                                DropCommand="{Binding SectionMoveCommand, ElementName=MAINVM}"
-                                                PassEventArgsToDropCommand="True" />
-                                            <hui:TextBox
+                                                Command="{Binding SectionMoveCommand, ElementName=MAINVM}"
+                                                PassEventArgsToCommand="True">
+                                                <Path Data="{StaticResource MenuGeometry}" Style="{StaticResource PathIcon16FillParentForegroundStyle}" />
+                                            </hui:DraggableHaft>
+                                            <hui:TextBoxEx
                                                 Grid.Column="1"
                                                 Margin="10,5"
                                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                                <hui:TextBox.Header>
+                                                <hui:TextBoxEx.Header>
                                                     <StackPanel Orientation="Horizontal">
                                                         <Button
                                                             Margin="10,0,0,0"
@@ -272,10 +281,10 @@
                                                         </Button>
                                                         <Label Content="Name" />
                                                     </StackPanel>
-                                                </hui:TextBox.Header>
+                                                </hui:TextBoxEx.Header>
                                                 <b:Interaction.Triggers>
                                                     <b:EventTrigger EventName="Loaded">
-                                                        <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=MAINVM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
+                                                        <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=MAINVM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBoxEx}}}" />
                                                     </b:EventTrigger>
                                                     <b:EventTrigger EventName="GotFocus">
                                                         <b:ChangePropertyAction
@@ -284,13 +293,16 @@
                                                             Value="True" />
                                                     </b:EventTrigger>
                                                 </b:Interaction.Triggers>
-                                            </hui:TextBox>
+                                            </hui:TextBoxEx>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </GroupBox>
-                        <GroupBox Grid.Column="1" Margin="10">
+                        <GroupBox
+                            Grid.Column="1"
+                            Margin="10"
+                            hui:GroupBoxAttached.HeaderMinSize="64">
                             <GroupBox.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <Label
@@ -331,7 +343,7 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="{x:Type vm:TranslationEntry}">
                                         <StackPanel Margin="5">
-                                            <hui:TextBox
+                                            <hui:TextBoxEx
                                                 Margin="0,0,0,2"
                                                 FontSize="12"
                                                 Foreground="ForestGreen"
@@ -345,14 +357,14 @@
                                                             Value="True" />
                                                     </b:EventTrigger>
                                                 </b:Interaction.Triggers>
-                                            </hui:TextBox>
+                                            </hui:TextBoxEx>
                                             <DockPanel LastChildFill="True">
-                                                <hui:TextBox
+                                                <hui:TextBoxEx
                                                     Width="370"
                                                     VerticalAlignment="Top"
                                                     DockPanel.Dock="Left"
                                                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                                    <hui:TextBox.Header>
+                                                    <hui:TextBoxEx.Header>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Button
                                                                 Margin="10,0,0,0"
@@ -367,10 +379,10 @@
                                                             </Button>
                                                             <Label Content="Name" />
                                                         </StackPanel>
-                                                    </hui:TextBox.Header>
+                                                    </hui:TextBoxEx.Header>
                                                     <b:Interaction.Triggers>
                                                         <b:EventTrigger EventName="Loaded">
-                                                            <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=MAINVM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBox}}}" />
+                                                            <b:InvokeCommandAction Command="{Binding ItemAddedCommand, ElementName=MAINVM}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type hui:TextBoxEx}}}" />
                                                         </b:EventTrigger>
                                                         <b:EventTrigger EventName="GotFocus">
                                                             <b:ChangePropertyAction
@@ -379,16 +391,16 @@
                                                                 Value="True" />
                                                         </b:EventTrigger>
                                                     </b:Interaction.Triggers>
-                                                </hui:TextBox>
-                                                <hui:TextBox
+                                                </hui:TextBoxEx>
+                                                <hui:TextBoxEx
                                                     Margin="2,0,0,0"
                                                     AcceptsReturn="True"
                                                     DockPanel.Dock="Right"
                                                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     TextWrapping="Wrap">
-                                                    <hui:TextBox.Header>
+                                                    <hui:TextBoxEx.Header>
                                                         <Label Content="Value" />
-                                                    </hui:TextBox.Header>
+                                                    </hui:TextBoxEx.Header>
                                                     <b:Interaction.Triggers>
                                                         <b:EventTrigger EventName="GotFocus">
                                                             <b:ChangePropertyAction
@@ -397,7 +409,7 @@
                                                                 Value="True" />
                                                         </b:EventTrigger>
                                                     </b:Interaction.Triggers>
-                                                </hui:TextBox>
+                                                </hui:TextBoxEx>
                                             </DockPanel>
                                         </StackPanel>
                                     </DataTemplate>
@@ -405,17 +417,17 @@
                             </ListBox>
                         </GroupBox>
                     </Grid>
-                </hui:TabItem>
-            </hui:TabControl>
+                </TabItem>
+            </TabControl>
             <StatusBar
-                Grid.Row="1"
+                Grid.Row="3"
                 Padding="4"
                 Foreground="{DynamicResource ThirdlyForegroundBrush}">
                 <StatusBarItem
                     Margin="10,0,0,0"
                     VerticalAlignment="Center"
-                    Content="{StaticResource ChatGeometry}"
-                    ContentTemplate="{StaticResource GeometryToPathIcon16DataTemplate}" />
+                    Content="{StaticResource CommentGeometry}"
+                    ContentTemplate="{StaticResource PathIcon16GeometryDataTemplate}" />
                 <StatusBarItem VerticalAlignment="Center" Content="{Binding DocumentFileName, TargetNullValue=...}" />
                 <StatusBarItem
                     Margin="0,0,10,0"
@@ -446,4 +458,4 @@
             Margin="20"
             VerticalAlignment="Top" />
     </Grid>
-</hui:Window>
+</hui:ChromeWindow>
